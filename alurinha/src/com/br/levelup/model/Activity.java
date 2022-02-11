@@ -1,14 +1,14 @@
 package com.br.levelup.model;
 
+import com.br.levelup.model.enums.Indication;
 import validators.StringValidator;
 
-public class Activity {
+public abstract class Activity {
 
     private String title;
     private String code;
     private Indication indication = Indication.INATIVA;
     private Integer order;
-    private ActivityType type;
     private Section section;
 
     public Activity(String title, String code, Section section) {
@@ -19,8 +19,10 @@ public class Activity {
         this.section = section;
     }
 
-    public void setTipo(ActivityType type) {
-        this.type = type;
+    public Activity(String title, String code, Indication indication, Integer order, Section section) {
+        this(title, code, section);
+        this.indication = indication;
+        this.order = order;
     }
 
     @Override
@@ -30,7 +32,6 @@ public class Activity {
                 ", code='" + code + '\'' +
                 ", indication=" + indication +
                 ", order=" + order +
-                ", tipo=" + type +
                 ", section=" + section +
                 '}';
     }

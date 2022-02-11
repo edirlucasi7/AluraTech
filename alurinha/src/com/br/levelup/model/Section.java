@@ -1,5 +1,6 @@
 package com.br.levelup.model;
 
+import com.br.levelup.model.enums.Indication;
 import validators.StringValidator;
 
 public class Section {

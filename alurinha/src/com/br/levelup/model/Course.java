@@ -13,15 +13,14 @@ public class Course {
     private Instructor instructor;
     private String resume;
     private String developedSkills;
+    private SubCategory subCategory;
 
-    public Course(String name, String code, Integer stimatedTime, Instructor instructor) {
-        StringValidator.cantBeNotEmpty(name, "The field name should not be empty or null!");
-        StringValidator.containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code should not be out of format!");
-        CourseValidator.isBetween(stimatedTime, "The field stimated time should not be out of time range!");
+    public Course(String name, String code, Integer stimatedTime, Instructor instructor, SubCategory subCategory) {
         this.name = name;
         this.code = code;
         this.stimatedTime = stimatedTime;
         this.instructor = instructor;
+        this.subCategory = subCategory;
     }
 
     @Override

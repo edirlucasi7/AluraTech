@@ -17,4 +17,15 @@ public class Alternative {
         this.question = question;
     }
 
+    @Override
+    public String toString() {
+        return "Alternative{" +
+                "text='" + text + '\'' +
+                ", order=" + order +
+                ", isCorrect=" + isCorrect +
+                ", justification='" + justification + '\'' +
+                ", question=" + question +
+                '}';
+    }
+
 }

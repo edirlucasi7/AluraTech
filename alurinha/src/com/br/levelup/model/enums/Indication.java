@@ -1,4 +1,4 @@
-package com.br.levelup.model;
+package com.br.levelup.model.enums;
 
 public enum Indication {
     ATIVA, INATIVA
