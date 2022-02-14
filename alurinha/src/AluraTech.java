@@ -14,7 +14,6 @@ public class AluraTech {
         SubCategory subCategory = new SubCategory("name", "code", category);
         System.out.println(subCategory);
 
-
         System.out.println("********CourseWithSubCategory********");
 
         Instructor instructor = new Instructor("Nico");

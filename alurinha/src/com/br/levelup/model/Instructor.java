@@ -7,8 +7,12 @@ public class Instructor {
     private String name;
 
     public Instructor(String name) {
-        StringValidator.cantBeNotEmpty(name, "The name should not be empty!");
+        StringValidator.cantBeNotEmpty(name, "The field name should not be empty!");
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
