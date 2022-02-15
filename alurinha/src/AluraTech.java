@@ -1,12 +1,11 @@
 import com.br.levelup.model.*;
-import com.br.levelup.model.enums.Indication;
 import com.br.levelup.model.enums.QuestionType;
 
 public class AluraTech {
 
     public static void main(String[] args) {
         System.out.println("********Category********");
-        Category category = new Category("Programacao", "java-1", "short", "big", Indication.ATIVA,
+        Category category = new Category("Programacao", "java-1", "short", "big", true,
                 1, "https://alura", "#FF5733");
         System.out.println(category);
 
@@ -23,7 +22,7 @@ public class AluraTech {
         Section section = new Section("Secao1", "codigo-secao-1", courseWithSubCategory);
 
         System.out.println("********Question********");
-        Question question = new Question("title", "java-1", section, "descricao", QuestionType.SingleAnswer);
+        Question question = new Question("title", "java-1", section, "descricao", QuestionType.MultipleAnswers);
         System.out.println(question);
 
         System.out.println("********Alternative********");

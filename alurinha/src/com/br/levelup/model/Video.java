@@ -1,6 +1,6 @@
 package com.br.levelup.model;
 
-import com.br.levelup.model.enums.Indication;
+import validators.StringValidator;
 
 public class Video extends Activity{
 
@@ -10,11 +10,12 @@ public class Video extends Activity{
 
     public Video(String title, String code, Section section, String url) {
         super(title, code, section);
+        StringValidator.cantBeNotEmpty(url, "The field url should not be empty!");
         this.url = url;
     }
 
-    public Video(String title, String code, Indication indication, Integer order, Section section, String url, int minute, String transcription) {
-        super(title, code, indication, order, section);
+    public Video(String title, String code, Boolean active, Integer order, Section section, String url, int minute, String transcription) {
+        super(title, code, active, order, section);
         this.url = url;
         this.minute = minute;
         this.transcription = transcription;

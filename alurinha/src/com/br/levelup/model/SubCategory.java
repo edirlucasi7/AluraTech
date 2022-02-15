@@ -1,6 +1,5 @@
 package com.br.levelup.model;
 
-import com.br.levelup.model.enums.Indication;
 import validators.StringValidator;
 
 public class SubCategory {
@@ -8,8 +7,8 @@ public class SubCategory {
     private String name;
     private String code;
     private String shortDescription;
-    private String bigDescription;
-    private Indication indication = Indication.INATIVA;
+    private String bigDescriptionGuide;
+    private Boolean active;
     private Integer order;
     private Category category;
 
@@ -21,11 +20,11 @@ public class SubCategory {
         this.category = category;
     }
 
-    public SubCategory(String name, String code, String shortDescription, String bigDescription, Indication indication, Integer order, Category category) {
+    public SubCategory(String name, String code, String shortDescription, String bigDescriptionGuide, Boolean active, Integer order, Category category) {
         this(name, code, category);
         this.shortDescription = shortDescription;
-        this.bigDescription = bigDescription;
-        this.indication = indication;
+        this.bigDescriptionGuide = bigDescriptionGuide;
+        this.active = active;
         this.order = order;
     }
 
@@ -35,8 +34,8 @@ public class SubCategory {
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
-                ", bigDescription='" + bigDescription + '\'' +
-                ", indication=" + indication +
+                ", bigDescription='" + bigDescriptionGuide + '\'' +
+                ", indication=" + active +
                 ", order=" + order +
                 ", category=" + category +
                 '}';

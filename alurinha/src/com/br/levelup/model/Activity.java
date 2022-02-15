@@ -1,13 +1,12 @@
 package com.br.levelup.model;
 
-import com.br.levelup.model.enums.Indication;
 import validators.StringValidator;
 
 public abstract class Activity {
 
     private String title;
     private String code;
-    private Indication indication = Indication.INATIVA;
+    private Boolean active = false;
     private Integer order;
     private Section section;
 
@@ -19,9 +18,9 @@ public abstract class Activity {
         this.section = section;
     }
 
-    public Activity(String title, String code, Indication indication, Integer order, Section section) {
+    public Activity(String title, String code, Boolean active, Integer order, Section section) {
         this(title, code, section);
-        this.indication = indication;
+        this.active = active;
         this.order = order;
     }
 
@@ -30,7 +29,7 @@ public abstract class Activity {
         return "Activity{" +
                 "title='" + title + '\'' +
                 ", code='" + code + '\'' +
-                ", indication=" + indication +
+                ", indication=" + active +
                 ", order=" + order +
                 ", section=" + section +
                 '}';

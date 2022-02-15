@@ -1,6 +1,5 @@
 package com.br.levelup.model;
 
-import com.br.levelup.model.enums.Indication;
 import validators.StringValidator;
 
 public class Section {
@@ -8,7 +7,7 @@ public class Section {
     private String name;
     private String code;
     private Integer order;
-    private Indication indication = Indication.INATIVA;
+    private Boolean active = false;
     private Boolean isTest = false;
     private Course course;
 
@@ -20,13 +19,20 @@ public class Section {
         this.course = course;
     }
 
+    public Section(String name, String code, Integer order, Boolean active, Boolean isTest, Course course) {
+        this(name, code, course);
+        this.order = order;
+        this.active = active;
+        this.isTest = isTest;
+    }
+
     @Override
     public String toString() {
         return "Section{" +
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", order=" + order +
-                ", indication=" + indication +
+                ", indication=" + active +
                 ", isTest=" + isTest +
                 ", course=" + course +
                 '}';
