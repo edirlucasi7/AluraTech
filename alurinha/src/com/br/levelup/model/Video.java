@@ -16,6 +16,7 @@ public class Video extends Activity{
 
     public Video(String title, String code, Boolean active, Integer order, Section section, String url, int minute, String transcription) {
         super(title, code, active, order, section);
+        StringValidator.cantBeNotEmpty(url, "The field url should not be empty!");
         this.url = url;
         this.minute = minute;
         this.transcription = transcription;
