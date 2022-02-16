@@ -13,15 +13,15 @@ public class StringValidator {
         }
     }
 
-    public static void cantBeNotEmpty(String field, String error) {
-        if(field.isEmpty()) {
+    public static void cantBeNullOrEmpty(String field, String error) {
+        if(field == null || field.isEmpty()) {
             throw new IllegalArgumentException(error);
         }
     }
 
     public static void cantBeNull(String field, String error) {
         if(field == null) {
-            throw new NullPointerException(error);
+            throw new IllegalArgumentException(error);
         }
     }
 

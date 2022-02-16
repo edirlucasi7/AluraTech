@@ -1,4 +1,6 @@
-package validators;
+package validators.course;
+
+import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
 
 public class CourseValidator {
 
@@ -6,7 +8,7 @@ public class CourseValidator {
     private static final Integer STIMATEDTIMEMAX = 20;
 
     public static void isBetween(Integer field, String error) {
-        if(!(field >= STIMATEDTIMEMIN && field <= STIMATEDTIMEMAX)) {
+        if(!minimumAndMaximumValue(field, STIMATEDTIMEMIN, STIMATEDTIMEMAX)) {
             throw new IllegalArgumentException(error);
         }
     }

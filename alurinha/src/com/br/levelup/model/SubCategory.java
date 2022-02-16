@@ -1,30 +1,46 @@
 package com.br.levelup.model;
 
-import validators.StringValidator;
+import validators.IntegerValidator;
+
+import static validators.ObjectValidator.cantBeNull;
+import static validators.StringValidator.cantBeNullOrEmpty;
+import static validators.StringValidator.containOnlyLettersLowercaseAndNumbersAndDash;
 
 public class SubCategory {
 
     private String name;
     private String code;
     private String shortDescription;
-    private String bigDescriptionGuide;
-    private Boolean active;
+    private String studyGuide;
+    private boolean active;
     private Integer order;
     private Category category;
 
     public SubCategory(String name, String code, Category category) {
-        StringValidator.cantBeNotEmpty(name, "The field name should not be empty!");
-        StringValidator.containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code should not be empty!");
+        cantBeNullOrEmpty(name, "The field name should not be empty!");
+        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code should not be empty!");
+        cantBeNull(category, "The object category should not be null!");
         this.name = name;
         this.code = code;
         this.category = category;
     }
 
-    public SubCategory(String name, String code, String shortDescription, String bigDescriptionGuide, Boolean active, Integer order, Category category) {
-        this(name, code, category);
+    public void setShortDescription(String shortDescription) {
+        cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be empty!");
         this.shortDescription = shortDescription;
-        this.bigDescriptionGuide = bigDescriptionGuide;
+    }
+
+    public void setStudyGuide(String studyGuide) {
+        cantBeNullOrEmpty(studyGuide, "The field studyGuide should not be empty!");
+        this.studyGuide = studyGuide;
+    }
+
+    public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void setOrder(Integer order) {
+        IntegerValidator.cantBeLessOrEqualZeroOrNull(order, "The field order should not be null or less than zero!");
         this.order = order;
     }
 
@@ -34,7 +50,7 @@ public class SubCategory {
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
-                ", bigDescription='" + bigDescriptionGuide + '\'' +
+                ", studyGuide='" + studyGuide + '\'' +
                 ", indication=" + active +
                 ", order=" + order +
                 ", category=" + category +

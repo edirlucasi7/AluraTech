@@ -7,7 +7,7 @@ public class Instructor {
     private String name;
 
     public Instructor(String name) {
-        StringValidator.cantBeNotEmpty(name, "The field name should not be empty!");
+        StringValidator.cantBeNullOrEmpty(name, "The field name should not be empty!");
         this.name = name;
     }
 

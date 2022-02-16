@@ -1,24 +1,28 @@
 package com.br.levelup.model;
 
-import validators.StringValidator;
+import validators.IntegerValidator;
+
+import static validators.StringValidator.cantBeNullOrEmpty;
 
 public class Video extends Activity{
 
     private String url;
-    private int minute;
+    private Integer durationInMinutes;
     private String transcription;
 
     public Video(String title, String code, Section section, String url) {
         super(title, code, section);
-        StringValidator.cantBeNotEmpty(url, "The field url should not be empty!");
+        cantBeNullOrEmpty(url, "The field url should not be null or empty!");
         this.url = url;
     }
 
-    public Video(String title, String code, Boolean active, Integer order, Section section, String url, int minute, String transcription) {
-        super(title, code, active, order, section);
-        StringValidator.cantBeNotEmpty(url, "The field url should not be empty!");
-        this.url = url;
-        this.minute = minute;
+    public void setDurationInMinutes(Integer durationInMinutes) {
+        IntegerValidator.cantBeLessOrEqualZeroOrNull(durationInMinutes, "The field durationInMinutes should not be less or equal zero or null!");
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public void setTranscription(String transcription) {
+        cantBeNullOrEmpty(transcription, "The field transcription should not be empty!");
         this.transcription = transcription;
     }
 
@@ -26,7 +30,7 @@ public class Video extends Activity{
     public String toString() {
         return "Video{" +
                 "url='" + url + '\'' +
-                ", minute=" + minute +
+                ", minute=" + durationInMinutes +
                 ", transcription='" + transcription + '\'' +
                 '}';
     }

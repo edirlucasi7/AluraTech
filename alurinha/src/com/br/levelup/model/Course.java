@@ -1,39 +1,50 @@
 package com.br.levelup.model;
 
-import validators.CourseValidator;
-import validators.StringValidator;
+import static validators.course.CourseValidator.isBetween;
+import static validators.ObjectValidator.cantBeNull;
+import static validators.StringValidator.*;
 
 public class Course {
 
     private String name;
     private String code;
-    private Integer stimatedTime;
-    private Boolean visibility = false;
+    private Integer estimatedTime;
+    private boolean visibility;
     private String targetAudience;
     private String instructorName;
     private String resume;
     private String developedSkills;
     private SubCategory subCategory;
 
-    public Course(String name, String code, Integer stimatedTime, Instructor instructor, SubCategory subCategory) {
-        StringValidator.cantBeNull(name, "The field should not be null!");
-        StringValidator.cantBeNotEmpty(name, "The field should not be empty!");
-        StringValidator.containOnlyLettersLowercaseAndNumbersAndDash(code, "The field should be out of format!");
-        CourseValidator.isBetween(stimatedTime, "The field stimated time should not be out of time range!");
+    public Course(String name, String code, Integer estimatedTime, Instructor instructor, SubCategory subCategory) {
+        cantBeNull(name, "The field name should not be null!");
+        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
+        isBetween(estimatedTime, "The field stimated time should not be out of time range!");
+        cantBeNull(instructor, "The object instructor should not be null!");
+        cantBeNull(subCategory, "The object subCategory should not be null!");
         this.name = name;
         this.code = code;
-        this.stimatedTime = stimatedTime;
+        this.estimatedTime = estimatedTime;
         this.instructorName = instructor.getName();
         this.subCategory = subCategory;
     }
 
-    public Course(String name, String code, Integer stimatedTime, Boolean visibility, String targetAudience,
-                  Instructor instructor, String resume, String developedSkills, SubCategory subCategory) {
-        this(name, code, stimatedTime, instructor, subCategory);
+    public void setVisibility(boolean visibility) {
         this.visibility = visibility;
+    }
+
+    public void setTargetAudience(String targetAudience) {
+        cantBeNullOrEmpty(targetAudience, "The field targetAudience should not be null or empty!");
         this.targetAudience = targetAudience;
-        this.instructorName = instructor.getName();
+    }
+
+    public void setResume(String resume) {
+        cantBeNullOrEmpty(resume, "The field courseResume should not be null or empty!");
         this.resume = resume;
+    }
+
+    public void setDevelopedSkills(String developedSkills) {
+        cantBeNullOrEmpty(resume, "The field developedSkills should not be null or empty!");
         this.developedSkills = developedSkills;
     }
 
@@ -42,7 +53,7 @@ public class Course {
         return "Course{" +
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
-                ", stimatedTime=" + stimatedTime +
+                ", stimatedTime=" + estimatedTime +
                 ", visibility=" + visibility +
                 ", targetAudience='" + targetAudience + '\'' +
                 ", instructor=" + instructorName +

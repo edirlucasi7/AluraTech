@@ -1,46 +1,54 @@
 package com.br.levelup.model;
 
-import validators.StringValidator;
+import static validators.IntegerValidator.cantBeLessOrEqualZeroOrNull;
+import static validators.StringValidator.*;
 
 public class Category {
 
     private String name;
     private String code;
     private String shortDescription;
-    private String bigDescription;
-    private Boolean active = false;
+    private String studyGuide;
+    private boolean active;
     private Integer order;
-    private String iconImagePath;
-    private String codeHtlmColor;
+    private String imageUrl;
+    private String colorCode;
 
     public Category(String name, String code) {
-        StringValidator.cantBeNotEmpty(name, "The field name should not be empty!");
-        StringValidator.containOnlyLettersLowercaseAndNumbersAndDash(code, "he field code should be out of format!");
+        cantBeNullOrEmpty(name, "The field name should not be null or empty!");
+        cantBeNullOrEmpty(code, "The field code should not be null or empty!");
+        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
         this.name = name;
         this.code = code;
     }
 
-    public Category(String name, String code, String shortDescription, String bigDescriptio,
-                    Integer order, String iconImagePath, String codeHtlmColor) {
-        this(name, code);
+    public void setShortDescription(String shortDescription) {
+        cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be null or empty!");
         this.shortDescription = shortDescription;
-        this.bigDescription = bigDescription;
-        this.order = order;
-        this.iconImagePath = iconImagePath;
-        StringValidator.isHexadecimal(codeHtlmColor, "The field codeHtlmColor should not be out of hexadecimal format!");
-        this.codeHtlmColor = codeHtlmColor;
     }
 
-    public Category(String name, String code, String shortDescription, String bigDescription, Boolean active,
-                    Integer order, String iconImagePath, String codeHtlmColor) {
-        this(name, code);
-        this.shortDescription = shortDescription;
-        this.bigDescription = bigDescription;
+    public void setStudyGuide(String studyGuide) {
+        cantBeNullOrEmpty(studyGuide, "The field studyGuide should not be null or empty!");
+        this.studyGuide = studyGuide;
+    }
+
+    public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void setOrder(Integer order) {
+        cantBeLessOrEqualZeroOrNull(order, "The field order should not be less than zero or null!");
         this.order = order;
-        this.iconImagePath = iconImagePath;
-        StringValidator.isHexadecimal(codeHtlmColor, "The field codeHtlmColor should not be out of hexadecimal format!");
-        this.codeHtlmColor = codeHtlmColor;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        cantBeNullOrEmpty(imageUrl, "The field imageUrl should not be empty!");
+        this.imageUrl = imageUrl;
+    }
+
+    public void setColorCode(String colorCode) {
+        isHexadecimal(colorCode, "The field codeColor should not be out of hexadecimal format!");
+        this.colorCode = colorCode;
     }
 
     @Override
@@ -49,11 +57,11 @@ public class Category {
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
-                ", bigDescription='" + bigDescription + '\'' +
-                ", indication=" + active +
+                ", studyGuide='" + studyGuide + '\'' +
+                ", active=" + active +
                 ", order=" + order +
-                ", iconImagePath='" + iconImagePath + '\'' +
-                ", codeHtlmColor='" + codeHtlmColor + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", colorCode='" + colorCode + '\'' +
                 '}';
     }
 
