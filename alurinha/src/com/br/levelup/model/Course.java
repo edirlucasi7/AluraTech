@@ -5,8 +5,8 @@ import static com.br.levelup.model.utils.ValidatorUtils.*;
 
 public class Course {
 
-    private static final Integer STIMATED_TIME_MIN = 1;
-    private static final Integer STIMATED_TIME_MAX = 20;
+    private static final Integer ESTIMATED_TIME_MIN = 1;
+    private static final Integer ESTIMATED_TIME_MAX = 20;
 
     private String name;
     private String code;
@@ -51,7 +51,7 @@ public class Course {
     }
 
     private void isBetween(Integer field, String error) {
-        if(!minimumAndMaximumValue(field, STIMATED_TIME_MIN, STIMATED_TIME_MAX)) {
+        if(!minimumAndMaximumValue(field, ESTIMATED_TIME_MIN, ESTIMATED_TIME_MAX)) {
             throw new IllegalArgumentException(error);
         }
     }

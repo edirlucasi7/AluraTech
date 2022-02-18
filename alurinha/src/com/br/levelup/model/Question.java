@@ -13,7 +13,6 @@ public class Question extends Activity {
     public Question(String title, String code, Section section, String enunciation) {
         super(title, code, section);
         cantBeNullOrEmpty(enunciation, "The field enunciation should not be null or empty!");
-        cantBeNull(section, "The object section should not be null!");
         this.enunciation = enunciation;
     }
 
