@@ -1,8 +1,6 @@
 package com.br.levelup.model;
 
-import validators.IntegerValidator;
-
-import static validators.StringValidator.cantBeNullOrEmpty;
+import static com.br.levelup.model.utils.ValidatorUtils.*;
 
 public class Video extends Activity{
 
@@ -17,7 +15,7 @@ public class Video extends Activity{
     }
 
     public void setDurationInMinutes(Integer durationInMinutes) {
-        IntegerValidator.cantBeLessOrEqualZeroOrNull(durationInMinutes, "The field durationInMinutes should not be less or equal zero or null!");
+        cantBeLessOrEqualZero(durationInMinutes, "The field durationInMinutes should not be less or equal zero or null!");
         this.durationInMinutes = durationInMinutes;
     }
 

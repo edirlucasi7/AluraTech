@@ -1,31 +1,33 @@
 package com.br.levelup.model;
 
-import static validators.course.CourseValidator.isBetween;
-import static validators.ObjectValidator.cantBeNull;
-import static validators.StringValidator.*;
+import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
+import static com.br.levelup.model.utils.ValidatorUtils.*;
 
 public class Course {
 
+    private static final Integer STIMATED_TIME_MIN = 1;
+    private static final Integer STIMATED_TIME_MAX = 20;
+
     private String name;
     private String code;
-    private Integer estimatedTime;
+    private Integer estimatedTimeInHours;
     private boolean visibility;
     private String targetAudience;
-    private String instructorName;
+    private Instructor instructor;
     private String resume;
     private String developedSkills;
     private SubCategory subCategory;
 
-    public Course(String name, String code, Integer estimatedTime, Instructor instructor, SubCategory subCategory) {
+    public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
         cantBeNull(name, "The field name should not be null!");
-        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
-        isBetween(estimatedTime, "The field stimated time should not be out of time range!");
-        cantBeNull(instructor, "The object instructor should not be null!");
+        containOnlyLettersLowercaseAndNumbersAndDash(code);
+        isBetween(estimatedTimeInHours, "The field stimated time should not be out of time range!");
+        cantBeNull(instructor);
         cantBeNull(subCategory, "The object subCategory should not be null!");
         this.name = name;
         this.code = code;
-        this.estimatedTime = estimatedTime;
-        this.instructorName = instructor.getName();
+        this.estimatedTimeInHours = estimatedTimeInHours;
+        this.instructor = instructor;
         this.subCategory = subCategory;
     }
 
@@ -48,15 +50,21 @@ public class Course {
         this.developedSkills = developedSkills;
     }
 
+    private void isBetween(Integer field, String error) {
+        if(!minimumAndMaximumValue(field, STIMATED_TIME_MIN, STIMATED_TIME_MAX)) {
+            throw new IllegalArgumentException(error);
+        }
+    }
+
     @Override
     public String toString() {
         return "Course{" +
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
-                ", stimatedTime=" + estimatedTime +
+                ", estimatedTime=" + estimatedTimeInHours +
                 ", visibility=" + visibility +
                 ", targetAudience='" + targetAudience + '\'' +
-                ", instructor=" + instructorName +
+                ", instructor=" + instructor +
                 ", resume='" + resume + '\'' +
                 ", developedSkills='" + developedSkills + '\'' +
                 ", subCategory=" + subCategory +

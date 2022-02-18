@@ -1,7 +1,7 @@
 package com.br.levelup.model;
 
-import static validators.IntegerValidator.cantBeLessOrEqualZeroOrNull;
-import static validators.StringValidator.cantBeNullOrEmpty;
+import static com.br.levelup.model.utils.ValidatorUtils.cantBeLessOrEqualZero;
+import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
 public class Alternative {
 
@@ -19,7 +19,7 @@ public class Alternative {
     }
 
     public void setOrder(Integer order) {
-        cantBeLessOrEqualZeroOrNull(order, "The field order should not be less or equal zero or null!");
+        cantBeLessOrEqualZero(order, "The field order should not be less or equal zero or null!");
         this.order = order;
     }
 

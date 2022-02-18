@@ -1,9 +1,6 @@
 package com.br.levelup.model;
 
-import validators.StringValidator;
-
-import static validators.IntegerValidator.cantBeLessOrEqualZeroOrNull;
-import static validators.ObjectValidator.cantBeNull;
+import static com.br.levelup.model.utils.ValidatorUtils.*;
 
 public abstract class Activity {
 
@@ -14,8 +11,8 @@ public abstract class Activity {
     private Section section;
 
     public Activity(String title, String code, Section section) {
-        StringValidator.cantBeNullOrEmpty(title, "The field title should not be empty!");
-        StringValidator.containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
+        cantBeNullOrEmpty(title, "The field title should not be empty!");
+        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
         cantBeNull(section, "The object section should not be null!");
         this.title = title;
         this.code = code;
@@ -27,7 +24,7 @@ public abstract class Activity {
     }
 
     public void setOrder(Integer order) {
-        cantBeLessOrEqualZeroOrNull(order, "The field order should not be less or equal zero or null!");
+        cantBeLessOrEqualZero(order, "The field order should not be less or equal zero or null!");
         this.order = order;
     }
 

@@ -1,13 +1,13 @@
 package com.br.levelup.model;
 
-import validators.StringValidator;
+import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
 public class Instructor {
 
     private String name;
 
     public Instructor(String name) {
-        StringValidator.cantBeNullOrEmpty(name, "The field name should not be empty!");
+        cantBeNullOrEmpty(name, "The field name should not be null or empty!");
         this.name = name;
     }
 

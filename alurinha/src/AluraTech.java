@@ -24,6 +24,8 @@ public class AluraTech {
         category.setImageUrl("https://alura");
 //        System.out.println("********Category - Exception(colorCode fora do formato)********");
 //        category.setColorCode("FF57");
+//        System.out.println("********Category - Exception(colorCode null)********");
+//        category.setColorCode(null);
         category.setColorCode("#FF5733");
         System.out.println(category);
 
@@ -50,7 +52,7 @@ public class AluraTech {
 //        Course courseWithSubCategoryError2 = new Course("java basico", "java-1", 12, instructor, null);
 
         System.out.println("********CourseWithSubCategory********");
-        Course courseWithSubCategory = new Course("java basico", "java-1", 12, instructor, subCategory);
+        Course courseWithSubCategory = new Course("java basico", "java-1", 11, instructor, subCategory);
         courseWithSubCategory.setVisibility(false);
 //        System.out.println("********Category - Exception(targetAudience vazio)********");
 //        courseWithSubCategory.setTargetAudience("");

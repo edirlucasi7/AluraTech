@@ -1,10 +1,6 @@
 package com.br.levelup.model;
 
-import validators.IntegerValidator;
-
-import static validators.ObjectValidator.cantBeNull;
-import static validators.StringValidator.cantBeNullOrEmpty;
-import static validators.StringValidator.containOnlyLettersLowercaseAndNumbersAndDash;
+import static com.br.levelup.model.utils.ValidatorUtils.*;
 
 public class Section {
 
@@ -25,7 +21,7 @@ public class Section {
     }
 
     public void setOrder(Integer order) {
-        IntegerValidator.cantBeLessOrEqualZeroOrNull(order, "The field order should not be less or equal zero or null!");
+        cantBeLessOrEqualZero(order, "The field order should not be less or equal zero or null!");
         this.order = order;
     }
 

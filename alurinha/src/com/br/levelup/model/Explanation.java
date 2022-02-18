@@ -1,7 +1,7 @@
 package com.br.levelup.model;
 
-import static validators.ObjectValidator.cantBeNull;
-import static validators.StringValidator.cantBeNullOrEmpty;
+import static com.br.levelup.model.utils.ValidatorUtils.cantBeNull;
+import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
 public class Explanation extends Activity {
 

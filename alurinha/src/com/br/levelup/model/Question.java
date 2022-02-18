@@ -2,9 +2,8 @@ package com.br.levelup.model;
 
 import com.br.levelup.model.enums.QuestionType;
 
-import static validators.ObjectValidator.cantBeNull;
-import static validators.EnumValidator.cantBeNull;
-import static validators.StringValidator.cantBeNullOrEmpty;
+import static com.br.levelup.model.utils.ValidatorUtils.cantBeNull;
+import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
 public class Question extends Activity {
 
