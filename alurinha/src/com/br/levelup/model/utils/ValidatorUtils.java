@@ -18,7 +18,7 @@ public class ValidatorUtils {
     }
 
     public static void cantBeLessOrEqualZero(Integer field) {
-        cantBeLessOrEqualZero(field, "The field should not be null or less than zero!");
+        cantBeLessOrEqualZero(field, "The field value should not be less than zero!");
     }
 
     public static void cantBeLessOrEqualZero(Integer field, String errorMessage) {
