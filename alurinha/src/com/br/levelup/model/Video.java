@@ -15,7 +15,7 @@ public class Video extends Activity{
     }
 
     public void setDurationInMinutes(Integer durationInMinutes) {
-        cantBeLessOrEqualZero(durationInMinutes, "The field durationInMinutes should not be less or equal zero or null!");
+        cantBeLessZero(durationInMinutes, "The field durationInMinutes should not be less or equal zero or null!");
         this.durationInMinutes = durationInMinutes;
     }
 

@@ -52,7 +52,7 @@ public class AluraTech {
 //        Course courseWithSubCategoryError2 = new Course("java basico", "java-1", 12, instructor, null);
 
         System.out.println("********CourseWithSubCategory********");
-        Course courseWithSubCategory = new Course("java basico", "java-1", 11, instructor, subCategory);
+        Course courseWithSubCategory = new Course("java basico", "angula-cli", 11, instructor, subCategory);
         courseWithSubCategory.setVisibility(false);
 //        System.out.println("********Category - Exception(targetAudience vazio)********");
 //        courseWithSubCategory.setTargetAudience("");
