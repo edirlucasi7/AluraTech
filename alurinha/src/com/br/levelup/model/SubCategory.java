@@ -50,6 +50,10 @@ public class SubCategory {
         return code;
     }
 
+    public Category getCategory() {
+        return this.category;
+    }
+
     public static String verifyDescriptionEmpty(String description) {
         return description.equals("") ? "Uninformed description" : description;
     }

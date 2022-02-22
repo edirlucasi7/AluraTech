@@ -37,6 +37,10 @@ public class Course {
         this.subCategory = subCategory;
     }
 
+    public Integer getEstimatedTimeInHours() {
+        return estimatedTimeInHours;
+    }
+
     public void setVisibility(boolean visibility) {
         this.visibility = visibility;
     }
@@ -54,6 +58,10 @@ public class Course {
     public void setDevelopedSkills(String developedSkills) {
         cantBeNullOrEmpty(developedSkills, "The field developedSkills should not be empty!");
         this.developedSkills = developedSkills;
+    }
+
+    public SubCategory getSubCategory() {
+        return this.subCategory;
     }
 
     private void isBetween(Integer field, String error) {

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static com.br.levelup.model.utils.CsvReaderUtils.csvReader;
 import static com.br.levelup.model.utils.ValidatorUtils.*;
@@ -27,6 +28,34 @@ public class Category {
         this.code = code;
     }
 
+    public String getCode() {
+        return this.code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
     public void setShortDescription(String shortDescription) {
         cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be null or empty!");
         this.shortDescription = shortDescription;
@@ -39,10 +68,6 @@ public class Category {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    private String getCode() {
-        return this.code;
     }
 
     public void setOrder(Integer order) {
@@ -72,6 +97,26 @@ public class Category {
         return categories.stream()
                 .filter(category -> category.getCode().equalsIgnoreCase(categoryCode))
                 .findFirst().orElse(null);
+    }
+
+    public static long numberOfCoursesFromCategory(List<SubCategory> subCategories, List<Course> courses, String categoryCode) {
+        List<SubCategory> subCategoriesFromCategory = subCategories.stream()
+                .filter(subCategory -> subCategory.getCategory().getCode().equalsIgnoreCase(categoryCode)).collect(Collectors.toList());
+
+        return courses.stream()
+                .filter(c -> subCategoriesFromCategory.stream()
+                        .anyMatch(subCategory -> subCategory.getCode().equalsIgnoreCase(c.getSubCategory().getCode()))).count();
+    }
+
+    public static int sumOfEstimatedTimeInHoursFromCoursesFromCategory(List<SubCategory> subCategories, List<Course> courses, String categoryCode) {
+        List<SubCategory> subCategoriesFromCategory = subCategories.stream()
+                .filter(subCategory -> subCategory.getCategory().getCode().equalsIgnoreCase(categoryCode)).collect(Collectors.toList());
+
+        List<Course> coursesFromSubCategory = courses.stream()
+                .filter(c -> subCategoriesFromCategory.stream()
+                        .anyMatch(subCategory -> subCategory.getCode().equalsIgnoreCase(c.getSubCategory().getCode()))).collect(Collectors.toList());
+
+        return coursesFromSubCategory.stream().mapToInt(Course::getEstimatedTimeInHours).sum();
     }
 
     public static List<Category> csvReaderCategory(String file) throws IOException {
