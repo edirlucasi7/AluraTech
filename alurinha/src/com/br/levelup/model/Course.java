@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static com.br.levelup.model.utils.CsvReaderUtils.csvReader;
 import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
@@ -35,6 +36,10 @@ public class Course {
         this.estimatedTimeInHours = estimatedTimeInHours;
         this.instructor = instructor;
         this.subCategory = subCategory;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Integer getEstimatedTimeInHours() {
@@ -76,6 +81,18 @@ public class Course {
 
     public static String verifyDevelopedSkillsEmpty(String skills) {
         return skills.equals("") ? "Uninformed skills" : skills;
+    }
+
+    public static String namesOfCoursesFromSubCategory(List<Course> courses, String subCategoryCode) {
+        List<Course> subCategoryCourses = courses.stream()
+                .filter(course -> course.getSubCategory().getCode().equals(subCategoryCode)).collect(Collectors.toList());
+
+        StringBuilder coursesNames = new StringBuilder();
+        for (Course c : subCategoryCourses) {
+            coursesNames.append(c.getName()).append(",");
+            coursesNames.deleteCharAt(coursesNames.length()-1);
+        }
+        return coursesNames.toString();
     }
 
     public static List<Course> csvReaderCourse(List<SubCategory> subCategories, String file) throws IOException {

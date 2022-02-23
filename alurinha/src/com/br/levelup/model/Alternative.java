@@ -2,7 +2,6 @@ package com.br.levelup.model;
 
 import com.br.levelup.model.utils.ValidatorUtils;
 
-import static com.br.levelup.model.utils.ValidatorUtils.cantBeLessZero;
 import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
 public class Alternative {

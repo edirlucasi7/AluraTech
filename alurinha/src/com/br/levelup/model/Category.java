@@ -1,7 +1,9 @@
 package com.br.levelup.model;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -34,14 +36,6 @@ public class Category {
 
     public String getName() {
         return name;
-    }
-
-    public Integer getOrder() {
-        return order;
-    }
-
-    public boolean getActive() {
-        return active;
     }
 
     public String getShortDescription() {
@@ -99,24 +93,67 @@ public class Category {
                 .findFirst().orElse(null);
     }
 
-    public static long numberOfCoursesFromCategory(List<SubCategory> subCategories, List<Course> courses, String categoryCode) {
-        List<SubCategory> subCategoriesFromCategory = subCategories.stream()
-                .filter(subCategory -> subCategory.getCategory().getCode().equalsIgnoreCase(categoryCode)).collect(Collectors.toList());
-
+    public static long numberOfCoursesFromCategory(List<Course> courses, String categoryCode) {
         return courses.stream()
-                .filter(c -> subCategoriesFromCategory.stream()
-                        .anyMatch(subCategory -> subCategory.getCode().equalsIgnoreCase(c.getSubCategory().getCode()))).count();
+                .filter(course -> course.getSubCategory().getCategory().getCode().equals(categoryCode)).count();
     }
 
-    public static int sumOfEstimatedTimeInHoursFromCoursesFromCategory(List<SubCategory> subCategories, List<Course> courses, String categoryCode) {
-        List<SubCategory> subCategoriesFromCategory = subCategories.stream()
-                .filter(subCategory -> subCategory.getCategory().getCode().equalsIgnoreCase(categoryCode)).collect(Collectors.toList());
-
+    public static int sumOfEstimatedTimeInHoursFromCoursesFromCategory(List<Course> courses, String categoryCode) {
         List<Course> coursesFromSubCategory = courses.stream()
-                .filter(c -> subCategoriesFromCategory.stream()
-                        .anyMatch(subCategory -> subCategory.getCode().equalsIgnoreCase(c.getSubCategory().getCode()))).collect(Collectors.toList());
+                .filter(course -> course.getSubCategory().getCategory().getCode().equals(categoryCode))
+                .collect(Collectors.toList());
 
         return coursesFromSubCategory.stream().mapToInt(Course::getEstimatedTimeInHours).sum();
+    }
+
+    public static String writeStartingHeader() {
+        String startingHeaderCategory = """
+                             <h3>Categorias:</h3>
+                             <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">Nome</th>
+                                      <th scope="col">Descrição</th>
+                                      <th scope="col">Ícone</th>
+                                      <th scope="col">Cor</th>
+                                      <th scope="col">Número Total de Cursos</th>
+                                      <th scope="col">Soma Total de Horas de Curso</th>
+                                    </tr>
+                                </thead>
+                """;
+        return startingHeaderCategory;
+    }
+
+    public static void writeIteratorCategory(List<Category> categories, List<Course> courses, BufferedWriter bw) throws IOException {
+        Iterator<Category> iteratorCategory = categories.iterator();
+        while(iteratorCategory.hasNext()) {
+            Category nextCategory = iteratorCategory.next();
+            String bodyContentCategory = """
+                                    <tbody>
+                                        <tr>
+                                          <td>%s</td>
+                                          <td>%s</td>
+                                          <td>
+                                            <img src="%s" width="50px"></img>
+                                          </td>
+                                          <td>%s</td>
+                                          <td>%d</td>
+                                          <td>%d</td>
+                                        </tr>
+                                    </tbody>
+                    """.formatted(nextCategory.getName(), nextCategory.getShortDescription(),
+                    nextCategory.getImageUrl(), nextCategory.getColorCode(),
+                    numberOfCoursesFromCategory(courses, nextCategory.getCode()),
+                    sumOfEstimatedTimeInHoursFromCoursesFromCategory(courses, nextCategory.getCode()));
+            bw.write(bodyContentCategory);
+        }
+    }
+
+    public static String writeClosingHeader() {
+        String closingHeaderCategory = """
+                             </table>
+                """;
+        return closingHeaderCategory;
     }
 
     public static List<Category> csvReaderCategory(String file) throws IOException {

@@ -1,10 +1,10 @@
 package com.br.levelup.model;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
+import static com.br.levelup.model.Course.namesOfCoursesFromSubCategory;
 import static com.br.levelup.model.utils.CsvReaderUtils.csvReader;
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
@@ -54,6 +54,22 @@ public class SubCategory {
         return this.category;
     }
 
+    public Integer getOrder() {
+        return order;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
     public static String verifyDescriptionEmpty(String description) {
         return description.equals("") ? "Uninformed description" : description;
     }
@@ -66,6 +82,10 @@ public class SubCategory {
 
     public static Integer processingOrder(String stringOrder) {
         return stringOrder.equals("") ? 0 : Integer.parseInt(stringOrder);
+    }
+
+    public static boolean convertToBoolean(String stringActive) {
+        return stringActive.equals("ATIVA");
     }
 
     public static List<SubCategory> csvReaderSubCategory(List<Category> categories, String file) throws IOException {
@@ -89,7 +109,7 @@ public class SubCategory {
             String description = verifyDescriptionEmpty(lineScanner.next());
 
 
-            boolean active = Course.convertToBoolean(lineScanner.next());
+            boolean active = SubCategory.convertToBoolean(lineScanner.next());
             Category category = Category.findCategoryByCode(categories, lineScanner.next());
 
             SubCategory newSubCategory = new SubCategory(name, code, category);
@@ -97,7 +117,7 @@ public class SubCategory {
             if(!order.equals(0)) {
                 newSubCategory.setOrder(order);
             }
-            if(description.isEmpty()) {
+            if(!description.isEmpty()) {
                 newSubCategory.setShortDescription(description);
             }
 
@@ -108,6 +128,51 @@ public class SubCategory {
             lineScanner.close();
         }
         return subCategories;
+    }
+
+    public static String writeStartingHeader() {
+        String startingHeaderSubCategory = """
+                             <h4>SubCategorias:</h4>
+                             <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">Nome</th>
+                                      <th scope="col">Descrição</th>
+                                      <th scope="col">Cursos</th>
+                                    </tr>
+                                </thead>
+                """;
+        return startingHeaderSubCategory;
+    }
+
+    public static void writeIteratorSubCategory(List<SubCategory> subCategories, List<Course> courses, BufferedWriter bw) throws IOException {
+        Iterator<SubCategory> iteratorSubCategory = subCategories.iterator();
+        while(iteratorSubCategory.hasNext()) {
+            SubCategory nextSubCategory = iteratorSubCategory.next();
+            String bodyContentSubCategory = """
+                                    <tbody>
+                                       <tr>
+                                         <td>%s</td>
+                                         <td>%s</td>
+                                         <td>%s</td>
+                                       </tr>
+                                    </tbody>        
+                    """.formatted(nextSubCategory.getName(), nextSubCategory.getShortDescription(),
+                    namesOfCoursesFromSubCategory(courses, nextSubCategory.getCode()));
+            bw.write(bodyContentSubCategory);
+        }
+    }
+
+    public static String writeClosingHeader() {
+        String closingHeaderSubCategory = """
+                             </table>
+                """;
+        return closingHeaderSubCategory;
+    }
+
+    public static List<SubCategory> activeSubCategorias(List<SubCategory> subCategories) {
+        return subCategories.stream().filter(SubCategory::isActive)
+                .sorted(Comparator.comparing(SubCategory::getOrder)).toList();
     }
 
     @Override
