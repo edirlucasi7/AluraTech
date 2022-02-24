@@ -1,12 +1,5 @@
 package com.br.levelup.model;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-
-import static com.br.levelup.model.utils.CsvReaderUtils.csvReader;
 import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
@@ -65,6 +58,10 @@ public class Course {
         this.developedSkills = developedSkills;
     }
 
+    public String getCategoryCode() {
+        return subCategory.getCategoryCode();
+    }
+
     public SubCategory getSubCategory() {
         return this.subCategory;
     }
@@ -75,67 +72,12 @@ public class Course {
         }
     }
 
-    public static boolean convertToBoolean(String stringActive) {
-        return stringActive.equals("PRIVADA");
-    }
-
     public static String verifyDevelopedSkillsEmpty(String skills) {
         return skills.equals("") ? "Uninformed skills" : skills;
     }
 
-    public static String namesOfCoursesFromSubCategory(List<Course> courses, String subCategoryCode) {
-        List<Course> subCategoryCourses = courses.stream()
-                .filter(course -> course.getSubCategory().getCode().equals(subCategoryCode)).collect(Collectors.toList());
-
-        StringBuilder coursesNames = new StringBuilder();
-        for (Course c : subCategoryCourses) {
-            coursesNames.append(c.getName()).append(",");
-            coursesNames.deleteCharAt(coursesNames.length()-1);
-        }
-        return coursesNames.toString();
-    }
-
-    public static List<Course> csvReaderCourse(List<SubCategory> subCategories, String file) throws IOException {
-        cantBeNull(subCategories);
-        cantBeNullOrEmpty(file);
-
-        Scanner scannerCourse = csvReader(file);
-
-        List<Course> courses = new ArrayList<>();
-
-        scannerCourse.nextLine();
-        while(scannerCourse.hasNextLine()) {
-            String line = scannerCourse.nextLine();
-
-            Scanner lineScanner = new Scanner(line);
-            lineScanner.useDelimiter(",");
-
-            String name = lineScanner.next();
-            String code = lineScanner.next().trim();
-            Integer estimatedTimeInHours = lineScanner.nextInt();
-            boolean visibility = Course.convertToBoolean(lineScanner.next());
-            String targetAudience = lineScanner.next().trim();
-            Instructor instructor = new Instructor(lineScanner.next());
-            String resume = lineScanner.next().trim();
-            String developedSkills = verifyDevelopedSkillsEmpty(lineScanner.next());
-
-            if(!scannerCourse.hasNext()) {
-                System.out.println("Can't read this line: " + line + "from csv. The object subCategory should be not null!\n");
-                break;
-            }
-
-            SubCategory subCategory = SubCategory.findSubCategoryByCode(subCategories, lineScanner.next());
-
-            Course newCourse = new Course(name, code, estimatedTimeInHours, instructor, subCategory);
-            newCourse.setVisibility(visibility);
-            newCourse.setTargetAudience(targetAudience);
-            newCourse.setResume(resume);
-            newCourse.setDevelopedSkills(developedSkills);
-            courses.add(newCourse);
-
-            lineScanner.close();
-        }
-        return courses;
+    public static boolean convertToBoolean(String stringActive) {
+        return stringActive.equals("PRIVADA");
     }
 
     @Override

@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import static com.br.levelup.model.Category.csvReaderCategory;
-import static com.br.levelup.model.Category.writeIteratorCategory;
-import static com.br.levelup.model.Course.csvReaderCourse;
-import static com.br.levelup.model.SubCategory.*;
+import static com.br.levelup.model.SubCategory.activeSubCategorias;
+import static com.br.levelup.model.service.CsvReaderService.*;
+import static com.br.levelup.model.service.HtmlWriterService.writeHtmlCategory;
+import static com.br.levelup.model.service.HtmlWriterService.writeHtmlSubCategory;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeEndTagsInHtml;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeStartTagsInHtml;
 
@@ -35,21 +35,9 @@ public class AluraTechCsv {
 
         writeStartTagsInHtml(bw);
 
-        String startingHeaderCategory = Category.writeStartingHeader();
-        bw.write(startingHeaderCategory);
+        writeHtmlCategory(categories, courses, bw);
 
-        writeIteratorCategory(categories, courses, bw);
-
-        String closingHeaderCategory = Category.writeClosingHeader();
-        bw.write(closingHeaderCategory);
-
-        String startingHeaderSubCategory = SubCategory.writeStartingHeader();
-        bw.write(startingHeaderSubCategory);
-
-        writeIteratorSubCategory(activeSubCategories, courses, bw);
-
-        String closingHeaderSubCategory = SubCategory.writeClosingHeader();
-        bw.write(closingHeaderSubCategory);
+        writeHtmlSubCategory(activeSubCategories, courses, bw);
 
         writeEndTagsInHtml(bw);
 
