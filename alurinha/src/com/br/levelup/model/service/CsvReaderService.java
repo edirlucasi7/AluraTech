@@ -6,6 +6,7 @@ import com.br.levelup.model.Instructor;
 import com.br.levelup.model.SubCategory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -24,38 +25,38 @@ public class CsvReaderService {
     public static List<Category> csvReaderCategory(String file) throws IOException {
         cantBeNullOrEmpty(file);
 
-        Scanner scannerCategory = csvReader(file);
-
         List<Category> categories = new ArrayList<>();
 
-        scannerCategory.nextLine();
-        while(scannerCategory.hasNextLine()) {
-            String line = scannerCategory.nextLine();
-            Scanner lineScanner = new Scanner(line);
-            lineScanner.useDelimiter(",");
+        try (Scanner scannerCategory = csvReader(file)) {
+            scannerCategory.nextLine();
+            while (scannerCategory.hasNextLine()) {
+                String line = scannerCategory.nextLine();
+                Scanner lineScanner = new Scanner(line);
+                lineScanner.useDelimiter(",");
 
-            String name = lineScanner.next().trim();
-            String code = lineScanner.next().trim();
-            Integer order = Category.processingOrder(lineScanner.next());
-            String description = lineScanner.next().trim();
-            boolean active = Category.convertToBoolean(lineScanner.next());
-            String imageUrl = lineScanner.next().trim();
-            String colorCode = lineScanner.next().trim();
+                String name = lineScanner.next().trim();
+                String code = lineScanner.next().trim();
+                Integer order = Category.processingOrder(lineScanner.next());
+                String description = lineScanner.next().trim();
+                boolean active = Category.convertToBoolean(lineScanner.next());
+                String imageUrl = lineScanner.next().trim();
+                String colorCode = lineScanner.next().trim();
 
-            Category newCategory = new Category(name, code);
+                Category newCategory = new Category(name, code);
 
-            if(!order.equals(0)) {
-                newCategory.setOrder(order);
+                if (!order.equals(0)) {
+                    newCategory.setOrder(order);
+                }
+
+                newCategory.setShortDescription(description);
+                newCategory.setActive(active);
+                newCategory.setImageUrl(imageUrl);
+                newCategory.setColorCode(colorCode);
+
+                categories.add(newCategory);
             }
-
-            newCategory.setShortDescription(description);
-            newCategory.setActive(active);
-            newCategory.setImageUrl(imageUrl);
-            newCategory.setColorCode(colorCode);
-
-            categories.add(newCategory);
-
-            lineScanner.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Category file not found!");
         }
         return categories;
     }
@@ -64,40 +65,41 @@ public class CsvReaderService {
         cantBeNull(categories);
         cantBeNullOrEmpty(file);
 
-        Scanner scannerSubCategory = csvReader(file);
-
         List<SubCategory> subCategories = new ArrayList<>();
 
-        scannerSubCategory.nextLine();
-        while(scannerSubCategory.hasNextLine()) {
-            String line = scannerSubCategory.nextLine();
+        try (Scanner scannerSubCategory = csvReader(file)) {
 
-            Scanner lineScanner = new Scanner(line);
-            lineScanner.useDelimiter(",");
+            scannerSubCategory.nextLine();
+            while (scannerSubCategory.hasNextLine()) {
+                String line = scannerSubCategory.nextLine();
 
-            String name = lineScanner.next();
-            String code = lineScanner.next();
-            Integer order = processingOrder(lineScanner.next());
-            String description = verifyDescriptionEmpty(lineScanner.next());
+                Scanner lineScanner = new Scanner(line);
+                lineScanner.useDelimiter(",");
+
+                String name = lineScanner.next();
+                String code = lineScanner.next();
+                Integer order = processingOrder(lineScanner.next());
+                String description = verifyDescriptionEmpty(lineScanner.next());
 
 
-            boolean active = SubCategory.convertToBoolean(lineScanner.next());
-            Optional<Category> possibleCategory = findCategoryByCode(categories, lineScanner.next());
-            if(possibleCategory.isPresent()) {
-                SubCategory newSubCategory = new SubCategory(name, code, possibleCategory.get());
+                boolean active = SubCategory.convertToBoolean(lineScanner.next());
+                Optional<Category> possibleCategory = findCategoryByCode(categories, lineScanner.next());
+                if (possibleCategory.isPresent()) {
+                    SubCategory newSubCategory = new SubCategory(name, code, possibleCategory.get());
 
-                if(!order.equals(0)) {
-                    newSubCategory.setOrder(order);
+                    if (!order.equals(0)) {
+                        newSubCategory.setOrder(order);
+                    }
+                    if (!description.isEmpty()) {
+                        newSubCategory.setShortDescription(description);
+                    }
+
+                    newSubCategory.setActive(active);
+                    subCategories.add(newSubCategory);
                 }
-                if(!description.isEmpty()) {
-                    newSubCategory.setShortDescription(description);
-                }
-
-                newSubCategory.setActive(active);
-                subCategories.add(newSubCategory);
             }
-
-            lineScanner.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("SubCategory file not found!");
         }
         return subCategories;
     }
@@ -106,42 +108,42 @@ public class CsvReaderService {
         cantBeNull(subCategories);
         cantBeNullOrEmpty(file);
 
-        Scanner scannerCourse = csvReader(file);
-
         List<Course> courses = new ArrayList<>();
 
-        scannerCourse.nextLine();
-        while(scannerCourse.hasNextLine()) {
-            String line = scannerCourse.nextLine();
+        try (Scanner scannerCourse = csvReader(file)) {
+            scannerCourse.nextLine();
+            while (scannerCourse.hasNextLine()) {
+                String line = scannerCourse.nextLine();
 
-            Scanner lineScanner = new Scanner(line);
-            lineScanner.useDelimiter(",");
+                Scanner lineScanner = new Scanner(line);
+                lineScanner.useDelimiter(",");
 
-            String name = lineScanner.next().trim();
-            String code = lineScanner.next().trim();
-            Integer estimatedTimeInHours = lineScanner.nextInt();
-            boolean visibility = Course.convertToBoolean(lineScanner.next());
-            String targetAudience = lineScanner.next().trim();
-            Instructor instructor = new Instructor(lineScanner.next().trim());
-            String resume = lineScanner.next().trim();
-            String developedSkills = Course.verifyDevelopedSkillsEmpty(lineScanner.next().trim());
+                String name = lineScanner.next().trim();
+                String code = lineScanner.next().trim();
+                Integer estimatedTimeInHours = lineScanner.nextInt();
+                boolean visibility = Course.convertToBoolean(lineScanner.next());
+                String targetAudience = lineScanner.next().trim();
+                Instructor instructor = new Instructor(lineScanner.next().trim());
+                String resume = lineScanner.next().trim();
+                String developedSkills = Course.verifyDevelopedSkillsEmpty(lineScanner.next().trim());
 
-            if(!scannerCourse.hasNext()) {
-                System.out.println("Can't read this line: " + line + "from csv. The object subCategory should be not null!\n");
-                break;
+                if (!scannerCourse.hasNext()) {
+                    System.out.println("Can't read this line: " + line + "from csv. The object subCategory should be not null!\n");
+                    break;
+                }
+
+                Optional<SubCategory> possibleSubCategory = findSubCategoryByCode(subCategories, lineScanner.next());
+                if (possibleSubCategory.isPresent()) {
+                    Course newCourse = new Course(name, code, estimatedTimeInHours, instructor, possibleSubCategory.get());
+                    newCourse.setVisibility(visibility);
+                    newCourse.setTargetAudience(targetAudience);
+                    newCourse.setResume(resume);
+                    newCourse.setDevelopedSkills(developedSkills);
+                    courses.add(newCourse);
+                }
             }
-
-            Optional<SubCategory> possibleSubCategory = findSubCategoryByCode(subCategories, lineScanner.next());
-            if(possibleSubCategory.isPresent()) {
-                Course newCourse = new Course(name, code, estimatedTimeInHours, instructor, possibleSubCategory.get());
-                newCourse.setVisibility(visibility);
-                newCourse.setTargetAudience(targetAudience);
-                newCourse.setResume(resume);
-                newCourse.setDevelopedSkills(developedSkills);
-                courses.add(newCourse);
-            }
-
-            lineScanner.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Course file not found!");
         }
         return courses;
     }

@@ -18,9 +18,9 @@ public class AluraTechCsv {
 
     public static void main(String[] args) throws IOException {
 
-        List<Category> categories = csvReaderCategory("/home/icety/Documentos/csvs/planilha-dados-escola - Categoria.csv");
-        List<SubCategory> subCategories = csvReaderSubCategory(categories, "/home/icety/Documentos/csvs/planilha-dados-escola - Subcategoria.csv");
-        List<Course> courses = csvReaderCourse(subCategories, "/home/icety/Documentos/csvs/planilha-dados-escola - Curso.csv");
+        List<Category> categories = csvReaderCategory("planilha-dados-escola - Categoria.csv");
+        List<SubCategory> subCategories = csvReaderSubCategory(categories, "planilha-dados-escola - Subcategoria.csv");
+        List<Course> courses = csvReaderCourse(subCategories, "planilha-dados-escola - Curso.csv");
 
         categories.forEach(System.out::println);
         System.out.println("----------------------------------------------------------------------------------------------");
@@ -28,23 +28,19 @@ public class AluraTechCsv {
         System.out.println("----------------------------------------------------------------------------------------------");
         courses.forEach(System.out::println);
 
-        PrintWriter ps = new PrintWriter("categoria.html", "UTF-8");
-        BufferedWriter bw = new BufferedWriter(ps);
+        try (PrintWriter ps = new PrintWriter("categoria.html", "UTF-8");
+             BufferedWriter bw = new BufferedWriter(ps)) {
 
-        List<SubCategory> activeSubCategories = activeSubCategorias(subCategories);
+            List<SubCategory> activeSubCategories = activeSubCategorias(subCategories);
 
-        writeStartTagsInHtml(bw);
+            writeStartTagsInHtml(bw);
 
-        writeHtmlCategory(categories, courses, bw);
+            writeHtmlCategory(categories, courses, bw);
 
-        writeHtmlSubCategory(activeSubCategories, courses, bw);
+            writeHtmlSubCategory(activeSubCategories, courses, bw);
 
-        writeEndTagsInHtml(bw);
-
-        ps.flush();
-        bw.flush();
-        ps.close();
-        bw.close();
+            writeEndTagsInHtml(bw);
+        }
 
     }
 
