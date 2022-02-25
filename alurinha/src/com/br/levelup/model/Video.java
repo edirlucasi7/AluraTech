@@ -14,16 +14,6 @@ public class Video extends Activity{
         this.url = url;
     }
 
-    public void setDurationInMinutes(Integer durationInMinutes) {
-        cantBeLessZero(durationInMinutes, "The field durationInMinutes should not be less or equal zero or null!");
-        this.durationInMinutes = durationInMinutes;
-    }
-
-    public void setTranscription(String transcription) {
-        cantBeNullOrEmpty(transcription, "The field transcription should not be empty!");
-        this.transcription = transcription;
-    }
-
     @Override
     public String toString() {
         return "Video{" +

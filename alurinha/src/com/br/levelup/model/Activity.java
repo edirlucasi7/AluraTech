@@ -19,15 +19,6 @@ public abstract class Activity {
         this.section = section;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public void setOrder(Integer order) {
-        cantBeLessZero(order, "The field order should not be less or equal zero or null!");
-        this.order = order;
-    }
-
     @Override
     public String toString() {
         return "Activity{" +

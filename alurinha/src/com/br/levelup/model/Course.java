@@ -73,7 +73,7 @@ public class Course {
     }
 
     public static String verifyDevelopedSkillsEmpty(String skills) {
-        return skills.equals("") ? "Uninformed skills" : skills;
+        return "".equals(skills) ? "Uninformed skills" : skills;
     }
 
     public static boolean convertToBoolean(String stringActive) {

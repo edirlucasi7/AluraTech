@@ -1,6 +1,5 @@
 package com.br.levelup.model.utils;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class ValidatorUtils {

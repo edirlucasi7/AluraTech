@@ -46,11 +46,6 @@ public class Category {
         this.shortDescription = shortDescription;
     }
 
-    public void setStudyGuide(String studyGuide) {
-        cantBeNullOrEmpty(studyGuide, "The field studyGuide should not be null or empty!");
-        this.studyGuide = studyGuide;
-    }
-
     public void setActive(boolean active) {
         this.active = active;
     }

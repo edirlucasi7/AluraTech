@@ -1,4 +1,4 @@
-package com.br.levelup.model.service;
+package com.br.levelup.service;
 
 import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;
@@ -23,7 +23,7 @@ public class HtmlWriterService {
                                       <th scope="col">Ícone</th>
                                       <th scope="col">Cor</th>
                                       <th scope="col">Número Total de Cursos</th>
-                                      <th scope="col">Soma Total de Horas de Curso</th>
+                                      <th scope="col">Soma Total de Horas de Cursos</th>
                                     </tr>
                                 </thead>
                 """;
@@ -47,7 +47,7 @@ public class HtmlWriterService {
                                     </tbody>
                     """.formatted(nextCategory.getName(), nextCategory.getShortDescription(),
                     nextCategory.getImageUrl(), nextCategory.getColorCode(),
-                    numberOfCourses(courses, nextCategory.getCode()),
+                    numberOfCoursesByCategory(courses, nextCategory.getCode()),
                     sumOfEstimatedTimeInHoursFromCourses(courses, nextCategory.getCode()));
             bw.write(bodyContentCategory);
         }
@@ -94,17 +94,14 @@ public class HtmlWriterService {
         bw.write(closingHeaderSubCategory);
     }
 
-    private static long numberOfCourses(List<Course> courses, String categoryCode) {
+    private static long numberOfCoursesByCategory(List<Course> courses, String categoryCode) {
         return courses.stream()
                 .filter(course -> course.getCategoryCode().equals(categoryCode)).count();
     }
 
     private static int sumOfEstimatedTimeInHoursFromCourses(List<Course> courses, String categoryCode) {
-        List<Course> coursesFromSubCategory = courses.stream()
-                .filter(course -> course.getCategoryCode().equals(categoryCode))
-                .collect(Collectors.toList());
-
-        return coursesFromSubCategory.stream().mapToInt(Course::getEstimatedTimeInHours).sum();
+        return courses.stream()
+                .filter(course -> course.getCategoryCode().equals(categoryCode)).mapToInt(Course::getEstimatedTimeInHours).sum();
     }
 
     private static String namesOfCoursesFromSubCategory(List<Course> courses, String subCategoryCode) {
