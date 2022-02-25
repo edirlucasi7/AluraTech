@@ -1,5 +1,8 @@
 package com.br.levelup.model;
 
+import java.util.Comparator;
+import java.util.List;
+
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
 public class SubCategory {
@@ -26,18 +29,55 @@ public class SubCategory {
         this.shortDescription = shortDescription;
     }
 
-    public void setStudyGuide(String studyGuide) {
-        cantBeNullOrEmpty(studyGuide, "The field studyGuide should not be empty!");
-        this.studyGuide = studyGuide;
-    }
-
     public void setActive(boolean active) {
         this.active = active;
     }
 
     public void setOrder(Integer order) {
-        cantBeLessOrEqualZero(order, "The field order should not be null or less than zero!");
+        cantBeLessZero(order, "The field order should not be null or less than zero!");
         this.order = order;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCategoryCode() {
+        return category.getCode();
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public static String verifyDescriptionEmpty(String description) {
+        return "".equals(description) ? "Uninformed description" : description;
+    }
+
+    public static Integer processingOrder(String stringOrder) {
+        return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
+    }
+
+    public static List<SubCategory> activeSubCategories(List<SubCategory> subCategories) {
+        return subCategories.stream().filter(SubCategory::isActive)
+                .sorted(Comparator.comparing(SubCategory::getOrder)).toList();
+    }
+
+    public static boolean convertToBoolean(String stringActive) {
+        cantBeNullOrEmpty(stringActive);
+        return "ATIVA".equals(stringActive);
     }
 
     @Override

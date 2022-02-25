@@ -17,12 +17,12 @@ public class ValidatorUtils {
         }
     }
 
-    public static void cantBeLessOrEqualZero(Integer field) {
-        cantBeLessOrEqualZero(field, "The field value should not be less than zero!");
+    public static void cantBeLessZero(Integer field) {
+        cantBeLessZero(field, "The field value should not be less than zero!");
     }
 
-    public static void cantBeLessOrEqualZero(Integer field, String errorMessage) {
-        if(field == null || field <= 0) {
+    public static void cantBeLessZero(Integer field, String errorMessage) {
+        if(field == null || field < 0) {
             throw new IllegalArgumentException(errorMessage);
         }
     }

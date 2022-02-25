@@ -21,14 +21,29 @@ public class Category {
         this.code = code;
     }
 
+    public String getCode() {
+        return this.code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
     public void setShortDescription(String shortDescription) {
         cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be null or empty!");
         this.shortDescription = shortDescription;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        cantBeNullOrEmpty(studyGuide, "The field studyGuide should not be null or empty!");
-        this.studyGuide = studyGuide;
     }
 
     public void setActive(boolean active) {
@@ -36,7 +51,7 @@ public class Category {
     }
 
     public void setOrder(Integer order) {
-        cantBeLessOrEqualZero(order, "The field order should not be less than zero or null!");
+        cantBeLessZero(order, "The field order should not be less than zero!");
         this.order = order;
     }
 
@@ -48,6 +63,14 @@ public class Category {
     public void setColorCode(String colorCode) {
         isHexadecimal(colorCode, "The field codeColor should not be out of hexadecimal format!");
         this.colorCode = colorCode;
+    }
+
+    public static boolean convertToBoolean(String stringActive) {
+        return "ATIVA".equals(stringActive);
+    }
+
+    public static Integer processingOrder(String stringOrder) {
+        return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
     }
 
     @Override

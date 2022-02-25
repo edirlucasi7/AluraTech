@@ -21,7 +21,7 @@ public class Section {
     }
 
     public void setOrder(Integer order) {
-        cantBeLessOrEqualZero(order, "The field order should not be less or equal zero or null!");
+        cantBeLessZero(order, "The field order should not be less or equal zero or null!");
         this.order = order;
     }
 
