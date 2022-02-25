@@ -18,7 +18,7 @@ public class AluraTechCsv {
 
     public static void main(String[] args) throws IOException {
 
-        List<Category> categories = csvReaderCategory("alurinha/planilha-dados-escola - Categoria.csv");
+        List<Category> categories = readCategories("alurinha/planilha-dados-escola - Categoria.csv");
         List<SubCategory> subCategories = csvReaderSubCategory(categories, "alurinha/planilha-dados-escola - Subcategoria.csv");
         List<Course> courses = csvReaderCourse(subCategories, "alurinha/planilha-dados-escola - Curso.csv");
 

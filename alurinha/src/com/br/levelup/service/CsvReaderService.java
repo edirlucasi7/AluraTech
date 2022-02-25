@@ -17,7 +17,7 @@ import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
 public class CsvReaderService {
 
-    public static List<Category> csvReaderCategory(String file) throws IOException {
+    public static List<Category> readCategories(String file) throws IOException {
         cantBeNullOrEmpty(file);
 
         List<Category> categories = new ArrayList<>();
