@@ -77,7 +77,7 @@ public class Course {
     }
 
     public static boolean convertToBoolean(String stringActive) {
-        return stringActive.equals("PRIVADA");
+        return "PRIVADA".equals(stringActive);
     }
 
     @Override

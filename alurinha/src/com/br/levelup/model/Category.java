@@ -66,11 +66,11 @@ public class Category {
     }
 
     public static boolean convertToBoolean(String stringActive) {
-        return stringActive.equals("ATIVA");
+        return "ATIVA".equals(stringActive);
     }
 
     public static Integer processingOrder(String stringOrder) {
-        return stringOrder.equals("") ? 0 : Integer.parseInt(stringOrder);
+        return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
     }
 
     @Override
