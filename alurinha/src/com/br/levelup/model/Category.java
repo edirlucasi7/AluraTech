@@ -1,5 +1,7 @@
 package com.br.levelup.model;
 
+import java.util.List;
+
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
 public class Category {
@@ -46,6 +48,10 @@ public class Category {
         this.shortDescription = shortDescription;
     }
 
+    private boolean isActive() {
+        return this.active;
+    }
+
     public void setActive(boolean active) {
         this.active = active;
     }
@@ -71,6 +77,10 @@ public class Category {
 
     public static Integer processingOrder(String stringOrder) {
         return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
+    }
+
+    public static List<Category> activeCategories(List<Category> subCategories) {
+        return subCategories.stream().filter(Category::isActive).toList();
     }
 
     @Override

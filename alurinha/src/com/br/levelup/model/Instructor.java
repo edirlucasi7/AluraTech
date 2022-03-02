@@ -1,5 +1,7 @@
 package com.br.levelup.model;
 
+import java.util.Objects;
+
 import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
 public class Instructor {
@@ -12,7 +14,20 @@ public class Instructor {
     }
 
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Instructor that = (Instructor) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     @Override
@@ -21,5 +36,4 @@ public class Instructor {
                 "name='" + name + '\'' +
                 '}';
     }
-
 }

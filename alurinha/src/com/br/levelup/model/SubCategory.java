@@ -2,6 +2,7 @@ package com.br.levelup.model;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
@@ -25,7 +26,7 @@ public class SubCategory {
     }
 
     public void setShortDescription(String shortDescription) {
-        cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be empty!");
+        cantBeNull(shortDescription);
         this.shortDescription = shortDescription;
     }
 
@@ -62,10 +63,6 @@ public class SubCategory {
         return active;
     }
 
-    public static String verifyDescriptionEmpty(String description) {
-        return "".equals(description) ? "Uninformed description" : description;
-    }
-
     public static Integer processingOrder(String stringOrder) {
         return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
     }
@@ -75,9 +72,20 @@ public class SubCategory {
                 .sorted(Comparator.comparing(SubCategory::getOrder)).toList();
     }
 
+    public static List<SubCategory> activeSubCategoriesWithDescription(List<SubCategory> subCategories) {
+        List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
+        return activeSubCategories.stream().filter(s -> !s.getShortDescription().equals("")).collect(Collectors.toList());
+    }
+
     public static boolean convertToBoolean(String stringActive) {
         cantBeNullOrEmpty(stringActive);
         return "ATIVA".equals(stringActive);
+    }
+
+    public static List<SubCategory> onlySubCategoriesWithoutDescription(List<SubCategory> subCategories) {
+        return subCategories
+                .stream()
+                .filter(c -> c.getShortDescription().isEmpty()).toList();
     }
 
     @Override

@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import static com.br.levelup.model.SubCategory.activeSubCategories;
+import static com.br.levelup.model.Course.instructorNamesAndCourses;
+import static com.br.levelup.model.Course.totalOfCoursesByInstructor;
+import static com.br.levelup.model.SubCategory.*;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeEndTagsInHtml;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeStartTagsInHtml;
 import static com.br.levelup.service.CsvReaderService.*;
@@ -41,6 +43,29 @@ public class AluraTechCsv {
 
                 writeEndTagsInHtml(bw);
         }
+
+        System.out.println("------------------------------Active Categories--------------------------------------------");
+        List<Category> activeCategories = Category.activeCategories(categories);
+        activeCategories.forEach(System.out::println);
+
+        System.out.println();
+
+        System.out.println("------------------------------SubCategories Without Description-----------------------------");
+        List<SubCategory> onlyWithoutDescritpion = SubCategory.onlySubCategoriesWithoutDescription(subCategories);
+        onlyWithoutDescritpion.forEach(System.out::println);
+
+        System.out.println("------------------------------Exists Private Course-----------------------------");
+        boolean existsPrivateCourses = Course.existsPrivate(courses);
+        System.out.println(existsPrivateCourses);
+
+        System.out.println("------------------------------Course Instructors Names-----------------------------");
+        System.out.println(Course.instructorsNames(courses));
+
+        System.out.println("------------------------------Active SubCategories With Description-----------------------------");
+        System.out.println(activeSubCategoriesWithDescription(subCategories));
+
+        System.out.println(instructorNamesAndCourses(courses));
+
     }
 
 }

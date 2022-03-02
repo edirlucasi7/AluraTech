@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.*;
 
 import static com.br.levelup.model.SubCategory.processingOrder;
-import static com.br.levelup.model.SubCategory.verifyDescriptionEmpty;
 import static com.br.levelup.model.utils.ValidatorUtils.cantBeNull;
 import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
@@ -127,7 +126,7 @@ public class CsvReaderService {
         String name = lineScanner.next();
         String code = lineScanner.next();
         Integer order = processingOrder(lineScanner.next());
-        String description = verifyDescriptionEmpty(lineScanner.next());
+        String description = lineScanner.next();
 
         boolean active = SubCategory.convertToBoolean(lineScanner.next());
         Optional<Category> possibleCategory = findCategoryByCode(categories, lineScanner.next());
@@ -139,10 +138,8 @@ public class CsvReaderService {
             if (!order.equals(0)) {
                 newSubCategory.setOrder(order);
             }
-            if (!description.isEmpty()) {
-                newSubCategory.setShortDescription(description);
-            }
 
+            newSubCategory.setShortDescription(description);
             newSubCategory.setActive(active);
         }
         return newSubCategory;
