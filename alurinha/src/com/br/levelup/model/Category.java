@@ -79,8 +79,8 @@ public class Category {
         return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
     }
 
-    public static List<Category> activeCategories(List<Category> subCategories) {
-        return subCategories.stream().filter(Category::isActive).toList();
+    public static List<Category> activeCategories(List<Category> categories) {
+        return categories.stream().filter(Category::isActive).toList();
     }
 
     @Override

@@ -63,6 +63,14 @@ public class SubCategory {
         return active;
     }
 
+    private boolean verifyIfShortDescriptionIsEmpty() {
+        return shortDescription.isEmpty();
+    }
+
+    private boolean verifyIfShortDescriptionIsNotEmpty() {
+        return !shortDescription.isEmpty();
+    }
+
     public static Integer processingOrder(String stringOrder) {
         return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
     }
@@ -74,7 +82,7 @@ public class SubCategory {
 
     public static List<SubCategory> activeSubCategoriesWithDescription(List<SubCategory> subCategories) {
         List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
-        return activeSubCategories.stream().filter(s -> !s.getShortDescription().equals("")).collect(Collectors.toList());
+        return activeSubCategories.stream().filter(SubCategory::verifyIfShortDescriptionIsNotEmpty).collect(Collectors.toList());
     }
 
     public static boolean convertToBoolean(String stringActive) {
@@ -82,10 +90,10 @@ public class SubCategory {
         return "ATIVA".equals(stringActive);
     }
 
-    public static List<SubCategory> onlySubCategoriesWithoutDescription(List<SubCategory> subCategories) {
+    public static List<SubCategory> subCategoriesWithoutDescription(List<SubCategory> subCategories) {
         return subCategories
                 .stream()
-                .filter(c -> c.getShortDescription().isEmpty()).toList();
+                .filter(SubCategory::verifyIfShortDescriptionIsEmpty).toList();
     }
 
     @Override

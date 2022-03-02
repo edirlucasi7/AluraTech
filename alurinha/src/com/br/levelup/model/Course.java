@@ -74,7 +74,11 @@ public class Course {
     }
 
     public Instructor getInstructor() {
-        return instructor;
+        return this.instructor;
+    }
+
+    public String getInstructorName() {
+        return this.instructor.getName();
     }
 
     private void isBetween(Integer field, String error) {
@@ -99,15 +103,15 @@ public class Course {
         return courses.stream().map(Course::getInstructor).collect(Collectors.toSet());
     }
 
-    public static long totalOfCoursesByInstructor(List<Course> courses, String instructorNames) {
-        return courses.stream().filter(c -> c.getInstructor().getName().equals(instructorNames)).count();
-    }
-
     public static Map<String, Long> instructorNamesAndCourses(List<Course> courses) {
         return courses.stream().collect(Collectors.toMap(
-                c -> c.getInstructor().getName(),
-                c -> c.totalOfCoursesByInstructor(courses, c.getInstructor().getName()),
+                c -> c.getInstructorName(),
+                c -> totalOfCoursesByInstructor(courses, c.getInstructorName()),
                 (name1, name2) -> name1));
+    }
+
+    public static long totalOfCoursesByInstructor(List<Course> courses, String instructorNames) {
+        return courses.stream().filter(c -> instructorNames.equals(c.getInstructorName())).count();
     }
 
     @Override

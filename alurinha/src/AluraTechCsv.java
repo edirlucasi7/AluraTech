@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import static com.br.levelup.model.Course.instructorNamesAndCourses;
-import static com.br.levelup.model.Course.totalOfCoursesByInstructor;
 import static com.br.levelup.model.SubCategory.*;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeEndTagsInHtml;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeStartTagsInHtml;
@@ -51,7 +50,7 @@ public class AluraTechCsv {
         System.out.println();
 
         System.out.println("------------------------------SubCategories Without Description-----------------------------");
-        List<SubCategory> onlyWithoutDescritpion = SubCategory.onlySubCategoriesWithoutDescription(subCategories);
+        List<SubCategory> onlyWithoutDescritpion = SubCategory.subCategoriesWithoutDescription(subCategories);
         onlyWithoutDescritpion.forEach(System.out::println);
 
         System.out.println("------------------------------Exists Private Course-----------------------------");
