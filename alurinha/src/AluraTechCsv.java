@@ -63,6 +63,7 @@ public class AluraTechCsv {
         System.out.println("------------------------------Active SubCategories With Description-----------------------------");
         System.out.println(activeSubCategoriesWithDescription(subCategories));
 
+        System.out.println("------------------------------Instructor Names And Courses-----------------------------");
         System.out.println(instructorNamesAndCourses(courses));
 
     }

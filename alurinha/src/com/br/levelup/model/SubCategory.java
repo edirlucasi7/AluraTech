@@ -80,9 +80,9 @@ public class SubCategory {
                 .sorted(Comparator.comparing(SubCategory::getOrder)).toList();
     }
 
-    public static List<SubCategory> activeSubCategoriesWithDescription(List<SubCategory> subCategories) {
+    public static long activeSubCategoriesWithDescription(List<SubCategory> subCategories) {
         List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
-        return activeSubCategories.stream().filter(SubCategory::verifyIfShortDescriptionIsNotEmpty).collect(Collectors.toList());
+        return activeSubCategories.stream().filter(SubCategory::verifyIfShortDescriptionIsNotEmpty).count();
     }
 
     public static boolean convertToBoolean(String stringActive) {
