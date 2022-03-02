@@ -110,7 +110,7 @@ public class Course {
                 (name1, name2) -> name1));
     }
 
-    public static long totalOfCoursesByInstructor(List<Course> courses, String instructorNames) {
+    private static long totalOfCoursesByInstructor(List<Course> courses, String instructorNames) {
         return courses.stream().filter(c -> instructorNames.equals(c.getInstructorName())).count();
     }
 
