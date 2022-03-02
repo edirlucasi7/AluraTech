@@ -2,7 +2,6 @@ package com.br.levelup.model;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
@@ -80,7 +79,7 @@ public class SubCategory {
                 .sorted(Comparator.comparing(SubCategory::getOrder)).toList();
     }
 
-    public static long activeSubCategoriesWithDescription(List<SubCategory> subCategories) {
+    public static long totalOfActiveSubCategoriesWithDescription(List<SubCategory> subCategories) {
         List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
         return activeSubCategories.stream().filter(SubCategory::verifyIfShortDescriptionIsNotEmpty).count();
     }
