@@ -105,13 +105,13 @@ public class Course {
 
     public static Map<String, Long> instructorNamesAndCourses(List<Course> courses) {
         return courses.stream().collect(Collectors.toMap(
-                c -> c.getInstructorName(),
+                Course::getInstructorName,
                 c -> totalOfCoursesByInstructor(courses, c.getInstructorName()),
                 (name1, name2) -> name1));
     }
 
-    private static long totalOfCoursesByInstructor(List<Course> courses, String instructorNames) {
-        return courses.stream().filter(c -> instructorNames.equals(c.getInstructorName())).count();
+    private static long totalOfCoursesByInstructor(List<Course> courses, String instructorName) {
+        return courses.stream().filter(c -> instructorName.equals(c.getInstructorName())).count();
     }
 
     @Override
