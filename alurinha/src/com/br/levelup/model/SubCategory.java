@@ -25,7 +25,7 @@ public class SubCategory {
     }
 
     public void setShortDescription(String shortDescription) {
-        cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be empty!");
+        cantBeNull(shortDescription);
         this.shortDescription = shortDescription;
     }
 
@@ -62,8 +62,12 @@ public class SubCategory {
         return active;
     }
 
-    public static String verifyDescriptionEmpty(String description) {
-        return "".equals(description) ? "Uninformed description" : description;
+    private boolean verifyIfShortDescriptionIsEmpty() {
+        return shortDescription.isEmpty();
+    }
+
+    private boolean verifyIfShortDescriptionIsNotEmpty() {
+        return !shortDescription.isEmpty();
     }
 
     public static Integer processingOrder(String stringOrder) {
@@ -75,9 +79,20 @@ public class SubCategory {
                 .sorted(Comparator.comparing(SubCategory::getOrder)).toList();
     }
 
+    public static long totalOfActiveSubCategoriesWithDescription(List<SubCategory> subCategories) {
+        List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
+        return activeSubCategories.stream().filter(SubCategory::verifyIfShortDescriptionIsNotEmpty).count();
+    }
+
     public static boolean convertToBoolean(String stringActive) {
         cantBeNullOrEmpty(stringActive);
         return "ATIVA".equals(stringActive);
+    }
+
+    public static List<SubCategory> subCategoriesWithoutDescription(List<SubCategory> subCategories) {
+        return subCategories
+                .stream()
+                .filter(SubCategory::verifyIfShortDescriptionIsEmpty).toList();
     }
 
     @Override

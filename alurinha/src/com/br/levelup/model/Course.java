@@ -1,5 +1,8 @@
 package com.br.levelup.model;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
@@ -39,6 +42,10 @@ public class Course {
         return estimatedTimeInHours;
     }
 
+    private boolean getVisibility() {
+        return this.visibility;
+    }
+
     public void setVisibility(boolean visibility) {
         this.visibility = visibility;
     }
@@ -66,6 +73,14 @@ public class Course {
         return this.subCategory;
     }
 
+    public Instructor getInstructor() {
+        return this.instructor;
+    }
+
+    public String getInstructorName() {
+        return this.instructor.getName();
+    }
+
     private void isBetween(Integer field, String error) {
         if(!minimumAndMaximumValue(field, ESTIMATED_TIME_MIN, ESTIMATED_TIME_MAX)) {
             throw new IllegalArgumentException(error);
@@ -78,6 +93,25 @@ public class Course {
 
     public static boolean convertToBoolean(String stringActive) {
         return "PRIVADA".equals(stringActive);
+    }
+
+    public static boolean existsPrivate(List<Course> courses) {
+        return courses.stream().anyMatch(Course::getVisibility);
+    }
+
+    public static Set<Instructor> instructorsNames(List<Course> courses) {
+        return courses.stream().map(Course::getInstructor).collect(Collectors.toSet());
+    }
+
+    public static Map<String, Long> instructorNamesAndCourses(List<Course> courses) {
+        return courses.stream().collect(Collectors.toMap(
+                Course::getInstructorName,
+                c -> totalOfCoursesByInstructor(courses, c.getInstructorName()),
+                (name1, name2) -> name1));
+    }
+
+    private static long totalOfCoursesByInstructor(List<Course> courses, String instructorName) {
+        return courses.stream().filter(c -> instructorName.equals(c.getInstructorName())).count();
     }
 
     @Override
