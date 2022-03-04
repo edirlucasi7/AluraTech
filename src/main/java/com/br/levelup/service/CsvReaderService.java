@@ -4,20 +4,20 @@ import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;
 import com.br.levelup.model.Instructor;
 import com.br.levelup.model.SubCategory;
+import com.br.levelup.model.utils.ValidatorUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
-
-import static com.br.levelup.model.SubCategory.processingOrder;
-import static com.br.levelup.model.utils.ValidatorUtils.cantBeNull;
-import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 public class CsvReaderService {
 
     public static List<Category> readCategories(String file) throws IOException {
-        cantBeNullOrEmpty(file);
+        ValidatorUtils.cantBeNullOrEmpty(file);
 
         List<Category> categories = new ArrayList<>();
 
@@ -39,8 +39,8 @@ public class CsvReaderService {
     }
 
     public static List<SubCategory> csvReaderSubCategory(List<Category> categories, String file) throws IOException {
-        cantBeNull(categories);
-        cantBeNullOrEmpty(file);
+        ValidatorUtils.cantBeNull(categories);
+        ValidatorUtils.cantBeNullOrEmpty(file);
 
         List<SubCategory> subCategories = new ArrayList<>();
 
@@ -64,8 +64,8 @@ public class CsvReaderService {
     }
 
     public static List<Course> csvReaderCourse(List<SubCategory> subCategories, String file) throws IOException {
-        cantBeNull(subCategories);
-        cantBeNullOrEmpty(file);
+        ValidatorUtils.cantBeNull(subCategories);
+        ValidatorUtils.cantBeNullOrEmpty(file);
 
         List<Course> courses = new ArrayList<>();
 
@@ -91,12 +91,12 @@ public class CsvReaderService {
     }
 
     private static Scanner csvReader(String filePath) throws IOException {
-        cantBeNullOrEmpty(filePath);
+        ValidatorUtils.cantBeNullOrEmpty(filePath);
         return new Scanner(new File(filePath));
     }
 
     private static Category buildCategory(Scanner lineScanner) {
-        cantBeNull(lineScanner);
+        ValidatorUtils.cantBeNull(lineScanner);
 
         String name = lineScanner.next().trim();
         String code = lineScanner.next().trim();
@@ -121,11 +121,11 @@ public class CsvReaderService {
     }
 
     private static SubCategory buildSubCategory(List<Category> categories, Scanner lineScanner) {
-        cantBeNull(lineScanner);
+        ValidatorUtils.cantBeNull(lineScanner);
 
         String name = lineScanner.next();
         String code = lineScanner.next();
-        Integer order = processingOrder(lineScanner.next());
+        Integer order = SubCategory.processingOrder(lineScanner.next());
         String description = lineScanner.next();
 
         boolean active = SubCategory.convertToBoolean(lineScanner.next());
@@ -146,7 +146,7 @@ public class CsvReaderService {
     }
 
     private static Course buildCourse(List<SubCategory> subCategories, Scanner lineScanner) {
-        cantBeNull(lineScanner);
+        ValidatorUtils.cantBeNull(lineScanner);
 
         String name = lineScanner.next().trim();
         String code = lineScanner.next().trim();

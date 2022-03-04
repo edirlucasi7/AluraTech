@@ -74,13 +74,13 @@ public class SubCategory {
         return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
     }
 
-    public static List<SubCategory> activeSubCategories(List<SubCategory> subCategories) {
+    public static List<SubCategory> activeSubCategoriesSortedByOrder(List<SubCategory> subCategories) {
         return subCategories.stream().filter(SubCategory::isActive)
                 .sorted(Comparator.comparing(SubCategory::getOrder)).toList();
     }
 
     public static long totalOfActiveSubCategoriesWithDescription(List<SubCategory> subCategories) {
-        List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
+        List<SubCategory> activeSubCategories = activeSubCategoriesSortedByOrder(subCategories);
         return activeSubCategories.stream().filter(SubCategory::verifyIfShortDescriptionIsNotEmpty).count();
     }
 

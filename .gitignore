@@ -1,4 +1,4 @@
 bin/
 AluraTech.iml
 .idea
-out/
+target/

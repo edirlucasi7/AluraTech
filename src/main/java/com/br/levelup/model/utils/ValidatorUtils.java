@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class ValidatorUtils {
 
-    private static final Pattern CODE_FORMAT = Pattern.compile("^[a-z0-9-]*$");
+    private static final Pattern CODE_FORMAT = Pattern.compile("^[a-z-]*$");
     private static final Pattern CODE_COLOR_HEXADECIMAL_FORMAT = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
 
     public static void cantBeNull(Object object) {

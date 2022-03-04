@@ -1,3 +1,5 @@
+package com.br.levelup;
+
 import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;
 import com.br.levelup.model.SubCategory;
@@ -19,9 +21,9 @@ public class AluraTechCsv {
 
     public static void main(String[] args) throws IOException {
 
-        List<Category> categories = readCategories("alurinha/planilha-dados-escola - Categoria.csv");
-        List<SubCategory> subCategories = csvReaderSubCategory(categories, "alurinha/planilha-dados-escola - Subcategoria.csv");
-        List<Course> courses = csvReaderCourse(subCategories, "alurinha/planilha-dados-escola - Curso.csv");
+        List<Category> categories = readCategories("planilha-dados-escola - Categoria.csv");
+        List<SubCategory> subCategories = csvReaderSubCategory(categories, "planilha-dados-escola - Subcategoria.csv");
+        List<Course> courses = csvReaderCourse(subCategories, "planilha-dados-escola - Curso.csv");
 
         categories.forEach(System.out::println);
         System.out.println("----------------------------------------------------------------------------------------------");
@@ -29,10 +31,10 @@ public class AluraTechCsv {
         System.out.println("----------------------------------------------------------------------------------------------");
         courses.forEach(System.out::println);
 
-        try (PrintWriter ps = new PrintWriter("alurinha/categoria.html", "UTF-8");
+        try (PrintWriter ps = new PrintWriter("categoria.html", "UTF-8");
              BufferedWriter bw = new BufferedWriter(ps)) {
 
-                List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
+                List<SubCategory> activeSubCategories = activeSubCategoriesSortedByOrder(subCategories);
 
                 writeStartTagsInHtml(bw);
 
