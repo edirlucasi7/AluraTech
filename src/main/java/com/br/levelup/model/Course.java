@@ -22,8 +22,8 @@ public class Course {
     private SubCategory subCategory;
 
     public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
-        cantBeNull(name, "The field name should not be null!");
-        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
+        cantBeNullOrEmpty(name, "The field name should not be empty!");
+        containOnlyLettersLowercaseAndDash(code, "The field code must not be out of lowercase letters and dash format!");
         isBetween(estimatedTimeInHours, "The field stimated time should not be out of time range!");
         cantBeNull(instructor);
         cantBeNull(subCategory, "The object subCategory should not be null!");
@@ -91,8 +91,8 @@ public class Course {
         return "".equals(skills) ? "Uninformed skills" : skills;
     }
 
-    public static boolean convertToBoolean(String stringActive) {
-        return "PRIVADA".equals(stringActive);
+    public static boolean convertToBoolean(String stringVisibility) {
+        return "PRIVADA".equals(stringVisibility);
     }
 
     public static boolean existsPrivate(List<Course> courses) {

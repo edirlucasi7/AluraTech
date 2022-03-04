@@ -27,11 +27,11 @@ public class ValidatorUtils {
         }
     }
 
-    public static void containOnlyLettersLowercaseAndNumbersAndDash(String field) {
-        containOnlyLettersLowercaseAndNumbersAndDash(field, "The field code must not be out of lowercase letters, numbers and dash format!");
+    public static void containOnlyLettersLowercaseAndDash(String field) {
+        containOnlyLettersLowercaseAndDash(field, "The field code must not be out of lowercase letters and dash format!");
     }
 
-    public static void containOnlyLettersLowercaseAndNumbersAndDash(String field, String errorMessage) {
+    public static void containOnlyLettersLowercaseAndDash(String field, String errorMessage) {
         if(field == null || !CODE_FORMAT.matcher(field).matches()) {
             throw new IllegalArgumentException(errorMessage);
         }

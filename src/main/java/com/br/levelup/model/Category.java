@@ -18,7 +18,7 @@ public class Category {
     public Category(String name, String code) {
         cantBeNullOrEmpty(name, "The field name should not be null or empty!");
         cantBeNullOrEmpty(code, "The field code should not be null or empty!");
-        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
+        containOnlyLettersLowercaseAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
         this.name = name;
         this.code = code;
     }

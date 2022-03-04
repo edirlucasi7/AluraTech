@@ -1,7 +1,5 @@
 package com.br.levelup.model.utils;
 
-import static com.br.levelup.model.utils.ValidatorUtils.cantBeLessZero;
-
 public class EstimateValuesUtils {
 
     public static boolean minimumAndMaximumValue(Integer value, Integer minimum, Integer maximum) {

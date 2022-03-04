@@ -17,7 +17,7 @@ public class SubCategory {
 
     public SubCategory(String name, String code, Category category) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
-        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code should not be empty!");
+        containOnlyLettersLowercaseAndDash(code, "The field code should not be empty!");
         cantBeNull(category, "The object category should not be null!");
         this.name = name;
         this.code = code;

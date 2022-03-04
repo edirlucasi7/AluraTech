@@ -12,7 +12,7 @@ public abstract class Activity {
 
     public Activity(String title, String code, Section section) {
         cantBeNullOrEmpty(title, "The field title should not be empty!");
-        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
+        containOnlyLettersLowercaseAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
         cantBeNull(section, "The object section should not be null!");
         this.title = title;
         this.code = code;
