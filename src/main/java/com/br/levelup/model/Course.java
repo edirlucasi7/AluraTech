@@ -38,6 +38,26 @@ public class Course {
         return name;
     }
 
+    public String getCode() {
+        return this.code;
+    }
+
+    public boolean isVisibility() {
+        return visibility;
+    }
+
+    public String getTargetAudience() {
+        return targetAudience;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public String getDevelopedSkills() {
+        return developedSkills;
+    }
+
     public Integer getEstimatedTimeInHours() {
         return estimatedTimeInHours;
     }
@@ -71,6 +91,10 @@ public class Course {
 
     public SubCategory getSubCategory() {
         return this.subCategory;
+    }
+
+    public String getSubCategoryCode() {
+        return this.subCategory.getCode();
     }
 
     public Instructor getInstructor() {

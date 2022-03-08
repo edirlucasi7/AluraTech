@@ -58,12 +58,16 @@ public class Category {
         return colorCode;
     }
 
+    public Integer getOrder() {
+        return order;
+    }
+
     public void setShortDescription(String shortDescription) {
         cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be null or empty!");
         this.shortDescription = shortDescription;
     }
 
-    private boolean isActive() {
+    public boolean isActive() {
         return this.active;
     }
 

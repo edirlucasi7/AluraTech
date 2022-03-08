@@ -6,16 +6,19 @@ import com.br.levelup.model.SubCategory;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.List;
 
 import static com.br.levelup.model.Course.instructorNamesAndCourses;
-import static com.br.levelup.model.SubCategory.*;
+import static com.br.levelup.model.SubCategory.activeSubCategoriesSortedByOrder;
+import static com.br.levelup.model.SubCategory.totalOfActiveSubCategoriesWithDescription;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeEndTagsInHtml;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeStartTagsInHtml;
 import static com.br.levelup.service.CsvReaderService.*;
 import static com.br.levelup.service.HtmlWriterService.writeHtmlCategory;
 import static com.br.levelup.service.HtmlWriterService.writeHtmlSubCategory;
+import static com.br.levelup.service.WriteDataScript.*;
 
 public class AluraTechCsv {
 
@@ -67,6 +70,15 @@ public class AluraTechCsv {
 
         System.out.println("------------------------------Instructor Names And Courses-----------------------------");
         System.out.println(instructorNamesAndCourses(courses));
+
+        try(PrintStream ps = new PrintStream("/home/icety/IdeaProjects/AluraTech/src/main/resources/script.sql")) {
+
+            writeCategoryDataLoads(ps, "planilha-dados-escola - Categoria.csv");
+            writeSubCategoryDataLoads(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv");
+            writeCourseDataLoads(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv",
+                    "planilha-dados-escola - Curso.csv");
+
+        }
 
     }
 
