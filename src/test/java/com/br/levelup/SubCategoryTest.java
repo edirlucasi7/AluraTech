@@ -21,9 +21,15 @@ public class SubCategoryTest {
             new SubCategory("Banco de dados", "algebra-relacional", category), new SubCategory("UX",
                     "design-visual", category));
 
+    @Test
+    void should_add_new_subcategory() {
+        SubCategory subCategory = new SubCategory("Banco de dados", "sql-server", category);
+        Assertions.assertNotNull(subCategory);
+    }
+
     @ParameterizedTest
     @NullAndEmptySource
-    void should_return_invalid_name_argument(String name) {
+    void should_retrieve_invalid_name_argument(String name) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Category(name, "java-1"));
     }
@@ -43,27 +49,15 @@ public class SubCategoryTest {
     }
 
     @Test
-    void should_return_order_equals_zero() {
-        String stringOrder = "";
-        Assertions.assertEquals(0, processingOrder(stringOrder));
-    }
-
-    @Test
-    void should_return_order_equals_parameter() {
-        String stringOrder = "10";
-        Assertions.assertEquals(10, processingOrder(stringOrder));
-    }
-
-    @Test
     void should_retrieve_all_active_subcategories_sorted_by_order() {
         AtomicInteger counter = new AtomicInteger();
 
         expectedSubCategories.stream().forEach(s -> s.setActive(true));
         expectedSubCategories.stream().forEach(s -> s.setOrder(counter.getAndIncrement()));
-        List<SubCategory> activeSubCategories = activeSubCategoriesSortedByOrder(expectedSubCategories);
+        List<SubCategory> activeSubCategoriesSortedByOrder = activeSubCategoriesSortedByOrder(expectedSubCategories);
 
-        Assertions.assertNotNull(activeSubCategories);
-        Assertions.assertEquals(expectedSubCategories, activeSubCategories);
+        Assertions.assertNotNull(activeSubCategoriesSortedByOrder);
+        Assertions.assertEquals(expectedSubCategories, activeSubCategoriesSortedByOrder);
     }
 
     @Test
@@ -89,11 +83,20 @@ public class SubCategoryTest {
 
     @ParameterizedTest
     @CsvSource({
+            "'', 0",
+            "10, 10"
+    })
+    void should_retrieve_correctly_order(String order, String expectedStringOrder) {
+        Assertions.assertEquals(expectedStringOrder, processingOrder(order).toString());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
             "ATIVA, true",
             "INATIVA, false",
             "OUTRA COISA, false"
     })
-    void should_return_correctly_active(String active, boolean expectedActive) {
+    void should_retrieve_correctly_active(String active, boolean expectedActive) {
         Assertions.assertEquals(expectedActive, convertToBoolean(active));
     }
 

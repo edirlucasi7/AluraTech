@@ -1,6 +1,7 @@
 package com.br.levelup.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
@@ -18,9 +19,23 @@ public class Category {
     public Category(String name, String code) {
         cantBeNullOrEmpty(name, "The field name should not be null or empty!");
         cantBeNullOrEmpty(code, "The field code should not be null or empty!");
-        containOnlyLettersLowercaseAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
+        containOnlyLettersLowercaseAndDash(code, "The field code must not be out of lowercase letters and dash format!");
         this.name = name;
         this.code = code;
+    }
+
+    public Category(String name, String code, String colorCode) {
+        this(name, code);
+        isHexadecimal(colorCode);
+        this.colorCode = colorCode;
+    }
+
+    public Category(String name, String code, int order, String shortDescription, boolean active, String imageUrl, String colorCode) {
+        this(name, code, colorCode);
+        this.shortDescription = shortDescription;
+        this.order = order;
+        this.active = active;
+        this.imageUrl = imageUrl;
     }
 
     public String getCode() {
@@ -81,6 +96,19 @@ public class Category {
 
     public static List<Category> activeCategories(List<Category> categories) {
         return categories.stream().filter(Category::isActive).toList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(name, category.name) && Objects.equals(code, category.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code);
     }
 
     @Override

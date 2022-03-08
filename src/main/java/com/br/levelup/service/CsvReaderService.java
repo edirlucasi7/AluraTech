@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class CsvReaderService {
 
-    public static List<Category> readCategories(String file) throws IOException {
+    public static List<Category> csvReaderCategories(String file) throws IOException {
         ValidatorUtils.cantBeNullOrEmpty(file);
 
         List<Category> categories = new ArrayList<>();

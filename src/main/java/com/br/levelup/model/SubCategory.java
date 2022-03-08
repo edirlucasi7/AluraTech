@@ -2,6 +2,7 @@ package com.br.levelup.model;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
@@ -17,7 +18,7 @@ public class SubCategory {
 
     public SubCategory(String name, String code, Category category) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
-        containOnlyLettersLowercaseAndDash(code, "The field code should not be empty!");
+        containOnlyLettersLowercaseAndDash(code);
         cantBeNull(category, "The object category should not be null!");
         this.name = name;
         this.code = code;
@@ -93,6 +94,19 @@ public class SubCategory {
         return subCategories
                 .stream()
                 .filter(SubCategory::verifyIfShortDescriptionIsEmpty).toList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SubCategory that = (SubCategory) o;
+        return Objects.equals(name, that.name) && Objects.equals(code, that.code) && Objects.equals(category, that.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code, category);
     }
 
     @Override

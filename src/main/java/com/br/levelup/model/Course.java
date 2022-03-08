@@ -16,9 +16,9 @@ public class Course {
     private Integer estimatedTimeInHours;
     private boolean visibility;
     private String targetAudience;
-    private Instructor instructor;
     private String resume;
     private String developedSkills;
+    private Instructor instructor;
     private SubCategory subCategory;
 
     public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
@@ -112,6 +112,19 @@ public class Course {
 
     private static long totalOfCoursesByInstructor(List<Course> courses, String instructorName) {
         return courses.stream().filter(c -> instructorName.equals(c.getInstructorName())).count();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(name, course.name) && Objects.equals(code, course.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code);
     }
 
     @Override

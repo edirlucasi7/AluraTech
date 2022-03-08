@@ -6,18 +6,41 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
 import static com.br.levelup.model.Category.*;
+import static com.br.levelup.model.SubCategory.processingOrder;
 
 public class CategoryTest {
 
+    @Test
+    void should_add_new_category() {
+        Category category = new Category("Devops", "dev-iniciante");
+
+        Assertions.assertNotNull(category);
+    }
+
     @ParameterizedTest
     @NullAndEmptySource
-    void should_return_invalid_name_argument(String name) {
+    void should_retrieve_invalid_name_argument(String name) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Category(name, "java-1"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"!5D7B76", "#25", "1555#"})
+    void should_retrieve_color_code_argument(String colorCode) {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> new Category("Programacao", "java-iniciante", colorCode));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"#5D7B76", "#47B11F", "#A52C8E"})
+    void should_retrieve_invalid_color_code_argument(String colorCode) {
+        Category category = new Category("Programacao", "java-iniciante", colorCode);
+        Assertions.assertNotNull(category);
     }
 
     @ParameterizedTest
@@ -27,16 +50,13 @@ public class CategoryTest {
                 () -> new Category("Programacao", code));
     }
 
-    @Test
-    void should_return_order_equals_zero() {
-        String stringOrder = "";
-        Assertions.assertEquals(0, processingOrder(stringOrder));
-    }
-
-    @Test
-    void should_return_order_equals_parameter() {
-        String stringOrder = "10";
-        Assertions.assertEquals(10, processingOrder(stringOrder));
+    @ParameterizedTest
+    @CsvSource({
+            "'', 0",
+            "10, 10"
+    })
+    void should_retrieve_correctly_order(String order, String expectedStringOrder) {
+        Assertions.assertEquals(expectedStringOrder, processingOrder(order).toString());
     }
 
     @Test
@@ -54,7 +74,8 @@ public class CategoryTest {
     @ParameterizedTest
     @CsvSource({
             "ATIVA, true",
-            "INATIVA, false"
+            "INATIVA, false",
+            "OUTRA COISA, false"
     })
     void should_return_correctly_active(String active, boolean expectedActive) {
         Assertions.assertEquals(expectedActive, convertToBoolean(active));
