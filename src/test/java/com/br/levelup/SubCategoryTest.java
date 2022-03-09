@@ -10,75 +10,91 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.br.levelup.model.SubCategory.*;
 
 public class SubCategoryTest {
 
     private Category category = new Category("Programacao", "java");
-    private List<SubCategory> expectedSubCategories = List.of(new SubCategory("Programacao", "java-oo", category),
-            new SubCategory("Banco de dados", "algebra-relacional", category), new SubCategory("UX",
-                    "design-visual", category));
 
     @Test
-    void should_add_new_subcategory() {
+    void should_build_new_subcategory() {
         SubCategory subCategory = new SubCategory("Banco de dados", "sql-server", category);
         Assertions.assertNotNull(subCategory);
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void should_retrieve_invalid_name_argument(String name) {
+    void should_throw_exception_when_name_is_invalid(String name) {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new Category(name, "java-1"));
+                () -> new Category(name, "java-a"));
     }
 
     @ParameterizedTest
     @CsvSource({"Java", "java-*", "java1", "java 1"})
-    void should_validate_code_invalid_argument(String code) {
+    void should_throw_exception_when_code_is_invalid(String code) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Category("Programacao", code));
     }
 
     @ParameterizedTest
     @NullSource
-    void should_validate_category_null_argument(Category category) {
+    void should_throw_exception_when_category_is_null(Category category) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new SubCategory("Programacao", "java-oo", category));
     }
 
     @Test
     void should_retrieve_all_active_subcategories_sorted_by_order() {
-        AtomicInteger counter = new AtomicInteger();
+        SubCategory activeSubCategory1 = new SubCategory("Programacao", "java-oo", category);
+        SubCategory activeSubCategory2 = new SubCategory("Devops", "devops", category);
+        SubCategory inactiveSubCategory = new SubCategory("Business", "renda-variavel", category);
+        List<SubCategory> subCategories = List.of(activeSubCategory1, activeSubCategory2, inactiveSubCategory);
 
-        expectedSubCategories.stream().forEach(s -> s.setActive(true));
-        expectedSubCategories.stream().forEach(s -> s.setOrder(counter.getAndIncrement()));
-        List<SubCategory> activeSubCategoriesSortedByOrder = activeSubCategoriesSortedByOrder(expectedSubCategories);
+        activeSubCategory1.setActive(true);
+        activeSubCategory2.setActive(true);
+        activeSubCategory1.setOrder(1);
+        activeSubCategory2.setOrder(2);
 
-        Assertions.assertNotNull(activeSubCategoriesSortedByOrder);
-        Assertions.assertEquals(expectedSubCategories, activeSubCategoriesSortedByOrder);
+        List<SubCategory> activeSubCategoriesSortedByOrder = activeSubCategoriesSortedByOrder(subCategories);
+
+        Assertions.assertFalse(activeSubCategoriesSortedByOrder.isEmpty());
+        Assertions.assertEquals(subCategories.subList(0, 2), activeSubCategoriesSortedByOrder);
     }
 
     @Test
     void should_retrieve_the_total_of_active_subcategories_with_description() {
-        AtomicInteger counter = new AtomicInteger();
+        SubCategory activeSubCategory1 = new SubCategory("Programacao", "java-oo", category);
+        SubCategory activeSubCategory2 = new SubCategory("Devops", "devops", category);
+        SubCategory inactiveSubCategory = new SubCategory("Business", "renda-variavel", category);
+        List<SubCategory> subCategories = List.of(activeSubCategory2, activeSubCategory1, inactiveSubCategory);
 
-        expectedSubCategories.stream().forEach(s -> s.setActive(true));
-        expectedSubCategories.stream().forEach(s -> s.setOrder(counter.getAndIncrement()));
-        expectedSubCategories.stream().forEach(s -> s.setShortDescription("description"));
-        long total = totalOfActiveSubCategoriesWithDescription(expectedSubCategories);
+        activeSubCategory1.setActive(true);
+        activeSubCategory2.setActive(true);
+        activeSubCategory1.setOrder(2);
+        activeSubCategory2.setOrder(1);
+        activeSubCategory1.setShortDescription("description");
+        activeSubCategory2.setShortDescription("description");
 
-        Assertions.assertEquals(3, total);
+        long total = totalOfActiveSubCategoriesWithDescription(subCategories);
+
+        Assertions.assertEquals(2, total);
     }
 
     @Test
     void should_retrieve_all_subcategories_without_description() {
-        expectedSubCategories.stream().forEach(s -> s.setShortDescription(""));
-        List<SubCategory> activeSubCategories = subCategoriesWithoutDescription(expectedSubCategories);
+        SubCategory subCategoryWithoutDescription1 = new SubCategory("Programacao", "java-oo", category);
+        SubCategory subCategoryWithoutDescription2 = new SubCategory("Devops", "devops", category);
+        SubCategory subCategoryWithDescription = new SubCategory("Business", "renda-variavel", category);
+        List<SubCategory> subCategories = List.of(subCategoryWithoutDescription1, subCategoryWithoutDescription2, subCategoryWithDescription);
 
-        Assertions.assertNotNull(activeSubCategories);
-        Assertions.assertEquals(expectedSubCategories, activeSubCategories);
+        subCategoryWithoutDescription1.setShortDescription("");
+        subCategoryWithoutDescription2.setShortDescription("");
+        subCategoryWithDescription.setShortDescription("description");
+
+        List<SubCategory> subCategoriesWithDescription = subCategoriesWithoutDescription(subCategories);
+
+        Assertions.assertEquals(subCategories.subList(0, 2), subCategoriesWithDescription);
     }
 
     @ParameterizedTest

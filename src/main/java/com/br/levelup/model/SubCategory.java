@@ -91,6 +91,7 @@ public class SubCategory {
     }
 
     public static List<SubCategory> subCategoriesWithoutDescription(List<SubCategory> subCategories) {
+        cantBeNull(subCategories);
         return subCategories
                 .stream()
                 .filter(SubCategory::verifyIfShortDescriptionIsEmpty).toList();

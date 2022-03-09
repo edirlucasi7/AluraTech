@@ -11,34 +11,40 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 
 import static com.br.levelup.model.Category.*;
-import static com.br.levelup.model.SubCategory.processingOrder;
+import static com.br.levelup.model.Category.processingOrder;
 
 public class CategoryTest {
 
     @Test
-    void should_add_new_category() {
+    void should_build_new_category() {
         Category category = new Category("Devops", "dev-iniciante");
-
         Assertions.assertNotNull(category);
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void should_retrieve_invalid_name_argument(String name) {
+    void should_throw_exception_when_name_is_invalid(String name) {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new Category(name, "java-1"));
+                () -> new Category(name, "java-a"));
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void should_throw_exception_when_code_is_invalid(String code) {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> new Category("Programacao", code));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"!5D7B76", "#25", "1555#"})
-    void should_retrieve_color_code_argument(String colorCode) {
+    void should_throw_exception_when_colors_code_is_invalid(String colorCode) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Category("Programacao", "java-iniciante", colorCode));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"#5D7B76", "#47B11F", "#A52C8E"})
-    void should_retrieve_invalid_color_code_argument(String colorCode) {
+    void should_retrieve_when_colors_code_is_valid(String colorCode) {
         Category category = new Category("Programacao", "java-iniciante", colorCode);
         Assertions.assertNotNull(category);
     }
@@ -61,14 +67,17 @@ public class CategoryTest {
 
     @Test
     void should_retrieve_all_active_categories() {
-        List<Category> expectedCategories = List.of(new Category("Programacao", "java-oo"),
-                new Category("Banco de dados", "algebra-relacional"), new Category("UX", "design-visual"));
+        Category activeCategory1 = new Category("Programacao", "java-oo");
+        Category activeCategory2 = new Category("Banco de dados", "algebra-relacional");
+        Category inactiveCategory = new Category("Banco de dados", "algebra-relacional");
+        List<Category> categories = List.of(activeCategory1, activeCategory2, inactiveCategory);
 
-        expectedCategories.stream().forEach(c -> c.setActive(true));
-        List<Category> activeCategories = activeCategories(expectedCategories);
+        activeCategory1.setActive(true);
+        activeCategory2.setActive(true);
+        List<Category> activeCategories = activeCategories(categories);
 
-        Assertions.assertNotNull(activeCategories);
-        Assertions.assertEquals(expectedCategories, activeCategories);
+        Assertions.assertEquals(categories.subList(0, 2), activeCategories);
+        Assertions.assertNotEquals(false, activeCategories.contains(inactiveCategory));
     }
 
     @ParameterizedTest

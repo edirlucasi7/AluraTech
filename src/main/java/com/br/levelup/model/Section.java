@@ -13,7 +13,7 @@ public class Section {
 
     public Section(String name, String code, Course course) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
-        containOnlyLettersLowercaseAndDash(code, "The field code should not be out of format!");
+        containOnlyLettersLowercaseAndNumbersAndDash(code);
         cantBeNull(course, "The object course should not be null!");
         this.name = name;
         this.code = code;

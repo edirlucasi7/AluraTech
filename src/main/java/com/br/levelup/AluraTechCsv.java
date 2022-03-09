@@ -73,9 +73,9 @@ public class AluraTechCsv {
 
         try(PrintStream ps = new PrintStream("/home/icety/IdeaProjects/AluraTech/src/main/resources/script.sql")) {
 
-            writeCategoryDataLoads(ps, "planilha-dados-escola - Categoria.csv");
-            writeSubCategoryDataLoads(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv");
-            writeCourseDataLoads(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv",
+            loadCategoryData(ps, "planilha-dados-escola - Categoria.csv");
+            loadSubCategoryData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv");
+            loadCourseData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv",
                     "planilha-dados-escola - Curso.csv");
 
         }

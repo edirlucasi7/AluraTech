@@ -23,7 +23,7 @@ public class Course {
 
     public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
-        containOnlyLettersLowercaseAndDash(code, "The field code must not be out of lowercase letters and dash format!");
+        containOnlyLettersLowercaseAndNumbersAndDash(code);
         isBetween(estimatedTimeInHours, "The field stimated time should not be out of time range!");
         cantBeNull(instructor);
         cantBeNull(subCategory, "The object subCategory should not be null!");
@@ -116,11 +116,11 @@ public class Course {
     }
 
     public static boolean convertToBoolean(String stringVisibility) {
-        return "PRIVADA".equals(stringVisibility);
+        return "PÚBLICA".equals(stringVisibility);
     }
 
     public static boolean existsPrivate(List<Course> courses) {
-        return courses.stream().anyMatch(Course::getVisibility);
+        return courses.stream().anyMatch(c -> c.getVisibility() == false);
     }
 
     public static Set<Instructor> instructorsNames(List<Course> courses) {

@@ -16,21 +16,15 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.br.levelup.model.Course.*;
-import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
 
 public class CourseTest {
-
-    private static final Integer ESTIMATED_TIME_MIN = 1;
-    private static final Integer ESTIMATED_TIME_MAX = 20;
 
     private Instructor instructorGuilherme = new Instructor("Guilherme");
     private Category category = new Category("Programacao", "java-io");
     private SubCategory subCategory = new SubCategory("OO", "heranca", category);
-    private List<Course> courses = List.of(new Course("OO", "oo-iniciante", 10, instructorGuilherme, subCategory),
-            new Course("Java-io", "java-io", 15, instructorGuilherme, subCategory));
 
     @Test
-    void should_add_new_course() {
+    void should_build_new_course() {
         Course course = new Course("Java", "java", 12, instructorGuilherme, subCategory);
         Assertions.assertNotNull(course);
     }
@@ -50,6 +44,15 @@ public class CourseTest {
     }
 
     @ParameterizedTest
+    @CsvSource({
+            "0, false", "21, false"
+    })
+    void should_throw_exception_when_estimated_time_in_hours_is_invalid(String code) {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> new Category("Java", code));
+    }
+
+    @ParameterizedTest
     @NullSource
     void should_validate_instructor_null_argument(Instructor instructor) {
         Assertions.assertThrows(IllegalArgumentException.class,
@@ -63,22 +66,16 @@ public class CourseTest {
                 () -> new Course("OO", "oo-iniciante", 10, instructorGuilherme, subCategory));
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "0, false", "1, true",
-            "2, true", "19, true",
-            "20, true", "21, false"
-    })
-    void should_validate_estimated_time_in_hours(Integer estimatedTimeInHours, boolean expectedResult) {
-        Assertions.assertEquals(expectedResult, minimumAndMaximumValue(estimatedTimeInHours, ESTIMATED_TIME_MIN,
-                ESTIMATED_TIME_MAX));
-    }
-
     @Test
     void should_retrieve_all_private_courses() {
-        courses.forEach(c -> c.setVisibility(true));
-        boolean existsPrivateCourse = existsPrivate(courses);
+        Course course1 = new Course("OO", "oo-iniciante", 10, instructorGuilherme, subCategory);
+        Course course2 = new Course("Java-io", "java-io", 15, instructorGuilherme, subCategory);
+        List<Course> courses = List.of(course1, course2);
 
+        course1.setVisibility(false);
+        course2.setVisibility(true);
+
+        boolean existsPrivateCourse = existsPrivate(courses);
         Assertions.assertTrue(existsPrivateCourse);
     }
 
@@ -92,12 +89,16 @@ public class CourseTest {
         Set<Instructor> expectedInstructors = Set.of(new Instructor("Guilherme"), new Instructor("Thais"));
         Set<Instructor> instructorsNames = instructorsNames(courses);
 
-        Assertions.assertEquals(expectedInstructors, instructorsNames);
+        Assertions.assertTrue(instructorsNames.contains(instructorThais));
     }
 
     @Test
     void should_retrieve_all_instructors_and_number_of_courses() {
-        Map<String, Long> expectedInstructorAndCourses = Map.of("Guilherme", 2l);
+        Instructor instructorThais = new Instructor("Thais");
+        List<Course> courses = List.of(new Course("OO", "oo-iniciante", 10, instructorGuilherme, subCategory),
+                new Course("Java-io", "java-io", 15, instructorGuilherme, subCategory),
+                new Course("Mysql", "mysql-iniciante", 8, instructorThais, subCategory));
+        Map<String, Long> expectedInstructorAndCourses = Map.of("Guilherme", 2l, "Thais", 1l);
 
         Map<String, Long> instructorsAndCourses = instructorNamesAndCourses(courses);
 
@@ -106,8 +107,8 @@ public class CourseTest {
 
     @ParameterizedTest
     @CsvSource({
-            "PRIVADA, true",
-            "PUBLICO, false",
+            "PRIVADA, false",
+            "PÚBLICA, true",
             "OUTRA COISA, false"
     })
     void should_return_correctly_active(String active, boolean expectedActive) {

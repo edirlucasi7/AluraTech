@@ -12,7 +12,7 @@ import static com.br.levelup.service.CsvReaderService.*;
 
 public class WriteDataScript {
 
-    public static void writeCategoryDataLoads(PrintStream ps, String file) throws IOException {
+    public static void loadCategoryData(PrintStream ps, String file) throws IOException {
         List<Category> categories = csvReaderCategories(file);
 
         categories.forEach(category -> {
@@ -28,7 +28,7 @@ public class WriteDataScript {
 
     }
 
-    public static void writeSubCategoryDataLoads(PrintStream ps, String categoryFile, String subCategoryFile) throws IOException {
+    public static void loadSubCategoryData(PrintStream ps, String categoryFile, String subCategoryFile) throws IOException {
         List<Category> categories = csvReaderCategories(categoryFile);
         List<SubCategory> subCategories = csvReaderSubCategory(categories, subCategoryFile);
 
@@ -48,8 +48,8 @@ public class WriteDataScript {
         });
     }
 
-    public static void writeCourseDataLoads(PrintStream ps, String categoryFile, String subCategoryFile,
-                                                 String courseFile) throws IOException {
+    public static void loadCourseData(PrintStream ps, String categoryFile, String subCategoryFile,
+                                      String courseFile) throws IOException {
         List<Category> categories = csvReaderCategories(categoryFile);
         List<SubCategory> subCategories = csvReaderSubCategory(categories, subCategoryFile);
         List<Course> courses = csvReaderCourse(subCategories, courseFile);
