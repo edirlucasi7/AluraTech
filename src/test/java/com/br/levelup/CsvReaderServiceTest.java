@@ -20,24 +20,17 @@ public class CsvReaderServiceTest {
     private static List<Course> courses;
 
     @BeforeAll
-    static void initialize() throws IOException {
+    static void setUp() throws IOException {
         categories = csvReaderCategories("planilha-dados-escola - Categoria.csv");
-        subCategories = csvReaderSubCategory(categories,"planilha-dados-escola - Subcategoria.csv");
-        courses = csvReaderCourse(subCategories, "planilha-dados-escola - Curso.csv");
-    }
-
-    @Test
-    void should_validate_category_list_size() throws IOException {
         Assertions.assertEquals(3, categories.size());
-    }
-
-    @Test
-    void should_validate_course_list_size() throws IOException {
+        subCategories = csvReaderSubCategory(categories,"planilha-dados-escola - Subcategoria.csv");
+        Assertions.assertEquals(5, subCategories.size());
+        courses = csvReaderCourse(subCategories, "planilha-dados-escola - Curso.csv");
         Assertions.assertEquals(4, courses.size());
     }
 
     @Test
-    void should_validate_existing_category() throws IOException {
+    void should_validate_existing_category() {
         Category category = new Category("Programação", "programacao", 1, "Programe nas principais linguagens e plataformas. Iniciantes são bem vindos nos cursos de lógica e JavaScript.",
                 true, "https://www.alura.com.br/assets/api/formacoes/categorias/512/programacao-transparent.png",
                 "#00c86f");
@@ -46,7 +39,7 @@ public class CsvReaderServiceTest {
     }
 
     @Test
-    void should_validate_existing_subcategory() throws IOException {
+    void should_validate_existing_subcategory() {
         SubCategory subCategory = new SubCategory("PHP", "php", new Category("Programação", "programacao"));
         subCategory.setOrder(3);
         subCategory.setShortDescription("PHP é uma das linguagens mais utilizadas.");
@@ -55,7 +48,7 @@ public class CsvReaderServiceTest {
     }
 
     @Test
-    void should_validate_existing_course() throws IOException {
+    void should_validate_existing_course() {
         Course course = new Course("Git e Github para Sobrevivência", "git-e-github-para-sobrevivencia",
                 6, new Instructor("Mario Souto"),
                 new SubCategory("builds-e-controle-de-versao", "builds-e-controle-de-versao", new Category("devops",
