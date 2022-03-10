@@ -18,7 +18,7 @@ public class SubCategory {
 
     public SubCategory(String name, String code, Category category) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
-        containOnlyLettersLowercaseAndDash(code);
+        containOnlyLettersLowerCaseAndDash(code);
         cantBeNull(category, "The object category should not be null!");
         this.name = name;
         this.code = code;
@@ -64,11 +64,11 @@ public class SubCategory {
     }
 
     private boolean verifyIfShortDescriptionIsEmpty() {
-        return shortDescription.isEmpty();
+        return this.shortDescription == null || this.shortDescription.isEmpty() ? true : false;
     }
 
     private boolean verifyIfShortDescriptionIsNotEmpty() {
-        return !shortDescription.isEmpty();
+        return this.shortDescription == null || this.shortDescription.isEmpty() ? false : true;
     }
 
     public static Integer processingOrder(String stringOrder) {

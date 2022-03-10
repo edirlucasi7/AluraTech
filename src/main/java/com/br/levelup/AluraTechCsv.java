@@ -24,9 +24,9 @@ public class AluraTechCsv {
 
     public static void main(String[] args) throws IOException {
 
-        List<Category> categories = csvReaderCategories("planilha-dados-escola - Categoria.csv");
-        List<SubCategory> subCategories = csvReaderSubCategory(categories, "planilha-dados-escola - Subcategoria.csv");
-        List<Course> courses = csvReaderCourse(subCategories, "planilha-dados-escola - Curso.csv");
+        List<Category> categories = readCategories("planilha-dados-escola - Categoria.csv");
+        List<SubCategory> subCategories = readSubCategories(categories, "planilha-dados-escola - Subcategoria.csv");
+        List<Course> courses = readCourses(subCategories, "planilha-dados-escola - Curso.csv");
 
         categories.forEach(System.out::println);
         System.out.println("----------------------------------------------------------------------------------------------");
@@ -71,7 +71,7 @@ public class AluraTechCsv {
         System.out.println("------------------------------Instructor Names And Courses-----------------------------");
         System.out.println(instructorNamesAndCourses(courses));
 
-        try(PrintStream ps = new PrintStream("/home/icety/IdeaProjects/AluraTech/src/main/resources/script.sql")) {
+        try(PrintStream ps = new PrintStream("src/main/resources/script.sql")) {
 
             loadCategoryData(ps, "planilha-dados-escola - Categoria.csv");
             loadSubCategoryData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv");

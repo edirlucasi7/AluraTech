@@ -1,29 +1,29 @@
-INSERT INTO category (name, code, order_in_category, short_description, active, image_url, color_code)
+INSERT INTO category (name, code, order_visualization, short_description, active, image_url, color_code)
 VALUES("Programação", "programacao", 1, "Programe nas principais linguagens e plataformas. Iniciantes são bem vindos nos cursos de lógica e JavaScript.", true, "https://www.alura.com.br/assets/api/formacoes/categorias/512/programacao-transparent.png", "#00c86f");
 
-INSERT INTO category (name, code, order_in_category, short_description, active, image_url, color_code)
+INSERT INTO category (name, code, order_visualization, short_description, active, image_url, color_code)
 VALUES("DevOps", "devops", 2, "Aprenda Git. Entenda a entrega contínua. Estude Linux. Gerencie servidores na nuvem. Explore o mundo de Internet das coisas e da robótica.", true, "https://www.alura.com.br/assets/api/formacoes/categorias/512/devops-transparent.png", "#f16165");
 
-INSERT INTO category (name, code, order_in_category, short_description, active, image_url, color_code)
+INSERT INTO category (name, code, order_visualization, short_description, active, image_url, color_code)
 VALUES("Business", "business", null, "Agilidade. Práticas de gestão. Vendas. Liderança.", false, "https://www.alura.com.br/assets/api/formacoes/categorias/512/inovacao-gestao-transparent.png", "#ff8c2a");
 
-INSERT INTO subcategory (name, code, order_in_subcategory, short_description, active, category_id)
+INSERT INTO subcategory (name, code, order_visualization, short_description, active, category_id)
 VALUES("Java", "java", 1, "Java é uma grande plataforma presente em todo lugar: de corporações à bancos e governo. Desenvolva aplicações robustas com um back-end e construa APIs.", true, (SELECT id FROM category where code = 'programacao')
 );
 
-INSERT INTO subcategory (name, code, order_in_subcategory, short_description, active, category_id)
+INSERT INTO subcategory (name, code, order_visualization, short_description, active, category_id)
 VALUES("Java e Persistência", "java-e-persistencia", 2, "", true, (SELECT id FROM category where code = 'programacao')
 );
 
-INSERT INTO subcategory (name, code, order_in_subcategory, short_description, active, category_id)
+INSERT INTO subcategory (name, code, order_visualization, short_description, active, category_id)
 VALUES("PHP", "php", 3, "PHP é uma das linguagens mais utilizadas.", true, (SELECT id FROM category where code = 'programacao')
 );
 
-INSERT INTO subcategory (name, code, order_in_subcategory, short_description, active, category_id)
+INSERT INTO subcategory (name, code, order_visualization, short_description, active, category_id)
 VALUES("COBOL", "cobol", null, "", false, (SELECT id FROM category where code = 'programacao')
 );
 
-INSERT INTO subcategory (name, code, order_in_subcategory, short_description, active, category_id)
+INSERT INTO subcategory (name, code, order_visualization, short_description, active, category_id)
 VALUES("Builds e Controle de versão", "builds-e-controle-de-versao", 1, "As ferramentas mais utilizadas para desenvolvimento: controle de versão com Git e Github além de build da aplicação através de Maven.", true, (SELECT id FROM category where code = 'devops')
 );
 

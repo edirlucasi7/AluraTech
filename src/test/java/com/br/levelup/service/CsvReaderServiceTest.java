@@ -1,4 +1,4 @@
-package com.br.levelup;
+package com.br.levelup.service;
 
 import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;
@@ -21,11 +21,11 @@ public class CsvReaderServiceTest {
 
     @BeforeAll
     static void setUp() throws IOException {
-        categories = csvReaderCategories("planilha-dados-escola - Categoria.csv");
+        categories = readCategories("planilha-dados-escola - Categoria.csv");
         Assertions.assertEquals(3, categories.size());
-        subCategories = csvReaderSubCategory(categories,"planilha-dados-escola - Subcategoria.csv");
+        subCategories = readSubCategories(categories,"planilha-dados-escola - Subcategoria.csv");
         Assertions.assertEquals(5, subCategories.size());
-        courses = csvReaderCourse(subCategories, "planilha-dados-escola - Curso.csv");
+        courses = readCourses(subCategories, "planilha-dados-escola - Curso.csv");
         Assertions.assertEquals(4, courses.size());
     }
 

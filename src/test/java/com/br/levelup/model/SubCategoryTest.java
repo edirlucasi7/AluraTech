@@ -1,7 +1,5 @@
-package com.br.levelup;
+package com.br.levelup.model;
 
-import com.br.levelup.model.Category;
-import com.br.levelup.model.SubCategory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,19 +25,19 @@ public class SubCategoryTest {
     @NullAndEmptySource
     void should_throw_exception_when_name_is_invalid(String name) {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new Category(name, "java-a"));
+                () -> new SubCategory(name, "java-a", category));
     }
 
     @ParameterizedTest
     @CsvSource({"Java", "java-*", "java1", "java 1"})
     void should_throw_exception_when_code_is_invalid(String code) {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new Category("Programacao", code));
+                () -> new SubCategory("Programacao", code, category));
     }
 
     @ParameterizedTest
     @NullSource
-    void should_throw_exception_when_category_is_null(Category category) {
+    void should_throw_exception_when_subcategory_is_null(Category category) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new SubCategory("Programacao", "java-oo", category));
     }
@@ -67,12 +65,16 @@ public class SubCategoryTest {
         SubCategory activeSubCategory1 = new SubCategory("Programacao", "java-oo", category);
         SubCategory activeSubCategory2 = new SubCategory("Devops", "devops", category);
         SubCategory inactiveSubCategory = new SubCategory("Business", "renda-variavel", category);
-        List<SubCategory> subCategories = List.of(activeSubCategory2, activeSubCategory1, inactiveSubCategory);
+        SubCategory subCategoryWithNullDescription = new SubCategory("Programacao", "ruby", category);
+        List<SubCategory> subCategories = List.of(activeSubCategory2, activeSubCategory1, inactiveSubCategory,
+                subCategoryWithNullDescription);
 
         activeSubCategory1.setActive(true);
         activeSubCategory2.setActive(true);
+        subCategoryWithNullDescription.setActive(true);
         activeSubCategory1.setOrder(2);
         activeSubCategory2.setOrder(1);
+        subCategoryWithNullDescription.setOrder(3);
         activeSubCategory1.setShortDescription("description");
         activeSubCategory2.setShortDescription("description");
 
@@ -86,15 +88,20 @@ public class SubCategoryTest {
         SubCategory subCategoryWithoutDescription1 = new SubCategory("Programacao", "java-oo", category);
         SubCategory subCategoryWithoutDescription2 = new SubCategory("Devops", "devops", category);
         SubCategory subCategoryWithDescription = new SubCategory("Business", "renda-variavel", category);
-        List<SubCategory> subCategories = List.of(subCategoryWithoutDescription1, subCategoryWithoutDescription2, subCategoryWithDescription);
+        SubCategory subCategoryWithNullDescription = new SubCategory("Programacao", "ruby", category);
+        List<SubCategory> subCategories = List.of(subCategoryWithoutDescription1, subCategoryWithoutDescription2,
+                subCategoryWithDescription, subCategoryWithNullDescription);
 
         subCategoryWithoutDescription1.setShortDescription("");
         subCategoryWithoutDescription2.setShortDescription("");
         subCategoryWithDescription.setShortDescription("description");
 
-        List<SubCategory> subCategoriesWithDescription = subCategoriesWithoutDescription(subCategories);
+        List<SubCategory> subCategoriesWithoutDescription = subCategoriesWithoutDescription(subCategories);
 
-        Assertions.assertEquals(subCategories.subList(0, 2), subCategoriesWithDescription);
+        Assertions.assertTrue(subCategoriesWithoutDescription.size() == 3);
+        Assertions.assertTrue(subCategoriesWithoutDescription.containsAll(List.of(subCategoryWithoutDescription1,
+                subCategoryWithoutDescription2)));
+        Assertions.assertFalse(subCategoriesWithoutDescription.contains(subCategoryWithDescription));
     }
 
     @ParameterizedTest

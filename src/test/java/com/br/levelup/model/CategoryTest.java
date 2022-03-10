@@ -1,6 +1,5 @@
-package com.br.levelup;
+package com.br.levelup.model;
 
-import com.br.levelup.model.Category;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,7 +10,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 
 import static com.br.levelup.model.Category.*;
-import static com.br.levelup.model.Category.processingOrder;
 
 public class CategoryTest {
 
@@ -76,8 +74,9 @@ public class CategoryTest {
         activeCategory2.setActive(true);
         List<Category> activeCategories = activeCategories(categories);
 
-        Assertions.assertEquals(categories.subList(0, 2), activeCategories);
-        Assertions.assertNotEquals(false, activeCategories.contains(inactiveCategory));
+        Assertions.assertTrue(activeCategories.size() == 2);
+        Assertions.assertTrue(activeCategories.containsAll(List.of(activeCategory1, activeCategory2)));
+        Assertions.assertTrue(activeCategories.contains(inactiveCategory));
     }
 
     @ParameterizedTest

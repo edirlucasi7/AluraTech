@@ -13,12 +13,12 @@ import static com.br.levelup.service.CsvReaderService.*;
 public class WriteDataScript {
 
     public static void loadCategoryData(PrintStream ps, String file) throws IOException {
-        List<Category> categories = csvReaderCategories(file);
+        List<Category> categories = readCategories(file);
 
         categories.forEach(category -> {
 
             String sqlTemplate = """
-                    INSERT INTO category (name, code, order_in_category, short_description, active, image_url, color_code) 
+                    INSERT INTO category (name, code, order_visualization, short_description, active, image_url, color_code) 
                     VALUES("%s", "%s", %d, "%s", %b, "%s", "%s");              
                     """.formatted(category.getName(), category.getCode(), category.getOrder(), category.getShortDescription(),
                     category.isActive(), category.getImageUrl(), category.getColorCode());
@@ -29,8 +29,8 @@ public class WriteDataScript {
     }
 
     public static void loadSubCategoryData(PrintStream ps, String categoryFile, String subCategoryFile) throws IOException {
-        List<Category> categories = csvReaderCategories(categoryFile);
-        List<SubCategory> subCategories = csvReaderSubCategory(categories, subCategoryFile);
+        List<Category> categories = readCategories(categoryFile);
+        List<SubCategory> subCategories = readSubCategories(categories, subCategoryFile);
 
         subCategories.forEach(subCategory -> {
 
@@ -39,7 +39,7 @@ public class WriteDataScript {
                     """.formatted(subCategory.getCategoryCode());
 
             String sqlTemplate = """
-                    INSERT INTO subcategory (name, code, order_in_subcategory, short_description, active, category_id) 
+                    INSERT INTO subcategory (name, code, order_visualization, short_description, active, category_id) 
                     VALUES("%s", "%s", %d, "%s", %b, %s);              
                     """.formatted(subCategory.getName(), subCategory.getCode(), subCategory.getOrder(), subCategory.getShortDescription(),
                     subCategory.isActive(), sqlFindCategoryByCode);
@@ -50,9 +50,9 @@ public class WriteDataScript {
 
     public static void loadCourseData(PrintStream ps, String categoryFile, String subCategoryFile,
                                       String courseFile) throws IOException {
-        List<Category> categories = csvReaderCategories(categoryFile);
-        List<SubCategory> subCategories = csvReaderSubCategory(categories, subCategoryFile);
-        List<Course> courses = csvReaderCourse(subCategories, courseFile);
+        List<Category> categories = readCategories(categoryFile);
+        List<SubCategory> subCategories = readSubCategories(categories, subCategoryFile);
+        List<Course> courses = readCourses(subCategories, courseFile);
 
         courses.forEach(course -> {
 

@@ -1,4 +1,4 @@
-package com.br.levelup;
+package com.br.levelup.model.utils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,21 +36,21 @@ public class ValidatorUtilsTest {
     @CsvSource({"Java", "java-*", "java1", "java 1"})
     void should_throw_exception_when_code_format_is_invalid(String field) {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> containOnlyLettersLowercaseAndDash(field));
+                () -> containOnlyLettersLowerCaseAndDash(field));
     }
 
     @ParameterizedTest
     @CsvSource({"Java", "java-*", "ja)va(", "java!#"})
     void should_throw_exception_when_code_format_with_numbers_is_invalid(String field) {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> containOnlyLettersLowercaseAndDash(field));
+                () -> containOnlyLettersLowerCaseAndDash(field));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"!5D7B76", "#25", "1555#"})
     void should_throw_exception_when_hexadecimal_is_invalid(String field) {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> containOnlyLettersLowercaseAndDash(field));
+                () -> containOnlyLettersLowerCaseAndDash(field));
     }
 
 }

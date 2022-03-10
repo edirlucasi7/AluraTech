@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class CsvReaderService {
 
-    public static List<Category> csvReaderCategories(String file) throws IOException {
+    public static List<Category> readCategories(String file) throws IOException {
         ValidatorUtils.cantBeNullOrEmpty(file);
 
         List<Category> categories = new ArrayList<>();
@@ -38,7 +38,7 @@ public class CsvReaderService {
         return categories;
     }
 
-    public static List<SubCategory> csvReaderSubCategory(List<Category> categories, String file) throws IOException {
+    public static List<SubCategory> readSubCategories(List<Category> categories, String file) throws IOException {
         ValidatorUtils.cantBeNull(categories);
         ValidatorUtils.cantBeNullOrEmpty(file);
 
@@ -63,7 +63,7 @@ public class CsvReaderService {
         return subCategories;
     }
 
-    public static List<Course> csvReaderCourse(List<SubCategory> subCategories, String file) throws IOException {
+    public static List<Course> readCourses(List<SubCategory> subCategories, String file) throws IOException {
         ValidatorUtils.cantBeNull(subCategories);
         ValidatorUtils.cantBeNullOrEmpty(file);
 

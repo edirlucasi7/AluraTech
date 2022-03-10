@@ -1,4 +1,4 @@
-package com.br.levelup;
+package com.br.levelup.model;
 
 import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;

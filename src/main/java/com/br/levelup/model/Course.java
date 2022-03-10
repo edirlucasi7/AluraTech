@@ -23,7 +23,7 @@ public class Course {
 
     public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
-        containOnlyLettersLowercaseAndNumbersAndDash(code);
+        containOnlyLettersLowerCaseAndNumbersAndDash(code);
         isBetween(estimatedTimeInHours, "The field stimated time should not be out of time range!");
         cantBeNull(instructor);
         cantBeNull(subCategory, "The object subCategory should not be null!");
