@@ -2,6 +2,7 @@ package com.br.levelup.model;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
@@ -17,7 +18,7 @@ public class SubCategory {
 
     public SubCategory(String name, String code, Category category) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
-        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code should not be empty!");
+        containOnlyLettersLowerCaseAndDash(code);
         cantBeNull(category, "The object category should not be null!");
         this.name = name;
         this.code = code;
@@ -63,24 +64,24 @@ public class SubCategory {
     }
 
     private boolean verifyIfShortDescriptionIsEmpty() {
-        return shortDescription.isEmpty();
+        return this.shortDescription == null || this.shortDescription.isEmpty() ? true : false;
     }
 
     private boolean verifyIfShortDescriptionIsNotEmpty() {
-        return !shortDescription.isEmpty();
+        return this.shortDescription == null || this.shortDescription.isEmpty() ? false : true;
     }
 
     public static Integer processingOrder(String stringOrder) {
         return "".equals(stringOrder) ? 0 : Integer.parseInt(stringOrder);
     }
 
-    public static List<SubCategory> activeSubCategories(List<SubCategory> subCategories) {
+    public static List<SubCategory> activeSubCategoriesSortedByOrder(List<SubCategory> subCategories) {
         return subCategories.stream().filter(SubCategory::isActive)
                 .sorted(Comparator.comparing(SubCategory::getOrder)).toList();
     }
 
     public static long totalOfActiveSubCategoriesWithDescription(List<SubCategory> subCategories) {
-        List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
+        List<SubCategory> activeSubCategories = activeSubCategoriesSortedByOrder(subCategories);
         return activeSubCategories.stream().filter(SubCategory::verifyIfShortDescriptionIsNotEmpty).count();
     }
 
@@ -90,9 +91,23 @@ public class SubCategory {
     }
 
     public static List<SubCategory> subCategoriesWithoutDescription(List<SubCategory> subCategories) {
+        cantBeNull(subCategories);
         return subCategories
                 .stream()
                 .filter(SubCategory::verifyIfShortDescriptionIsEmpty).toList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SubCategory that = (SubCategory) o;
+        return Objects.equals(name, that.name) && Objects.equals(code, that.code) && Objects.equals(category, that.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code, category);
     }
 
     @Override

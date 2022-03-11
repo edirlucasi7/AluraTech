@@ -1,27 +1,32 @@
+package com.br.levelup;
+
 import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;
 import com.br.levelup.model.SubCategory;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.List;
 
 import static com.br.levelup.model.Course.instructorNamesAndCourses;
-import static com.br.levelup.model.SubCategory.*;
+import static com.br.levelup.model.SubCategory.activeSubCategoriesSortedByOrder;
+import static com.br.levelup.model.SubCategory.totalOfActiveSubCategoriesWithDescription;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeEndTagsInHtml;
 import static com.br.levelup.model.utils.WriteHtmlUtils.writeStartTagsInHtml;
 import static com.br.levelup.service.CsvReaderService.*;
 import static com.br.levelup.service.HtmlWriterService.writeHtmlCategory;
 import static com.br.levelup.service.HtmlWriterService.writeHtmlSubCategory;
+import static com.br.levelup.service.WriteDataScript.*;
 
 public class AluraTechCsv {
 
     public static void main(String[] args) throws IOException {
 
-        List<Category> categories = readCategories("alurinha/planilha-dados-escola - Categoria.csv");
-        List<SubCategory> subCategories = csvReaderSubCategory(categories, "alurinha/planilha-dados-escola - Subcategoria.csv");
-        List<Course> courses = csvReaderCourse(subCategories, "alurinha/planilha-dados-escola - Curso.csv");
+        List<Category> categories = readCategories("planilha-dados-escola - Categoria.csv");
+        List<SubCategory> subCategories = readSubCategories(categories, "planilha-dados-escola - Subcategoria.csv");
+        List<Course> courses = readCourses(subCategories, "planilha-dados-escola - Curso.csv");
 
         categories.forEach(System.out::println);
         System.out.println("----------------------------------------------------------------------------------------------");
@@ -29,10 +34,10 @@ public class AluraTechCsv {
         System.out.println("----------------------------------------------------------------------------------------------");
         courses.forEach(System.out::println);
 
-        try (PrintWriter ps = new PrintWriter("alurinha/categoria.html", "UTF-8");
+        try (PrintWriter ps = new PrintWriter("categoria.html", "UTF-8");
              BufferedWriter bw = new BufferedWriter(ps)) {
 
-                List<SubCategory> activeSubCategories = activeSubCategories(subCategories);
+                List<SubCategory> activeSubCategories = activeSubCategoriesSortedByOrder(subCategories);
 
                 writeStartTagsInHtml(bw);
 
@@ -65,6 +70,15 @@ public class AluraTechCsv {
 
         System.out.println("------------------------------Instructor Names And Courses-----------------------------");
         System.out.println(instructorNamesAndCourses(courses));
+
+        try(PrintStream ps = new PrintStream("src/main/resources/script.sql")) {
+
+            loadCategoryData(ps, "planilha-dados-escola - Categoria.csv");
+            loadSubCategoryData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv");
+            loadCourseData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv",
+                    "planilha-dados-escola - Curso.csv");
+
+        }
 
     }
 

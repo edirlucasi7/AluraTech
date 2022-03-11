@@ -4,7 +4,8 @@ import java.util.regex.Pattern;
 
 public class ValidatorUtils {
 
-    private static final Pattern CODE_FORMAT = Pattern.compile("^[a-z0-9-]*$");
+    private static final Pattern CODE_FORMAT = Pattern.compile("^[a-z-]*$");
+    private static final Pattern CODE_FORMAT_WITH_NUMBER = Pattern.compile("^[a-z0-9-]*$");
     private static final Pattern CODE_COLOR_HEXADECIMAL_FORMAT = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
 
     public static void cantBeNull(Object object) {
@@ -27,12 +28,22 @@ public class ValidatorUtils {
         }
     }
 
-    public static void containOnlyLettersLowercaseAndNumbersAndDash(String field) {
-        containOnlyLettersLowercaseAndNumbersAndDash(field, "The field code must not be out of lowercase letters, numbers and dash format!");
+    public static void containOnlyLettersLowerCaseAndDash(String field) {
+        containOnlyLettersLowerCaseAndDash(field, "The field code must not be out of lowercase letters and dash format!");
     }
 
-    public static void containOnlyLettersLowercaseAndNumbersAndDash(String field, String errorMessage) {
+    public static void containOnlyLettersLowerCaseAndDash(String field, String errorMessage) {
         if(field == null || !CODE_FORMAT.matcher(field).matches()) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    public static void containOnlyLettersLowerCaseAndNumbersAndDash(String field) {
+        containOnlyLettersLowerCaseAndDash(field, "The field code must not be out of lowercase letters and numbers dash format!");
+    }
+
+    public static void containOnlyLettersLowerCaseAndNumbersAndDash(String field, String errorMessage) {
+        if(field == null || !CODE_FORMAT_WITH_NUMBER.matcher(field).matches()) {
             throw new IllegalArgumentException(errorMessage);
         }
     }

@@ -16,14 +16,14 @@ public class Course {
     private Integer estimatedTimeInHours;
     private boolean visibility;
     private String targetAudience;
-    private Instructor instructor;
     private String resume;
     private String developedSkills;
+    private Instructor instructor;
     private SubCategory subCategory;
 
     public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
-        cantBeNull(name, "The field name should not be null!");
-        containOnlyLettersLowercaseAndNumbersAndDash(code, "The field code must not be out of lowercase letters, numbers and dash format!");
+        cantBeNullOrEmpty(name, "The field name should not be empty!");
+        containOnlyLettersLowerCaseAndNumbersAndDash(code);
         isBetween(estimatedTimeInHours, "The field stimated time should not be out of time range!");
         cantBeNull(instructor);
         cantBeNull(subCategory, "The object subCategory should not be null!");
@@ -36,6 +36,26 @@ public class Course {
 
     public String getName() {
         return name;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public boolean isVisibility() {
+        return visibility;
+    }
+
+    public String getTargetAudience() {
+        return targetAudience;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public String getDevelopedSkills() {
+        return developedSkills;
     }
 
     public Integer getEstimatedTimeInHours() {
@@ -73,6 +93,10 @@ public class Course {
         return this.subCategory;
     }
 
+    public String getSubCategoryCode() {
+        return this.subCategory.getCode();
+    }
+
     public Instructor getInstructor() {
         return this.instructor;
     }
@@ -91,12 +115,12 @@ public class Course {
         return "".equals(skills) ? "Uninformed skills" : skills;
     }
 
-    public static boolean convertToBoolean(String stringActive) {
-        return "PRIVADA".equals(stringActive);
+    public static boolean convertToBoolean(String stringVisibility) {
+        return "PÚBLICA".equals(stringVisibility);
     }
 
     public static boolean existsPrivate(List<Course> courses) {
-        return courses.stream().anyMatch(Course::getVisibility);
+        return courses.stream().anyMatch(c -> c.getVisibility() == false);
     }
 
     public static Set<Instructor> instructorsNames(List<Course> courses) {
@@ -112,6 +136,19 @@ public class Course {
 
     private static long totalOfCoursesByInstructor(List<Course> courses, String instructorName) {
         return courses.stream().filter(c -> instructorName.equals(c.getInstructorName())).count();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(name, course.name) && Objects.equals(code, course.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code);
     }
 
     @Override
