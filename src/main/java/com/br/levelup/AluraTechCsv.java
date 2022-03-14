@@ -8,6 +8,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 
 import static com.br.levelup.model.Course.instructorNamesAndCourses;
@@ -19,6 +20,7 @@ import static com.br.levelup.service.CsvReaderService.*;
 import static com.br.levelup.service.HtmlWriterService.writeHtmlCategory;
 import static com.br.levelup.service.HtmlWriterService.writeHtmlSubCategory;
 import static com.br.levelup.service.WriteDataScript.*;
+import static com.br.levelup.service.WriteSqlQueries.*;
 
 public class AluraTechCsv {
 
@@ -77,6 +79,11 @@ public class AluraTechCsv {
             loadSubCategoryData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv");
             loadCourseData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv",
                     "planilha-dados-escola - Curso.csv");
+
+            getDataFromActiveCategories(ps);
+            getDataFromActiveSubCategories(ps);
+            getDataFromPublicCourses(ps);
+            getNamesFromSubCategoriesWithoutDescription(ps);
 
         }
 

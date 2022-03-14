@@ -35,7 +35,7 @@ public class WriteDataScript {
         subCategories.forEach(subCategory -> {
 
             String sqlFindCategoryByCode = """
-                    (SELECT id FROM category where code = '%s')                       
+                    (SELECT id FROM category where code = '%s')                      
                     """.formatted(subCategory.getCategoryCode());
 
             String sqlTemplate = """
