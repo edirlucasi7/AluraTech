@@ -26,7 +26,6 @@ public class InsertCourseWithJDBC {
         try(Connection connection = new ConnectionFactory().recoverConnection()) {
             CourseDAO courseDAO = new CourseDAO(connection);
             courseDAO.create(course);
-            System.out.println("Resource created: "+ course);
         }
 
     }

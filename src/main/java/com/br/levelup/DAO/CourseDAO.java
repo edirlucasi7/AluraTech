@@ -122,6 +122,7 @@ public class CourseDAO {
 
     private static String findSubCategoryNameById(Long subCategoryId, PreparedStatement stm2) throws SQLException {
         cantBeNull(subCategoryId);
+        cantBeNull(stm2);
         stm2.setLong(1, subCategoryId);
         stm2.execute();
 
@@ -130,7 +131,7 @@ public class CourseDAO {
             String subcategoryName = rst2.getString("name");
             return subcategoryName;
         }
-        return "Category Not found!";
+        throw new RuntimeException("Category Not found!");
     }
 
     private static Integer findSubCategoryIdByCode(String subCategoryCode, PreparedStatement stm2) throws SQLException {
