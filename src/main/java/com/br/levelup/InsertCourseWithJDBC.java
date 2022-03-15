@@ -13,9 +13,9 @@ public class InsertCourseWithJDBC {
 
     public static void main(String[] args) throws SQLException {
 
-        Instructor instructor = new Instructor("Thais");
+        Instructor instructor = new Instructor("Mario Souto");
         Category category = new Category("Design", "design");
-        SubCategory subCategory = new SubCategory("UX", "css", category);
+        SubCategory subCategory = new SubCategory("Java", "java", category);
         Course course = new Course("Curso Java para Data Science: primeiros passos", "java-design",
                 10, instructor, subCategory);
         course.setVisibility(false);
@@ -25,7 +25,7 @@ public class InsertCourseWithJDBC {
 
         try(Connection connection = new ConnectionFactory().recoverConnection()) {
             CourseDAO courseDAO = new CourseDAO(connection);
-            courseDAO.save(course);
+            courseDAO.create(course);
             System.out.println("Resource created: "+ course);
         }
 
