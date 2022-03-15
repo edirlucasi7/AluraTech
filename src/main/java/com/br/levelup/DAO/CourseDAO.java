@@ -97,6 +97,10 @@ public class CourseDAO {
     }
 
     private static void executeCreate(Course course, PreparedStatement stm, PreparedStatement stm2, PreparedStatement stm3) throws SQLException {
+        cantBeNull(course);
+        cantBeNull(stm);
+        cantBeNull(stm2);
+        cantBeNull(stm3);
         stm.setString(1, course.getName());
         stm.setString(2, course.getCode());
         stm.setInt(3, course.getEstimatedTimeInHours());
@@ -117,6 +121,7 @@ public class CourseDAO {
     }
 
     private static String findSubCategoryNameById(Long subCategoryId, PreparedStatement stm2) throws SQLException {
+        cantBeNull(subCategoryId);
         stm2.setLong(1, subCategoryId);
         stm2.execute();
 
@@ -129,6 +134,8 @@ public class CourseDAO {
     }
 
     private static Integer findSubCategoryIdByCode(String subCategoryCode, PreparedStatement stm2) throws SQLException {
+        cantBeNullOrEmpty(subCategoryCode);
+        cantBeNull(stm2);
         stm2.setString(1, subCategoryCode);
         stm2.execute();
 
@@ -141,6 +148,8 @@ public class CourseDAO {
     }
 
     private static Integer findInstructorIdByName(String instructorName, PreparedStatement stm3) throws SQLException {
+        cantBeNullOrEmpty(instructorName);
+        cantBeNull(stm3);
         stm3.setString(1, instructorName);
         stm3.execute();
 
