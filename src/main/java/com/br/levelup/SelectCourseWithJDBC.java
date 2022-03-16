@@ -25,9 +25,7 @@ public class SelectCourseWithJDBC {
             System.out.println("Courses: "+ courses);
 
             writeStartTagsInHtml(bw);
-
             writeHtmlPublicCourses(courses, bw);
-
             writeEndTagsInHtml(bw);
         }
     }
