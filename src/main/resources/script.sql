@@ -27,6 +27,14 @@ INSERT INTO subcategory (name, code, order_visualization, short_description, act
 VALUES("Builds e Controle de versão", "builds-e-controle-de-versao", 1, "As ferramentas mais utilizadas para desenvolvimento: controle de versão com Git e Github além de build da aplicação através de Maven.", true, (SELECT id FROM category where code = 'devops')
 );
 
+INSERT INTO instructor (name) VALUES("Mario Souto");
+
+INSERT INTO instructor (name) VALUES("Rodrigo Ferreira");
+
+INSERT INTO instructor (name) VALUES("Paulo Silveira");
+
+INSERT INTO instructor (name) VALUES("Alvaro Camilo");
+
 INSERT INTO course (name, code, estimated_time_in_hours, visibility, target_audience, instructor_id,
 resume, developed_skills, subcategory_id) VALUES("Git e Github para Sobrevivência", "git-e-github-para-sobrevivencia", 6, true, "Desenvolvedores em qualquer linguagem ou plataforma que desejam mais segurança para seus projetos com as ferramentas de controle de versão Git e GitHub.", (SELECT id FROM instructor where name = 'Mario Souto')
 , "-O que é Git? <br> *Introdução <br> *Para que serve Git? <br> *Utilidade de um VCS <br> *Instalando o Git <br> *Para saber mais: Instalação <br> *Repositórios <br> *Primeiros passos <br>  <br> -Iniciando os trabalhos <br> *Salvando alterações <br> *Primeira configuração do Git <br> *Para saber mais: git status <br> *Vendo o histórico <br> *Para saber mais: git log <br> *Ignorando arquivos <br> *Para saber mais: Quando commitar <br>  <br> -Compartilhando o trabalho <br> *Repositórios remotos <br> *Servidor Git <br> *Trabalhando com repositórios remotos <br> *Sincronizando os dados <br> *Compartilhamos as alterações <br> *GitHub <br> *Para saber mais: GitHub <br>  <br> -Trabalhando em equipe <br> *Branches <br> *Para saber mais: Ramificações <br> *Unindo o trabalho <br> *Merge de branches <br> *Atualizando a branch <br> *Rebase vs Merge <br> *Resolvendo conflitos <br> *Para saber mais: Conflitos com rebase <br>  <br> -Manipulando as versões <br> *Ctrl+Z no Git <br> *Desfazendo o trabalho <br> *Guardando para depois <br> *Salvando temporariamente <br> *Viajando no tempo <br> *Checkout <br>  <br> -Gerando entregas <br> *Vendo as alterações <br> *Exibição das mudanças com o diff <br> *Tags e releases <br> *Tags no GitHub <br> *Consolidando o seu conhecimento", "Descubra o que é Git e Github? <br> Entenda um sistema de controle de versão <br> Salve e recupere seu código em diferentes versões <br> Resolva merges e conflitos <br> Trabalhe com diferentes branches", (SELECT id FROM subcategory where code = 'builds-e-controle-de-versao')
@@ -55,24 +63,3 @@ SELECT * FROM course WHERE visibility = true;
 
 SELECT name FROM subcategory WHERE short_description IS NULL OR short_description = '';
 
--- os nomes e ordem das subcategorias ativas e que tem algum curso, na ordem
-SELECT DISTINCT s.name, s.order_visualization
-FROM subcategory s
-    INNER JOIN course c ON s.id = c.subcategory_id
-WHERE active ORDER BY s.order_visualization;
-
--- o nome e a quantidade de cursos do instrutor que tem mais cursos
-SELECT i.name, COUNT(*) AS quantidade_de_cursos
-FROM instructor i
-    INNER JOIN course c
-ON i.id = c.instructor_id
-GROUP BY name ORDER BY quantidade_de_cursos DESC LIMIT 1;
-
--- os nomes de todas as categorias ativas com a respectiva quantidade de cursos (públicos e privados) e total de horas
--- estimados dos cursos associados (sendo 0 se não existir nenhum curso)
-SELECT ca.name, COALESCE(COUNT(co.id), 0) AS quantidade_cursos, COALESCE(SUM(co.estimated_time_in_hours), 0) AS total_horas_cursos
-FROM category ca
-	LEFT JOIN subcategory s ON ca.id = s.category_id
-	LEFT JOIN course co ON s.id = co.subcategory_id
-WHERE ca.active = true
-GROUP BY ca.name;
