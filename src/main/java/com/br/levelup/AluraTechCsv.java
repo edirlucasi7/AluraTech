@@ -2,6 +2,7 @@ package com.br.levelup;
 
 import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;
+import com.br.levelup.model.Instructor;
 import com.br.levelup.model.SubCategory;
 
 import java.io.BufferedWriter;
@@ -19,6 +20,7 @@ import static com.br.levelup.service.CsvReaderService.*;
 import static com.br.levelup.service.HtmlWriterService.writeHtmlCategory;
 import static com.br.levelup.service.HtmlWriterService.writeHtmlSubCategory;
 import static com.br.levelup.service.WriteDataScript.*;
+import static com.br.levelup.service.WriteSqlQueries.*;
 
 public class AluraTechCsv {
 
@@ -26,6 +28,8 @@ public class AluraTechCsv {
 
         List<Category> categories = readCategories("planilha-dados-escola - Categoria.csv");
         List<SubCategory> subCategories = readSubCategories(categories, "planilha-dados-escola - Subcategoria.csv");
+        List<Instructor> instructors = List.of(new Instructor("Mario Souto"), new Instructor("Rodrigo Ferreira"),
+                new Instructor("Paulo Silveira"), new Instructor("Alvaro Camilo"));
         List<Course> courses = readCourses(subCategories, "planilha-dados-escola - Curso.csv");
 
         categories.forEach(System.out::println);
@@ -73,10 +77,15 @@ public class AluraTechCsv {
 
         try(PrintStream ps = new PrintStream("src/main/resources/script.sql")) {
 
-            loadCategoryData(ps, "planilha-dados-escola - Categoria.csv");
-            loadSubCategoryData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv");
-            loadCourseData(ps, "planilha-dados-escola - Categoria.csv", "planilha-dados-escola - Subcategoria.csv",
-                    "planilha-dados-escola - Curso.csv");
+            loadCategoryData(ps, categories);
+            loadSubCategoryData(ps, subCategories);
+            loadInstructorData(ps, instructors);
+            loadCourseData(ps, courses);
+
+            getDataFromActiveCategories(ps);
+            getDataFromActiveSubCategories(ps);
+            getDataFromPublicCourses(ps);
+            getNamesFromSubCategoriesWithoutDescription(ps);
 
         }
 

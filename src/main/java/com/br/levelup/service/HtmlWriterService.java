@@ -3,6 +3,7 @@ package com.br.levelup.service;
 import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;
 import com.br.levelup.model.SubCategory;
+import com.br.levelup.model.dto.CourseDTO;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -92,6 +93,46 @@ public class HtmlWriterService {
                              </table>
                 """;
         bw.write(closingHeaderSubCategory);
+    }
+
+    public static void writeHtmlPublicCourses(List<CourseDTO> publicCourses, BufferedWriter bw) throws IOException {
+        String startingHeaderPublicCourses = """
+                             <h4>Cursos Públicos:</h4>
+                             <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">Id</th>
+                                      <th scope="col">Nome: </th>
+                                      <th scope="col">Tempo de finalização: </th>
+                                      <th scope="col">Identificador da SubCategoria: </th>
+                                      <th scope="col">Nome da SubCategoria: </th>
+                                    </tr>
+                                </thead>
+                """;
+        bw.write(startingHeaderPublicCourses);
+
+        Iterator<CourseDTO> iteratorPublicCourses = publicCourses.iterator();
+        while(iteratorPublicCourses.hasNext()) {
+            CourseDTO nextPublicCourse = iteratorPublicCourses.next();
+            String bodyContentPublicCourses = """
+                                    <tbody>
+                                       <tr>
+                                         <td>%d</td>
+                                         <td>%s</td>
+                                         <td>%d</td>
+                                         <td>%d</td>
+                                         <td>%s</td>
+                                       </tr>
+                                    </tbody>        
+                    """.formatted(nextPublicCourse.getIdCourse(), nextPublicCourse.getName(), nextPublicCourse.getEstimatedTimeInHours(),
+                    nextPublicCourse.getSubCategoryDTO().getSubCategoryId(), nextPublicCourse.getSubCategoryDTO().getSubcategoryName());
+            bw.write(bodyContentPublicCourses);
+        }
+
+        String closingHeaderPublicCourses = """
+                             </table>
+                """;
+        bw.write(closingHeaderPublicCourses);
     }
 
     private static long numberOfCoursesByCategory(List<Course> courses, String categoryCode) {

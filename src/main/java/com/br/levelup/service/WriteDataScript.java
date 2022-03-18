@@ -2,18 +2,28 @@ package com.br.levelup.service;
 
 import com.br.levelup.model.Category;
 import com.br.levelup.model.Course;
+import com.br.levelup.model.Instructor;
 import com.br.levelup.model.SubCategory;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
-import static com.br.levelup.service.CsvReaderService.*;
-
 public class WriteDataScript {
 
-    public static void loadCategoryData(PrintStream ps, String file) throws IOException {
-        List<Category> categories = readCategories(file);
+    public static void loadInstructorData(PrintStream ps, List<Instructor> instructors) {
+
+        instructors.forEach(instructor -> {
+
+            String sqlTemplate = """
+                    INSERT INTO instructor (name) VALUES("%s");       
+                    """.formatted(instructor.getName());
+
+            ps.println(sqlTemplate);
+        });
+
+    }
+
+    public static void loadCategoryData(PrintStream ps, List<Category> categories) {
 
         categories.forEach(category -> {
 
@@ -28,14 +38,12 @@ public class WriteDataScript {
 
     }
 
-    public static void loadSubCategoryData(PrintStream ps, String categoryFile, String subCategoryFile) throws IOException {
-        List<Category> categories = readCategories(categoryFile);
-        List<SubCategory> subCategories = readSubCategories(categories, subCategoryFile);
+    public static void loadSubCategoryData(PrintStream ps, List<SubCategory> subCategories) {
 
         subCategories.forEach(subCategory -> {
 
             String sqlFindCategoryByCode = """
-                    (SELECT id FROM category where code = '%s')                       
+                    (SELECT id FROM category where code = '%s')                      
                     """.formatted(subCategory.getCategoryCode());
 
             String sqlTemplate = """
@@ -48,11 +56,7 @@ public class WriteDataScript {
         });
     }
 
-    public static void loadCourseData(PrintStream ps, String categoryFile, String subCategoryFile,
-                                      String courseFile) throws IOException {
-        List<Category> categories = readCategories(categoryFile);
-        List<SubCategory> subCategories = readSubCategories(categories, subCategoryFile);
-        List<Course> courses = readCourses(subCategories, courseFile);
+    public static void loadCourseData(PrintStream ps, List<Course> courses) {
 
         courses.forEach(course -> {
 
