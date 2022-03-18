@@ -125,7 +125,7 @@ public class HtmlWriterService {
                                        </tr>
                                     </tbody>        
                     """.formatted(nextPublicCourse.getIdCourse(), nextPublicCourse.getName(), nextPublicCourse.getEstimatedTimeInHours(),
-                    nextPublicCourse.getIdSubCategory(), nextPublicCourse.getSubcategoryName());
+                    nextPublicCourse.getSubCategoryDTO().getSubCategoryId(), nextPublicCourse.getSubCategoryDTO().getSubcategoryName());
             bw.write(bodyContentPublicCourses);
         }
 

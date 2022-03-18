@@ -2,18 +2,17 @@ package com.br.levelup.model.dto;
 
 public class CourseDTO {
 
-    private Long idCourse;
-    private String name;
-    private Integer estimatedTimeInHours;
-    private Long subCategoryId;
-    private String subcategoryName;
+    private final Long idCourse;
+    private final String name;
+    private final Integer estimatedTimeInHours;
+    private final SubCategoryDTO subCategoryDTO;
 
-    public CourseDTO(Long idCourse, String name, Integer estimatedTimeInHours, Long subCategoryId, String subcategoryName) {
+
+    public CourseDTO(Long idCourse, String name, Integer estimatedTimeInHours, SubCategoryDTO subCategoryDTO) {
         this.idCourse = idCourse;
         this.name = name;
         this.estimatedTimeInHours = estimatedTimeInHours;
-        this.subCategoryId = subCategoryId;
-        this.subcategoryName = subcategoryName;
+        this.subCategoryDTO = subCategoryDTO;
     }
 
     public Long getIdCourse() {
@@ -28,12 +27,8 @@ public class CourseDTO {
         return estimatedTimeInHours;
     }
 
-    public Long getIdSubCategory() {
-        return subCategoryId;
-    }
-
-    public String getSubcategoryName() {
-        return subcategoryName;
+    public SubCategoryDTO getSubCategoryDTO() {
+        return subCategoryDTO;
     }
 
     @Override
@@ -42,9 +37,7 @@ public class CourseDTO {
                 "idCourse=" + idCourse +
                 ", name='" + name + '\'' +
                 ", estimatedTimeInHours=" + estimatedTimeInHours +
-                ", subCategoryId=" + subCategoryId +
-                ", subcategoryName='" + subcategoryName + '\'' +
+                ", subCategoryDTO=" + subCategoryDTO +
                 '}';
     }
-
 }

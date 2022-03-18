@@ -2,6 +2,7 @@ package com.br.levelup.DAO;
 
 import com.br.levelup.model.Course;
 import com.br.levelup.model.dto.CourseDTO;
+import com.br.levelup.model.dto.SubCategoryDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class CourseDAO {
         List<CourseDTO> courses = new ArrayList<>();
 
         String sql = """
-                SELECT c.id, c.name, estimated_time_in_hours, s.id, s.name FROM course c
+                SELECT c.id, c.name, c.estimated_time_in_hours, s.id, s.name FROM course c
                 INNER JOIN subcategory s ON s.id = c.subcategory_id
                 WHERE visibility = true;
                 """;
@@ -66,8 +67,9 @@ public class CourseDAO {
             stm.execute();
             try (ResultSet rst = stm.getResultSet()) {
                 while (rst.next()) {
-                    CourseDTO courseDTO = new CourseDTO(rst.getLong(1), rst.getString(2),
-                            rst.getInt(3), rst.getLong(4), rst.getString(5));
+                    SubCategoryDTO subCategoryDTO = new SubCategoryDTO(rst.getLong("s.id"), rst.getString("s.name"));
+                    CourseDTO courseDTO = new CourseDTO(rst.getLong("c.id"), rst.getString("c.name"),
+                            rst.getInt("c.estimated_time_in_hours"), subCategoryDTO);
 
                     courses.add(courseDTO);
                 }
