@@ -1,19 +1,29 @@
 package com.br.levelup.model;
 
+import javax.persistence.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
+@Entity
+@Table(name = "subcategory")
 public class SubCategory {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String code;
+    @Column(name = "short_description", columnDefinition = "TEXT")
     private String shortDescription;
+    @Column(name = "study_guide", columnDefinition = "TEXT")
     private String studyGuide;
     private boolean active;
+    @Column(name = "order_visualization")
     private Integer order;
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
     public SubCategory(String name, String code, Category category) {

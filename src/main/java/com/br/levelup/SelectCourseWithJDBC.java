@@ -1,6 +1,6 @@
 package com.br.levelup;
 
-import com.br.levelup.DAO.CourseDAO;
+import com.br.levelup.dao.CourseDAO;
 import com.br.levelup.db.ConnectionFactory;
 import com.br.levelup.model.dto.CourseDTO;
 

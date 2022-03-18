@@ -5,7 +5,7 @@ CREATE TABLE category (
     short_description TEXT,
     study_guide TEXT,
     active BOOLEAN,
-    order_visualization SMALLINT UNSIGNED,
+    order_visualization INTEGER UNSIGNED,
     image_url VARCHAR(255),
     color_code VARCHAR(7)
 );
@@ -17,7 +17,7 @@ CREATE TABLE subcategory (
     short_description TEXT,
     study_guide TEXT,
     active BOOLEAN,
-    order_visualization SMALLINT UNSIGNED,
+    order_visualization INTEGER UNSIGNED,
     category_id BIGINT NOT NULL,
     FOREIGN KEY (category_id) REFERENCES category(id)
 );

@@ -1,11 +1,17 @@
 package com.br.levelup.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
+@Entity
+@Table(name = "instructor")
 public class Instructor {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
 
     public Instructor(String name) {

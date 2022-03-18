@@ -1,4 +1,4 @@
-package com.br.levelup.DAO;
+package com.br.levelup.dao;
 
 import com.br.levelup.model.Course;
 import com.br.levelup.model.dto.CourseDTO;

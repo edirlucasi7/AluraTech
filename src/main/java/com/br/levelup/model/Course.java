@@ -1,24 +1,36 @@
 package com.br.levelup.model;
 
+import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
+@Entity
+@Table(name = "course")
 public class Course {
 
     private static final Integer ESTIMATED_TIME_MIN = 1;
     private static final Integer ESTIMATED_TIME_MAX = 20;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String code;
+    @Column(name = "estimated_time_in_hours", columnDefinition = "TINYINT")
     private Integer estimatedTimeInHours;
     private boolean visibility;
+    @Column(name = "target_audience", columnDefinition = "TEXT")
     private String targetAudience;
+    @Column(columnDefinition = "TEXT")
     private String resume;
+    @Column(name = "developed_skills", columnDefinition = "TEXT")
     private String developedSkills;
+    @ManyToOne(fetch = FetchType.LAZY)
     private Instructor instructor;
+    @ManyToOne(fetch = FetchType.LAZY)
     private SubCategory subCategory;
 
     public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
