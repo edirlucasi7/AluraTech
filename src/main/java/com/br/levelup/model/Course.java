@@ -1,7 +1,10 @@
 package com.br.levelup.model;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
@@ -32,6 +35,9 @@ public class Course {
     private Instructor instructor;
     @ManyToOne(fetch = FetchType.LAZY)
     private SubCategory subCategory;
+
+    @Deprecated
+    public Course() { }
 
     public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
@@ -103,6 +109,14 @@ public class Course {
 
     public SubCategory getSubCategory() {
         return this.subCategory;
+    }
+
+    public Long getSubCategoryId() {
+        return this.subCategory.getId();
+    }
+
+    public String getSubCategoryName() {
+        return this.subCategory.getName();
     }
 
     public String getSubCategoryCode() {

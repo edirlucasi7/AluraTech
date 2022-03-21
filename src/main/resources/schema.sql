@@ -46,47 +46,45 @@ CREATE TABLE section (
       id BIGINT AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       code VARCHAR(255) UNIQUE NOT NULL,
-      order_visualization TINYINT UNSIGNED,
+      order_visualization INTEGER UNSIGNED,
       active BOOLEAN,
       test BOOLEAN,
       course_id BIGINT NOT NULL,
       FOREIGN KEY (course_id) REFERENCES course(id)
 );
 
-CREATE TABLE video (
+CREATE TABLE activity (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     code VARCHAR(255) UNIQUE NOT NULL,
-    url VARCHAR(255) NOT NULL,
-    duration_in_minutes SMALLINT,
-    transcription TEXT,
+    active BOOLEAN,
+    order_visualization INTEGER UNSIGNED,
     section_id BIGINT NOT NULL,
     FOREIGN KEY (section_id) REFERENCES section(id)
+);
+
+CREATE TABLE video (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(255) NOT NULL,
+    duration_in_minutes TINYINT UNSIGNED,
+    transcription TEXT
 );
 
 CREATE TABLE explanation (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    code VARCHAR(255) UNIQUE NOT NULL,
-    text VARCHAR(255) NOT NULL,
-    section_id BIGINT NOT NULL,
-    FOREIGN KEY (section_id) REFERENCES section(id)
+    text VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE question (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    code VARCHAR(255) UNIQUE NOT NULL,
     enunciation VARCHAR(255) NOT NULL,
-    type ENUM('SINGLE_ANSWER', 'MULTIPLE_ANSWERS', 'TRUE_OR_FALSE') DEFAULT 'SINGLE_ANSWER',
-    section_id BIGINT NOT NULL,
-    FOREIGN KEY (section_id) REFERENCES section(id)
+    type ENUM('SINGLE_ANSWER', 'MULTIPLE_ANSWERS', 'TRUE_OR_FALSE') DEFAULT 'SINGLE_ANSWER'
 );
 
 CREATE TABLE alternative (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     text VARCHAR(255) UNIQUE NOT NULL,
-    order_visualization TINYINT UNSIGNED,
+    order_visualization INTEGER UNSIGNED,
     is_correct BOOLEAN,
     justification VARCHAR(255),
     question_id BIGINT NOT NULL,

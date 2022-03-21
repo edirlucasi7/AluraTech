@@ -12,8 +12,11 @@ public class InstructorDAO {
         this.em = em;
     }
 
-    public void create(Instructor instructor) {
-        this.em.persist(instructor);
+    public Instructor findByName(String name) {
+        String jpql = "SELECT i FROM Instructor i WHERE i.name = :name";
+        return em.createQuery(jpql, Instructor.class)
+                .setParameter("name", name)
+                .getSingleResult();
     }
 
 }

@@ -26,6 +26,10 @@ public class SubCategory {
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
+    @Deprecated
+    public SubCategory() {
+    }
+
     public SubCategory(String name, String code, Category category) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
         containOnlyLettersLowerCaseAndDash(code);
@@ -33,6 +37,10 @@ public class SubCategory {
         this.name = name;
         this.code = code;
         this.category = category;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setShortDescription(String shortDescription) {
@@ -59,6 +67,10 @@ public class SubCategory {
 
     public String getName() {
         return name;
+    }
+
+    public Long getCategoryId() {
+        return category.getId();
     }
 
     public String getCategoryCode() {

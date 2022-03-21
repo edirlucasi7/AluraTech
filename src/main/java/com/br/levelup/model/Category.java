@@ -27,6 +27,10 @@ public class Category {
     @Column(name = "color_code")
     private String colorCode;
 
+    @Deprecated
+    public Category() {
+    }
+
     public Category(String name, String code) {
         cantBeNullOrEmpty(name, "The field name should not be null or empty!");
         cantBeNullOrEmpty(code, "The field code should not be null or empty!");
@@ -47,6 +51,10 @@ public class Category {
         this.order = order;
         this.active = active;
         this.imageUrl = imageUrl;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getCode() {

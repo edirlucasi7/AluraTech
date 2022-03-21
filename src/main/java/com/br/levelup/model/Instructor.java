@@ -14,6 +14,10 @@ public class Instructor {
     private Long id;
     private String name;
 
+    @Deprecated
+    public Instructor() {
+    }
+
     public Instructor(String name) {
         cantBeNullOrEmpty(name, "The field name should not be null or empty!");
         this.name = name;
