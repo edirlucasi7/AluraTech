@@ -20,7 +20,7 @@ public class SubCategoryDAO {
                 .getSingleResult();
     }
 
-    public List<SubCategory> getDataFromActiveSubCategories() {
+    public List<SubCategory> getActiveSubCategoriesSortedByOrder() {
         return em.createQuery("SELECT s FROM SubCategory s WHERE s.active = true ORDER BY order_visualization", SubCategory.class)
                 .getResultList();
     }

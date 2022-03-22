@@ -14,7 +14,7 @@ public class DeleteCourseWithJPA {
         CourseDAO courseDAO = new CourseDAO(em);
 
         em.getTransaction().begin();
-        courseDAO.deleteByCode("java-primeiros-passos");
+        courseDAO.deleteByCode("java-design-teste");
         em.getTransaction().commit();
         em.close();
 

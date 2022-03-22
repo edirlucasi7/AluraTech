@@ -13,7 +13,7 @@ public class CategoryDAO {
         this.em = em;
     }
 
-    public List<Category> getDataFromActiveCategories() {
+    public List<Category> getActiveCategoriesSorted() {
         return em.createQuery("SELECT c FROM Category c WHERE c.active = true ORDER BY order_visualization", Category.class)
                 .getResultList();
     }

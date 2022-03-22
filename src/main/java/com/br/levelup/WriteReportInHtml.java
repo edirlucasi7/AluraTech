@@ -30,8 +30,8 @@ public class WriteReportInHtml {
             SubCategoryDAO subCategoryDAO = new SubCategoryDAO(em);
             CourseDAO courseDAO = new CourseDAO(em);
 
-            List<CategoryDTO> categoryDTOS = CategoryDTO.convert(categoryDAO.getDataFromActiveCategories());
-            List<SubCategoryDTO> activeSubCategoryDTOs = SubCategoryDTO.convert(subCategoryDAO.getDataFromActiveSubCategories());
+            List<CategoryDTO> categoryDTOS = CategoryDTO.convert(categoryDAO.getActiveCategoriesSorted());
+            List<SubCategoryDTO> activeSubCategoryDTOs = SubCategoryDTO.convert(subCategoryDAO.getActiveSubCategoriesSortedByOrder());
             List<PublicCourseDTO> publicCourseDTOS = PublicCourseDTO.convert(courseDAO.getDataFromPublicCourses());
             List<String> subCategoryDTOsWithoutDescription = subCategoryDAO.getNamesFromSubCategoriesWithoutDescription();
 

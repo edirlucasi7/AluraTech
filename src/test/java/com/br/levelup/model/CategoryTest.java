@@ -67,7 +67,7 @@ public class CategoryTest {
     void should_retrieve_all_active_categories() {
         Category activeCategory1 = new Category("Programacao", "java-oo");
         Category activeCategory2 = new Category("Banco de dados", "algebra-relacional");
-        Category inactiveCategory = new Category("Banco de dados", "algebra-relacional");
+        Category inactiveCategory = new Category("DevOps", "algebra-relacional");
         List<Category> categories = List.of(activeCategory1, activeCategory2, inactiveCategory);
 
         activeCategory1.setActive(true);
@@ -76,7 +76,7 @@ public class CategoryTest {
 
         Assertions.assertTrue(activeCategories.size() == 2);
         Assertions.assertTrue(activeCategories.containsAll(List.of(activeCategory1, activeCategory2)));
-        Assertions.assertTrue(activeCategories.contains(inactiveCategory));
+        Assertions.assertFalse(activeCategories.contains(inactiveCategory));
     }
 
     @ParameterizedTest
