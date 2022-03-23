@@ -13,7 +13,7 @@ public class UpdateCourseWithJPA {
         CourseDAO courseDAO = new CourseDAO(em);
 
         em.getTransaction().begin();
-        courseDAO.updatePublicVisibility();
+        courseDAO.updateAllPublicVisibility();
         em.getTransaction().commit();
         em.close();
     }

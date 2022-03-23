@@ -24,7 +24,7 @@ public class CourseDAO {
         query.executeUpdate();
     }
 
-    public void updatePublicVisibility() {
+    public void updateAllPublicVisibility() {
         Query query = em.createQuery("UPDATE Course SET visibility = true WHERE visibility = false");
         query.executeUpdate();
     }

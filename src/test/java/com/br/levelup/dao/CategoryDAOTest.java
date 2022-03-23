@@ -4,12 +4,14 @@ import com.br.levelup.model.Category;
 import com.br.levelup.model.utils.builders.CategoryBuilder;
 import com.br.levelup.util.JPAUtil;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CategoryDAOTest {
 
@@ -18,7 +20,7 @@ public class CategoryDAOTest {
 
     @BeforeEach
     public void beforeEach() {
-        this.manager = JPAUtil.getEntityManager();
+        this.manager = JPAUtil.getEntityManagerTest();
         this.categoryDAO = new CategoryDAO(manager);
         manager.getTransaction().begin();
     }
@@ -55,10 +57,9 @@ public class CategoryDAOTest {
 
         List<Category> activeCategoriesSorted = categoryDAO.getActiveCategoriesSorted();
 
-        Assertions.assertTrue(activeCategoriesSorted.size() == 2);
-        Assertions.assertTrue(activeCategoriesSorted.containsAll(List.of(activeCategory1, activeCategory2)));
-        Assertions.assertFalse(activeCategoriesSorted.contains(inactiveCategory));
-
+        assertTrue(activeCategoriesSorted.size() == 2);
+        assertTrue(activeCategoriesSorted.containsAll(List.of(activeCategory1, activeCategory2)));
+        assertFalse(activeCategoriesSorted.contains(inactiveCategory));
     }
 
 }

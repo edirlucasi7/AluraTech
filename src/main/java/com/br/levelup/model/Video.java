@@ -6,7 +6,7 @@ import static com.br.levelup.model.utils.ValidatorUtils.*;
 
 @Entity
 @Table(name = "video")
-public class Video extends Activity{
+public class Video extends Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

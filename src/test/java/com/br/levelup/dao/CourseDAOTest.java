@@ -10,23 +10,43 @@ import com.br.levelup.model.utils.builders.InstructorBuilder;
 import com.br.levelup.model.utils.builders.SubCategoryBuilder;
 import com.br.levelup.util.JPAUtil;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class CourseDAOTest {
 
     private CourseDAO courseDAO;
     private EntityManager manager;
+    private Category category;
+    private SubCategory subCategory;
+    private Instructor instructor;
 
     @BeforeEach
     public void beforeEach() {
-        this.manager = JPAUtil.getEntityManager();
+        this.manager = JPAUtil.getEntityManagerTest();
         this.courseDAO = new CourseDAO(manager);
         manager.getTransaction().begin();
+        this.category = new CategoryBuilder().withName("Programacao").withCode("java-oo")
+                .toEntity();
+        manager.persist(category);
+        category.setActive(true);
+        this.subCategory = new SubCategoryBuilder()
+                .withName("Programacao")
+                .withCode("java-oo")
+                .withCategory(category)
+                .toEntity();
+        subCategory.setActive(true);
+        manager.persist(subCategory);
+        this.instructor = new InstructorBuilder()
+                .withName("Sergio")
+                .toEntity();
+        manager.persist(instructor);
     }
 
     @AfterEach
@@ -36,49 +56,31 @@ public class CourseDAOTest {
 
     @Test
     void should_retrieve_all_public_courses() {
-        Category category = new CategoryBuilder().withName("Programacao").withCode("java-oo")
-                .toEntity();
-        manager.persist(category);
-        category.setActive(true);
-        SubCategory activeSubCategory = new SubCategoryBuilder()
-                .withName("Programacao")
-                .withCode("java-oo")
-                .withCategory(category)
-                .toEntity();
-        activeSubCategory.setActive(true);
-        manager.persist(activeSubCategory);
-
-        Instructor instructor = new InstructorBuilder()
-                .withName("Sergio")
-                .toEntity();
-        manager.persist(instructor);
-
-        Course activeCourse = new CourseBuilder()
+        Course visibleCourse = new CourseBuilder()
                 .withName("Java")
                 .withCode("java-iniciante")
                 .withEstimatedTimeInHours(12)
                 .withInstructor(instructor)
-                .withSubCategory(activeSubCategory)
+                .withSubCategory(subCategory)
                 .toEntity();
-        activeCourse.setVisibility(true);
+        visibleCourse.setVisibility(true);
 
-        Course inactiveCourse = new CourseBuilder()
+        Course invisibleCourse = new CourseBuilder()
                 .withName("JavaScript")
                 .withCode("javascript-iniciante")
                 .withEstimatedTimeInHours(12)
                 .withInstructor(instructor)
-                .withSubCategory(activeSubCategory)
+                .withSubCategory(subCategory)
                 .toEntity();
 
-        manager.persist(activeCourse);
-        manager.persist(inactiveCourse);
+        manager.persist(visibleCourse);
+        manager.persist(invisibleCourse);
 
         List<Course> dataFromPublicCourses = courseDAO.getDataFromPublicCourses();
 
-        Assertions.assertTrue(dataFromPublicCourses.size() == 1);
-        Assertions.assertTrue(dataFromPublicCourses.containsAll(List.of(activeCourse)));
-        Assertions.assertFalse(dataFromPublicCourses.contains(inactiveCourse));
-
+        assertTrue(dataFromPublicCourses.size() == 1);
+        assertTrue(dataFromPublicCourses.containsAll(List.of(visibleCourse)));
+        assertFalse(dataFromPublicCourses.contains(invisibleCourse));
     }
 
 }

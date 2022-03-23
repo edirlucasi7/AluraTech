@@ -38,8 +38,8 @@ public class WriteReportInHtml {
             writeStartTagsInHtml(bw);
             writeHtmlActiveCategories(categoryDTOS, bw);
             writeHtmlActiveSubCategories(activeSubCategoryDTOs, bw);
-            writeHtmlPublicCourses(publicCourseDTOS, bw);
-            writeHtmlSubCategoriesWithoutDescription(subCategoryDTOsWithoutDescription, bw);
+            writeHtmlCourse(publicCourseDTOS, bw);
+            writeHtmlSubCategories(subCategoryDTOsWithoutDescription, bw);
             writeEndTagsInHtml(bw);
         }
         em.close();

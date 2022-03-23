@@ -97,7 +97,7 @@ public class HtmlWriterService {
         bw.write(closingHeaderSubCategory);
     }
 
-    public static void writeHtmlPublicCourses(List<PublicCourseDTO> publicCourses, BufferedWriter bw) throws IOException {
+    public static void writeHtmlCourse(List<PublicCourseDTO> publicCourses, BufferedWriter bw) throws IOException {
         String startingHeaderPublicCourses = """
                              <h4>Cursos Públicos:</h4>
                              <table class="table table-striped">
@@ -222,8 +222,8 @@ public class HtmlWriterService {
         bw.write(closingHeaderActiveCategories);
     }
 
-    public static void writeHtmlSubCategoriesWithoutDescription(List<String> subCategoryDTOS, BufferedWriter bw) throws IOException {
-        String startingHeaderActiveSubCategories = """
+    public static void writeHtmlSubCategories(List<String> subCategoryDTOS, BufferedWriter bw) throws IOException {
+        String startingHeaderSubCategories = """
                              <h4>SubCategorias Sem Descrição:</h4>
                              <table class="table table-striped">
                                 <thead>
@@ -232,19 +232,19 @@ public class HtmlWriterService {
                                     </tr>
                                 </thead>
                 """;
-        bw.write(startingHeaderActiveSubCategories);
+        bw.write(startingHeaderSubCategories);
 
         Iterator<String> iteratorSubCategoryDTO = subCategoryDTOS.iterator();
         while(iteratorSubCategoryDTO.hasNext()) {
             String nextSubCategoryDTO = iteratorSubCategoryDTO.next();
-            String bodyContentActiveSubCategories = """
+            String bodyContentSubCategories = """
                                     <tbody>
                                        <tr>
                                          <td>%s</td>
                                        </tr>
                                     </tbody>        
                     """.formatted(nextSubCategoryDTO);
-            bw.write(bodyContentActiveSubCategories);
+            bw.write(bodyContentSubCategories);
         }
 
         String closingHeaderActiveCategories = """

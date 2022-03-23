@@ -17,12 +17,18 @@ public class SubCategoryDAOTest {
 
     private SubCategoryDAO subCategoryDAO;
     private EntityManager manager;
+    private Category category;
 
     @BeforeEach
     public void beforeEach() {
-        this.manager = JPAUtil.getEntityManager();
+        this.manager = JPAUtil.getEntityManagerTest();
         this.subCategoryDAO = new SubCategoryDAO(manager);
         manager.getTransaction().begin();
+        this.category = new CategoryBuilder()
+                .withName("Programacao")
+                .withCode("java-oo")
+                .toEntity();
+        manager.persist(category);
     }
 
     @AfterEach
@@ -32,12 +38,6 @@ public class SubCategoryDAOTest {
 
     @Test
     void should_retrieve_all_active_subcategories_sorted_by_order() {
-        Category category = new CategoryBuilder()
-                .withName("Programacao")
-                .withCode("java-oo")
-                .toEntity();
-        manager.persist(category);
-
         SubCategory activeSubCategory1 = new SubCategoryBuilder()
                 .withName("Programacao")
                 .withCode("java-oo")
@@ -73,12 +73,6 @@ public class SubCategoryDAOTest {
 
     @Test
     void should_retrieve_all_subcategory_names_without_description() {
-        Category category = new CategoryBuilder()
-                .withName("Programacao")
-                .withCode("java-oo")
-                .toEntity();
-        manager.persist(category);
-
         SubCategory subCategoryWithoutDescription1 = new SubCategoryBuilder()
                 .withName("Java")
                 .withCode("java-iniciante")
@@ -90,6 +84,7 @@ public class SubCategoryDAOTest {
                 .withCode("php-iniciante")
                 .withCategory(category)
                 .toEntity();
+        subCategoryWithoutDescription2.setShortDescription("");
 
         SubCategory subCategoryWithDescription = new SubCategoryBuilder()
                 .withName("Programacao")

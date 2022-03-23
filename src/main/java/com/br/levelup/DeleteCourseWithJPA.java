@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DeleteCourseWithJPA {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
         EntityManager em = JPAUtil.getEntityManager();
         CourseDAO courseDAO = new CourseDAO(em);

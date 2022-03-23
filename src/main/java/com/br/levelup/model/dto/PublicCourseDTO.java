@@ -12,7 +12,6 @@ public class PublicCourseDTO {
     private final Long subCategoryId;
     private final String subCategoryName;
 
-
     public PublicCourseDTO(Course course) {
         this.name = course.getName();
         this.estimatedTimeInHours = course.getEstimatedTimeInHours();
@@ -39,6 +38,5 @@ public class PublicCourseDTO {
     public static List<PublicCourseDTO> convert(List<Course> categories) {
         return categories.stream().map(PublicCourseDTO::new).collect(Collectors.toList());
     }
-
 
 }
