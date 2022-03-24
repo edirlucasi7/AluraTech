@@ -35,16 +35,16 @@ public class CategoryDAOTest {
         Category activeCategory1 = new CategoryBuilder()
                 .withName("Programacao")
                 .withCode("java")
+                .withOrder(1)
+                .withActive(true)
                 .toEntity();
-        activeCategory1.setOrder(1);
-        activeCategory1.setActive(true);
 
         Category activeCategory2 = new CategoryBuilder()
                 .withName("Programacao")
                 .withCode("java-oo")
+                .withOrder(2)
+                .withActive(true)
                 .toEntity();
-        activeCategory2.setOrder(2);
-        activeCategory2.setActive(true);
 
         Category inactiveCategory = new CategoryBuilder()
                 .withName("Devops")

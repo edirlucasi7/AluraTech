@@ -7,6 +7,7 @@ public class CategoryBuilder {
     private String name;
     private String code;
     private Integer order = 0;
+    private boolean active;
 
     public CategoryBuilder withName(String name) {
         this.name = name;
@@ -23,9 +24,15 @@ public class CategoryBuilder {
         return this;
     }
 
+    public CategoryBuilder withActive(boolean active) {
+        this.active = active;
+        return this;
+    }
+
     public Category toEntity() {
         Category category = new Category(name, code);
         category.setOrder(order);
+        category.setActive(active);
         return category;
     }
 }

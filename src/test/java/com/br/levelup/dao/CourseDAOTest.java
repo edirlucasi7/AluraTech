@@ -32,16 +32,18 @@ public class CourseDAOTest {
         this.manager = JPAUtil.getEntityManager("tests");
         this.courseDAO = new CourseDAO(manager);
         manager.getTransaction().begin();
-        this.category = new CategoryBuilder().withName("Programacao").withCode("java-oo")
+        this.category = new CategoryBuilder()
+                .withName("Programacao")
+                .withCode("java-oo")
+                .withActive(true)
                 .toEntity();
         manager.persist(category);
-        category.setActive(true);
         this.subCategory = new SubCategoryBuilder()
                 .withName("Programacao")
                 .withCode("java-oo")
+                .withActive(true)
                 .withCategory(category)
                 .toEntity();
-        subCategory.setActive(true);
         manager.persist(subCategory);
         this.instructor = new InstructorBuilder()
                 .withName("Sergio")
@@ -60,10 +62,10 @@ public class CourseDAOTest {
                 .withName("Java")
                 .withCode("java-iniciante")
                 .withEstimatedTimeInHours(12)
+                .withVisibility(true)
                 .withInstructor(instructor)
                 .withSubCategory(subCategory)
                 .toEntity();
-        visibleCourse.setVisibility(true);
 
         Course invisibleCourse = new CourseBuilder()
                 .withName("JavaScript")

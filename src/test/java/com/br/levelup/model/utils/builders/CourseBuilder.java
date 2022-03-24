@@ -9,6 +9,7 @@ public class CourseBuilder {
     private String name;
     private String code;
     private Integer estimatedTimeInHours;
+    private boolean visibility;
     private Instructor instructor;
     private SubCategory subCategory;
 
@@ -27,6 +28,11 @@ public class CourseBuilder {
         return this;
     }
 
+    public CourseBuilder withVisibility(boolean visibility) {
+        this.visibility = visibility;
+        return this;
+    }
+
     public CourseBuilder withInstructor(Instructor instructor) {
         this.instructor = instructor;
         return this;
@@ -38,7 +44,9 @@ public class CourseBuilder {
     }
 
     public Course toEntity() {
-        return new Course(name, code, estimatedTimeInHours, instructor, subCategory);
+        Course course = new Course(name, code, estimatedTimeInHours, instructor, subCategory);
+        course.setVisibility(visibility);
+        return course;
     }
 
 }

@@ -8,6 +8,7 @@ public class SubCategoryBuilder {
     private String name;
     private String code;
     private Category category;
+    private boolean active;
 
     public SubCategoryBuilder withName(String name) {
         this.name = name;
@@ -19,13 +20,20 @@ public class SubCategoryBuilder {
         return this;
     }
 
+    public SubCategoryBuilder withActive(boolean active) {
+        this.active = active;
+        return this;
+    }
+
     public SubCategoryBuilder withCategory(Category category) {
         this.category = category;
         return this;
     }
 
     public SubCategory toEntity() {
-        return new SubCategory(name, code, category);
+        SubCategory subCategory = new SubCategory(name, code, category);
+        subCategory.setActive(active);
+        return subCategory;
     }
 
 }
