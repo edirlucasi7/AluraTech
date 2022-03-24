@@ -2,12 +2,21 @@ package com.br.levelup.model;
 
 import com.br.levelup.model.enums.QuestionType;
 
+import javax.persistence.*;
+
 import static com.br.levelup.model.utils.ValidatorUtils.cantBeNull;
 import static com.br.levelup.model.utils.ValidatorUtils.cantBeNullOrEmpty;
 
+@Entity
+@Table(name = "question")
 public class Question extends Activity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String enunciation;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('SINGLE_ANSWER', 'MULTIPLE_ANSWERS', 'TRUE_OR_FALSE')")
     private QuestionType type = QuestionType.SINGLE_ANSWER;
 
     public Question(String title, String code, Section section, String enunciation) {

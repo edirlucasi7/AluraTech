@@ -1,25 +1,43 @@
 package com.br.levelup.model;
 
-import java.util.*;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.br.levelup.model.utils.EstimateValuesUtils.minimumAndMaximumValue;
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
+@Entity
+@Table(name = "course")
 public class Course {
 
     private static final Integer ESTIMATED_TIME_MIN = 1;
     private static final Integer ESTIMATED_TIME_MAX = 20;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String code;
+    @Column(name = "estimated_time_in_hours", columnDefinition = "TINYINT")
     private Integer estimatedTimeInHours;
     private boolean visibility;
+    @Column(name = "target_audience", columnDefinition = "TEXT")
     private String targetAudience;
+    @Column(columnDefinition = "TEXT")
     private String resume;
+    @Column(name = "developed_skills", columnDefinition = "TEXT")
     private String developedSkills;
+    @ManyToOne(fetch = FetchType.LAZY)
     private Instructor instructor;
+    @ManyToOne(fetch = FetchType.LAZY)
     private SubCategory subCategory;
+
+    @Deprecated
+    public Course() { }
 
     public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
@@ -91,6 +109,14 @@ public class Course {
 
     public SubCategory getSubCategory() {
         return this.subCategory;
+    }
+
+    public Long getSubCategoryId() {
+        return this.subCategory.getId();
+    }
+
+    public String getSubCategoryName() {
+        return this.subCategory.getName();
     }
 
     public String getSubCategoryCode() {

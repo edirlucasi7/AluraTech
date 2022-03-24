@@ -1,20 +1,34 @@
 package com.br.levelup.model;
 
+import javax.persistence.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 import static com.br.levelup.model.utils.ValidatorUtils.*;
 
+@Entity
+@Table(name = "subcategory")
 public class SubCategory {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String code;
+    @Column(name = "short_description", columnDefinition = "TEXT")
     private String shortDescription;
+    @Column(name = "study_guide", columnDefinition = "TEXT")
     private String studyGuide;
     private boolean active;
+    @Column(name = "order_visualization")
     private Integer order;
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @Deprecated
+    public SubCategory() {
+    }
 
     public SubCategory(String name, String code, Category category) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
@@ -25,8 +39,11 @@ public class SubCategory {
         this.category = category;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setShortDescription(String shortDescription) {
-        cantBeNull(shortDescription);
         this.shortDescription = shortDescription;
     }
 
@@ -49,6 +66,10 @@ public class SubCategory {
 
     public String getName() {
         return name;
+    }
+
+    public Long getCategoryId() {
+        return category.getId();
     }
 
     public String getCategoryCode() {
