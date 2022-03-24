@@ -12,7 +12,7 @@ public class InsertCourseWithJPA {
 
     public static void main(String[] args) {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager("alurinha");
         InstructorDAO instructorDAO = new InstructorDAO(em);
         SubCategoryDAO subCategoryDAO = new SubCategoryDAO(em);
         CourseDAO courseDAO = new CourseDAO(em);

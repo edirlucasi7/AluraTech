@@ -7,15 +7,11 @@ import static javax.persistence.Persistence.createEntityManagerFactory;
 
 public class JPAUtil {
 
-    private static final EntityManagerFactory FACTORY =
-            createEntityManagerFactory("alurinha");
-    private static final EntityManagerFactory FACTORY_TEST =
-            createEntityManagerFactory("tests");
+    private static EntityManagerFactory FACTORY;
 
-    public static EntityManager getEntityManager() {
+    public static EntityManager getEntityManager(String persistenceUnitName) {
+        FACTORY = createEntityManagerFactory(persistenceUnitName);
         return FACTORY.createEntityManager();
     }
-
-    public static EntityManager getEntityManagerTest() { return FACTORY_TEST.createEntityManager(); }
 
 }

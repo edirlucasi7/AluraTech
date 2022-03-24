@@ -22,7 +22,7 @@ public class WriteReportInHtml {
 
     public static void main(String[] args) throws IOException {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager("alurinha");
         try(PrintWriter ps = new PrintWriter("relatorio.html", "UTF-8");
             BufferedWriter bw = new BufferedWriter(ps)) {
 

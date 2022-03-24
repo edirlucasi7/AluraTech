@@ -9,7 +9,7 @@ public class UpdateCourseWithJPA {
 
     public static void main(String[] args) {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager("alurinha");
         CourseDAO courseDAO = new CourseDAO(em);
 
         em.getTransaction().begin();

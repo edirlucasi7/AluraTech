@@ -23,7 +23,7 @@ public class SubCategoryDAOTest {
 
     @BeforeEach
     public void beforeEach() {
-        this.manager = JPAUtil.getEntityManagerTest();
+        this.manager = JPAUtil.getEntityManager("tests");
         this.subCategoryDAO = new SubCategoryDAO(manager);
         manager.getTransaction().begin();
         this.category = new CategoryBuilder()

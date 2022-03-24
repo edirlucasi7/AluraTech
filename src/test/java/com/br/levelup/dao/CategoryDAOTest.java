@@ -20,7 +20,7 @@ public class CategoryDAOTest {
 
     @BeforeEach
     public void beforeEach() {
-        this.manager = JPAUtil.getEntityManagerTest();
+        this.manager = JPAUtil.getEntityManager("tests");
         this.categoryDAO = new CategoryDAO(manager);
         manager.getTransaction().begin();
     }

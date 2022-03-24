@@ -6,6 +6,7 @@ public class CategoryBuilder {
 
     private String name;
     private String code;
+    private Integer order = 0;
 
     public CategoryBuilder withName(String name) {
         this.name = name;
@@ -17,7 +18,14 @@ public class CategoryBuilder {
         return this;
     }
 
+    public CategoryBuilder withOrder(Integer order) {
+        this.order = order;
+        return this;
+    }
+
     public Category toEntity() {
-        return new Category(name, code);
+        Category category = new Category(name, code);
+        category.setOrder(order);
+        return category;
     }
 }

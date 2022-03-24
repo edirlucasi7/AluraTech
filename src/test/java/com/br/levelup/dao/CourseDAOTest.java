@@ -29,7 +29,7 @@ public class CourseDAOTest {
 
     @BeforeEach
     public void beforeEach() {
-        this.manager = JPAUtil.getEntityManagerTest();
+        this.manager = JPAUtil.getEntityManager("tests");
         this.courseDAO = new CourseDAO(manager);
         manager.getTransaction().begin();
         this.category = new CategoryBuilder().withName("Programacao").withCode("java-oo")
