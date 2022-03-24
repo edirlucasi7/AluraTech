@@ -44,7 +44,6 @@ public class SubCategory {
     }
 
     public void setShortDescription(String shortDescription) {
-        cantBeNull(shortDescription);
         this.shortDescription = shortDescription;
     }
 

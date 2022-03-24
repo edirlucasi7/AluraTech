@@ -43,18 +43,18 @@ public class SubCategoryDAOTest {
         SubCategory activeSubCategory1 = new SubCategoryBuilder()
                 .withName("Programacao")
                 .withCode("java-oo")
+                .withOrder(1)
+                .withActive(true)
                 .withCategory(category)
                 .toEntity();
-        activeSubCategory1.setOrder(1);
-        activeSubCategory1.setActive(true);
 
         SubCategory activeSubCategory2 = new SubCategoryBuilder()
                 .withName("Programacao")
                 .withCode("devops")
+                .withOrder(2)
+                .withActive(true)
                 .withCategory(category)
                 .toEntity();
-        activeSubCategory2.setOrder(2);
-        activeSubCategory2.setActive(true);
 
         SubCategory inactiveSubCategory = new SubCategoryBuilder()
                 .withName("Programacao")
@@ -67,7 +67,6 @@ public class SubCategoryDAOTest {
         manager.persist(inactiveSubCategory);
 
         List<SubCategory> activeSubCategoriesSortedByOrder = subCategoryDAO.getActiveSubCategoriesSortedByOrder();
-        System.out.println(activeSubCategoriesSortedByOrder);
 
         assertTrue(activeSubCategoriesSortedByOrder.size() == 2);
         assertTrue(activeSubCategoriesSortedByOrder.containsAll(List.of(activeSubCategory1, activeSubCategory2)));
@@ -76,7 +75,7 @@ public class SubCategoryDAOTest {
 
     @Test
     void should_retrieve_all_subcategory_names_without_description() {
-        SubCategory subCategoryWithoutDescription1 = new SubCategoryBuilder()
+        SubCategory subCategoryWithNullDescription = new SubCategoryBuilder()
                 .withName("Java")
                 .withCode("java-iniciante")
                 .withCategory(category)
@@ -85,9 +84,9 @@ public class SubCategoryDAOTest {
         SubCategory subCategoryWithoutDescription2 = new SubCategoryBuilder()
                 .withName("Php")
                 .withCode("php-iniciante")
+                .withShorDescription("")
                 .withCategory(category)
                 .toEntity();
-        subCategoryWithoutDescription2.setShortDescription("");
 
         SubCategory subCategoryWithDescription = new SubCategoryBuilder()
                 .withName("Programacao")
@@ -96,7 +95,7 @@ public class SubCategoryDAOTest {
                 .toEntity();
         subCategoryWithDescription.setShortDescription("pequena descricao");
 
-        manager.persist(subCategoryWithoutDescription1);
+        manager.persist(subCategoryWithNullDescription);
         manager.persist(subCategoryWithoutDescription2);
         manager.persist(subCategoryWithDescription);
 

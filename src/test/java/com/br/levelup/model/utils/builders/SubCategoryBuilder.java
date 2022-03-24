@@ -7,8 +7,10 @@ public class SubCategoryBuilder {
 
     private String name;
     private String code;
-    private Category category;
     private boolean active;
+    private String shortDescription;
+    private Integer order = 0;
+    private Category category;
 
     public SubCategoryBuilder withName(String name) {
         this.name = name;
@@ -17,6 +19,16 @@ public class SubCategoryBuilder {
 
     public SubCategoryBuilder withCode(String code) {
         this.code = code;
+        return this;
+    }
+
+    public SubCategoryBuilder withOrder(Integer order) {
+        this.order = order;
+        return this;
+    }
+
+    public SubCategoryBuilder withShorDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
         return this;
     }
 
@@ -32,6 +44,8 @@ public class SubCategoryBuilder {
 
     public SubCategory toEntity() {
         SubCategory subCategory = new SubCategory(name, code, category);
+        subCategory.setOrder(order);
+        subCategory.setShortDescription(shortDescription);
         subCategory.setActive(active);
         return subCategory;
     }
