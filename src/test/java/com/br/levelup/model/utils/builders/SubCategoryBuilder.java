@@ -27,4 +27,5 @@ public class SubCategoryBuilder {
     public SubCategory toEntity() {
         return new SubCategory(name, code, category);
     }
+
 }

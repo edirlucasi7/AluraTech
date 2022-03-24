@@ -6,12 +6,14 @@ import com.br.levelup.model.utils.builders.CategoryBuilder;
 import com.br.levelup.model.utils.builders.SubCategoryBuilder;
 import com.br.levelup.util.JPAUtil;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SubCategoryDAOTest {
 
@@ -65,10 +67,11 @@ public class SubCategoryDAOTest {
         manager.persist(inactiveSubCategory);
 
         List<SubCategory> activeSubCategoriesSortedByOrder = subCategoryDAO.getActiveSubCategoriesSortedByOrder();
+        System.out.println(activeSubCategoriesSortedByOrder);
 
-        Assertions.assertTrue(activeSubCategoriesSortedByOrder.size() == 2);
-        Assertions.assertTrue(activeSubCategoriesSortedByOrder.containsAll(List.of(activeSubCategory1, activeSubCategory2)));
-        Assertions.assertFalse(activeSubCategoriesSortedByOrder.contains(inactiveSubCategory));
+        assertTrue(activeSubCategoriesSortedByOrder.size() == 2);
+        assertTrue(activeSubCategoriesSortedByOrder.containsAll(List.of(activeSubCategory1, activeSubCategory2)));
+        assertFalse(activeSubCategoriesSortedByOrder.contains(inactiveSubCategory));
     }
 
     @Test
@@ -99,9 +102,9 @@ public class SubCategoryDAOTest {
 
         List<String> subCategoriesWithoutDescription = subCategoryDAO.getNamesFromSubCategoriesWithoutDescription();
 
-        Assertions.assertTrue(subCategoriesWithoutDescription.size() == 2);
-        Assertions.assertTrue(subCategoriesWithoutDescription.containsAll(List.of("Java", "Php")));
-        Assertions.assertFalse(subCategoriesWithoutDescription.contains(subCategoryWithDescription));
+        assertTrue(subCategoriesWithoutDescription.size() == 2);
+        assertTrue(subCategoriesWithoutDescription.containsAll(List.of("Java", "Php")));
+        assertFalse(subCategoriesWithoutDescription.contains(subCategoryWithDescription));
     }
 
 }
