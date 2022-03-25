@@ -6,6 +6,7 @@ import com.br.levelup.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,34 +22,14 @@ public class CategoryListingServlet extends HttpServlet {
     private EntityManager manager = JPAUtil.getEntityManager("alurinha");;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         CategoryDAO categoryDAO = new CategoryDAO(manager);
         List<Category> allCategories = categoryDAO.getAllCategories();
+        request.setAttribute("categorias", allCategories);
 
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h2>Informações de Categorias: </h2>");
-        out.println("<table><tr>");
-        out.println("<th>Nome</th>");
-        out.println("<th>Código</th>");
-        out.println("<th>Descrição</th>");
-        out.println("<th>Visibilidade</th>");
-        out.println("<th>Ordem</th>");
-        out.println("<th>Imagem</th>");
-        out.println("<th>Color code</th>");
-        out.println("</tr>");
-        for (Category category : allCategories) {
-            out.println("<tr><td>" + category.getName() + "</td>");
-            out.println("<td>" + category.getCode() + "</td>");
-            out.println("<td>" + category.getShortDescription() + "</td>");
-            out.println("<td>" + category.isActive() + "</td>");
-            out.println("<td>" + category.getOrder() + "</td>");
-            out.println("<td>" + category.getImageUrl() + "</td>");
-            out.println("<td>" + category.getColorCode() + "</td></tr>");
-        }
-        out.println("</table>");
-        out.println("</body></html>");
+        RequestDispatcher rd =  request.getRequestDispatcher("/listaCategorias.jsp");
+        rd.forward(request, response);
 
     }
 }
