@@ -1,5 +1,4 @@
-<%@ page import="com.br.levelup.model.Category" %>
-<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -10,7 +9,7 @@
 
     <h1>Informações de Categorias: </h1>
     <table>
-        
+
         <tr>
             <th>Nome</th>
             <th>Código</th>
@@ -20,22 +19,17 @@
             <th>Imagem</th>
             <th>Código da cor</th>
         </tr>
-        <%
-            List<Category> allCategories = (List<Category>)request.getAttribute("categorias");
-            for (Category category : allCategories) {
-        %>
+        <c:forEach items="${categorias}" var="category">
         <tr>
-            <td><%=category.getName()%></td>
-            <td><%=category.getCode()%></td>
-            <td><%=category.getShortDescription()%></td>
-            <td><%=category.isActive()%></td>
-            <td><%=category.getOrder()%></td>
-            <td><%=category.getImageUrl()%></td>
-            <td><%=category.getColorCode()%></td>
+            <td>${category.name }</td>
+            <td>${category.code }</td>
+            <td>${category.shortDescription }</td>
+            <td>${category.isActive() }</td>
+            <td>${category.order }</td>
+            <td>${category.imageUrl }</td>
+            <td>${category.colorCode }</td>
         </tr>
-        <%
-            }
-        %>
+        </c:forEach>
     </table>
 
 </body>
