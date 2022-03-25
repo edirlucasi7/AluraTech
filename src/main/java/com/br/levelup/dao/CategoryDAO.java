@@ -18,4 +18,8 @@ public class CategoryDAO {
                 .getResultList();
     }
 
+    public List<Category> getAllCategories() {
+        return em.createQuery("SELECT c FROM Category c", Category.class)
+                .getResultList();
+    }
 }
