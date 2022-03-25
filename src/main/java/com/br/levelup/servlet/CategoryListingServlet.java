@@ -19,7 +19,7 @@ import java.util.List;
 @WebServlet("/listaCategorias")
 public class CategoryListingServlet extends HttpServlet {
 
-    private EntityManager manager = JPAUtil.getEntityManager("alurinha");;
+    private EntityManager manager = JPAUtil.getEntityManager("alurinha");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
