@@ -15,6 +15,7 @@
             <th>Código</th>
             <th>Descrição</th>
             <th>Visibilidade</th>
+            <th>Guia de estudo</th>
             <th>Ordem</th>
             <th>Imagem</th>
             <th>Código da cor</th>
@@ -25,9 +26,11 @@
             <td>${category.code }</td>
             <td>${category.shortDescription }</td>
             <td>${category.isActive() }</td>
+            <td>${category.studyGuide }</td>
             <td>${category.order }</td>
             <td>${category.imageUrl }</td>
             <td>${category.colorCode }</td>
+            <td><a href="/mostraCategoria?id=${category.id }">editar</a></td>
         </tr>
         </c:forEach>
     </table>
