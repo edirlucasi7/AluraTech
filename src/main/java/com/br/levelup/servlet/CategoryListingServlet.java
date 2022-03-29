@@ -2,6 +2,7 @@ package com.br.levelup.servlet;
 
 import com.br.levelup.dao.CategoryDAO;
 import com.br.levelup.model.Category;
+import com.br.levelup.model.dto.CategoryDTO;
 import com.br.levelup.util.JPAUtil;
 
 import javax.persistence.EntityManager;
@@ -23,7 +24,7 @@ public class CategoryListingServlet extends HttpServlet {
         EntityManager manager = JPAUtil.getEntityManager("alurinha");
 
         CategoryDAO categoryDAO = new CategoryDAO(manager);
-        List<Category> allCategories = categoryDAO.getAllCategories();
+        List<CategoryDTO> allCategories = CategoryDTO.convert(categoryDAO.getAllCategories());
         request.setAttribute("categorias", allCategories);
 
         RequestDispatcher rd =  request.getRequestDispatcher("/categoryListing.jsp");

@@ -22,6 +22,7 @@
         </tr>
         <c:forEach items="${categorias}" var="category">
         <tr class="categories">
+            <span id="message-error"></span>
             <td hidden class="categoryId">${category.id }</td>
             <td>${category.name }</td>
             <td>${category.code }</td>

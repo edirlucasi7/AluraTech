@@ -2,6 +2,7 @@ package com.br.levelup.servlet;
 
 import com.br.levelup.dao.CategoryDAO;
 import com.br.levelup.model.Category;
+import com.br.levelup.model.dto.CategoryDTO;
 import com.br.levelup.util.JPAUtil;
 
 import javax.persistence.EntityManager;
@@ -26,9 +27,9 @@ public class ShowCategoryServlet extends HttpServlet {
         Long id = Long.parseLong(idString);
 
         CategoryDAO categoryDAO = new CategoryDAO(manager);
-        Category category = categoryDAO.findById(id).get();
+        CategoryDTO categoryDTO = new CategoryDTO(categoryDAO.findById(id).get());
 
-        request.setAttribute("category", category);
+        request.setAttribute("category", categoryDTO);
         RequestDispatcher rd = request.getRequestDispatcher("/formUpdateCategory.jsp");
         rd.forward(request, response);
     }
