@@ -18,13 +18,13 @@
                         <label>Nome: </label>
                     </td>
                     <td>
-                        <input type="text" name="name" />
+                        <input type="text" name="name" required="true"/>
                     </td>
                     <td>
                         <label>Código: </label>
                     </td>
                     <td>
-                        <input type="text" name="code" />
+                        <input type="text" name="code" required="true"/>
                     </td>
                     <td>
                         <label>Descrição: </label>
@@ -53,19 +53,19 @@
                         <label>Ordem: </label>
                     </td>
                     <td>
-                        <input type="text" name="order" />
+                        <input type="number" name="order" required="true"/>
                     </td>
                     <td>
                         <label>Imagem: </label>
                     </td>
                     <td>
-                        <input type="text" name="imageUrl" />
+                        <input type="text" name="imageUrl"/>
                     </td>
                     <td>
                         <label>Código da cor: </label>
                     </td>
                     <td>
-                        <input type="text" name="colorCode" />
+                        <input type="text" name="colorCode" required="true"/>
                     </td>
                 </tr>
             </table>

@@ -94,7 +94,6 @@ public class Category {
     }
 
     public void setShortDescription(String shortDescription) {
-        cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be null or empty!");
         this.shortDescription = shortDescription;
     }
 
@@ -112,7 +111,6 @@ public class Category {
     }
 
     public void setImageUrl(String imageUrl) {
-        cantBeNullOrEmpty(imageUrl, "The field imageUrl should not be empty!");
         this.imageUrl = imageUrl;
     }
 
@@ -122,7 +120,6 @@ public class Category {
     }
 
     public void setStudyGuide(String studyGuide) {
-        cantBeNullOrEmpty(studyGuide, "The field studyGuide should not be empty!");
         this.studyGuide = studyGuide;
     }
 
@@ -155,6 +152,12 @@ public class Category {
         this.colorCode = colorCode;
     }
 
+    public void disableActive(boolean active) {
+        if(active == true) {
+            this.active = false;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -181,5 +184,4 @@ public class Category {
                 ", colorCode='" + colorCode + '\'' +
                 '}';
     }
-
 }

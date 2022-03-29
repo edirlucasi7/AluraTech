@@ -18,13 +18,13 @@
                         <label>Nome: </label>
                     </td>
                     <td>
-                        <input type="text" name="name" value="${category.name}"/>
+                        <input type="text" name="name" value="${category.name}" required="true"/>
                     </td>
                     <td>
                         <label>Código: </label>
                     </td>
                     <td>
-                        <input type="text" name="code" value="${category.code}"/>
+                        <input type="text" name="code" value="${category.code}" required="true"/>
                     </td>
                     <td>
                         <label>Descrição: </label>
@@ -53,7 +53,7 @@
                         <label>Ordem: </label>
                     </td>
                     <td>
-                        <input type="number" name="order" value="${category.order}"/>
+                        <input type="number" name="order" value="${category.order}" required="true"/>
                     </td>
                     <td>
                         <label>Imagem: </label>
@@ -65,7 +65,7 @@
                         <label>Código da cor: </label>
                     </td>
                     <td>
-                        <input type="text" name="colorCode" value="${category.colorCode}" />
+                        <input type="text" name="colorCode" value="${category.colorCode}" required="true"/>
                     </td>
                     <td><input type="hidden" name="id" value="${category.id }"></td>
                 </tr>

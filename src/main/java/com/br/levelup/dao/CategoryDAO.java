@@ -3,7 +3,6 @@ package com.br.levelup.dao;
 import com.br.levelup.model.Category;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
