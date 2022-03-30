@@ -1,17 +1,18 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:url value="/atualizaCategorias" var="linkServletAlteraCategoria"/>
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:url value="/atualizaCategoria" var="linkServletAlteraCategoria"/>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title>Cadastro da categoria</title>
 </head>
 <body>
 
-    <h1>Edição de Categoria: </h1>
+    <h1>Edição da Categoria: </h1>
     <form action="${linkServletAlteraCategoria}" method="post">
 
         <fieldset>
-            <legend>Dados de categorias</legend>
+            <legend>Dados da categoria</legend>
             <table>
                 <tr>
                     <td>
@@ -36,13 +37,13 @@
                         <label>Visibilidade: </label>
                     </td>
                     <td>
-                        <input id="true" type="radio" name="active" value="true" value="${category.isActive()}" checked/>
-                        <label for="true">true</label><br>
-                        <input id="false" type="radio" name="active" value="false" value="${category.isActive()}"/>
-                        <label for="false">false</label>
+                        <input id="true" type="radio" name="active" value="true" checked/>
+                        <label for="true">ATIVA</label><br>
+                        <input id="false" type="radio" name="active" value="false" />
+                        <label for="false">INATIVA</label>
                     </td>
                     <td>
-                        <label>Guia de estudo: </label>
+                        <label>Guia: </label>
                     </td>
                     <td>
                         <textarea name="studyGuide">${category.studyGuide}</textarea>

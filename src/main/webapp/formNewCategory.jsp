@@ -1,13 +1,13 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:url value="/criaCategorias" var="linkServletNovaCategoria"/>
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:url value="/criaCategoria" var="linkServletNovaCategoria"/>
 <html>
 <head>
-    <title>Title</title>
+    <title>Cadastro da Categoria</title>
 </head>
 <body>
 
-    <h1>Cadastro de Categoria: </h1>
+    <h1>Cadastro da Categoria: </h1>
     <form action="${linkServletNovaCategoria}" method="post">
 
         <fieldset>
@@ -30,22 +30,22 @@
                         <label>Descrição: </label>
                     </td>
                     <td>
-                        <textarea name="shortDescription">${category.shortDescription}</textarea>
+                        <textarea name="shortDescription"></textarea>
                     </td>
                     <td>
                         <label>Visibilidade: </label>
                     </td>
                     <td>
                         <input id="true" type="radio" name="active" value="true"/>
-                        <label for="true">true</label><br>
+                        <label for="true">ATIVA</label><br>
                         <input id="false" type="radio" name="active" value="false"/>
-                        <label for="false">false</label>
+                        <label for="false">INATIVA</label>
                     </td>
                     <td>
-                        <label>Guia de estudo: </label>
+                        <label>Guia: </label>
                     </td>
                     <td>
-                        <textarea name="studyGuide">${category.studyGuide}</textarea>
+                        <textarea name="studyGuide"></textarea>
                     </td>
                 </tr>
                 <tr>

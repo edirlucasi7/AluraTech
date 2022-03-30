@@ -152,8 +152,8 @@ public class Category {
         this.colorCode = colorCode;
     }
 
-    public void disableActive(boolean active) {
-        if(active == true) {
+    public void disableActive() {
+        if(this.active == true) {
             this.active = false;
         }
     }

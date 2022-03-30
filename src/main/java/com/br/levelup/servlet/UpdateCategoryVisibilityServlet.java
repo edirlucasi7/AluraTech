@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/atualizaVisibilidadeCategorias")
-public class UpdateCategoryVisibiltyServlet extends HttpServlet {
+@WebServlet("/atualizaVisibilidadeCategoria")
+public class UpdateCategoryVisibilityServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -25,7 +25,7 @@ public class UpdateCategoryVisibiltyServlet extends HttpServlet {
         Category category = categoryDAO.findById(id).get();
 
         manager.getTransaction().begin();
-        category.disableActive(category.isActive());
+        category.disableActive();
         manager.getTransaction().commit();
         manager.close();
     }

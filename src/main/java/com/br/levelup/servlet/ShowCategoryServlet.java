@@ -1,12 +1,10 @@
 package com.br.levelup.servlet;
 
 import com.br.levelup.dao.CategoryDAO;
-import com.br.levelup.model.Category;
 import com.br.levelup.model.dto.CategoryDTO;
 import com.br.levelup.util.JPAUtil;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

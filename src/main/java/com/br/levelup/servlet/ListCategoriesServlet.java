@@ -1,7 +1,6 @@
 package com.br.levelup.servlet;
 
 import com.br.levelup.dao.CategoryDAO;
-import com.br.levelup.model.Category;
 import com.br.levelup.model.dto.CategoryDTO;
 import com.br.levelup.util.JPAUtil;
 
@@ -16,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/listaCategorias")
-public class CategoryListingServlet extends HttpServlet {
+public class ListCategoriesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -27,7 +26,7 @@ public class CategoryListingServlet extends HttpServlet {
         List<CategoryDTO> allCategories = CategoryDTO.convert(categoryDAO.getAllCategories());
         request.setAttribute("categorias", allCategories);
 
-        RequestDispatcher rd =  request.getRequestDispatcher("/categoryListing.jsp");
+        RequestDispatcher rd =  request.getRequestDispatcher("/listCategories.jsp");
         rd.forward(request, response);
     }
 }
