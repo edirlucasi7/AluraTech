@@ -9,7 +9,7 @@ function disableCategory(id) {
             if (xhr.status == 200) {
                 status.textContent = "INATIVA";
             } else {
-                alert("Requisição falhou!");
+                alert("Ocorreu um erro, tente novamente mais tarde!");
             }
         });
         xhr.send();

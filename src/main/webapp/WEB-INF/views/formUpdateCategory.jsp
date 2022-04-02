@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cadastro da categoria</title>
+    <title>Edição da categoria</title>
 </head>
 <body>
 
@@ -68,7 +68,7 @@
                     <td>
                         <input type="text" name="colorCode" value="${category.colorCode}" required="true"/>
                     </td>
-                    <td><input type="hidden" name="id" value="${category.id }"></td>
+                    <td><input type="hidden" name="id" value="${category.id}"></td>
                 </tr>
             </table>
         </fieldset>

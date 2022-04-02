@@ -24,9 +24,9 @@ public class ListCategoriesServlet extends HttpServlet {
 
         CategoryDAO categoryDAO = new CategoryDAO(manager);
         List<CategoryDTO> allCategories = CategoryDTO.convert(categoryDAO.getAllCategories());
-        request.setAttribute("categorias", allCategories);
+        request.setAttribute("categories", allCategories);
 
-        RequestDispatcher rd =  request.getRequestDispatcher("/listCategories.jsp");
+        RequestDispatcher rd =  request.getRequestDispatcher("WEB-INF/views/listCategories.jsp");
         rd.forward(request, response);
     }
 }

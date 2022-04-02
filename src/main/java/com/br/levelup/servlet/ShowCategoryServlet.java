@@ -28,7 +28,7 @@ public class ShowCategoryServlet extends HttpServlet {
         CategoryDTO categoryDTO = new CategoryDTO(categoryDAO.findById(id).get());
 
         request.setAttribute("category", categoryDTO);
-        RequestDispatcher rd = request.getRequestDispatcher("/formUpdateCategory.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/formUpdateCategory.jsp");
         rd.forward(request, response);
     }
 }

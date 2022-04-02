@@ -20,7 +20,7 @@
             <th>Ícone</th>
             <th>Código da cor</th>
         </tr>
-        <c:forEach items="${categorias}" var="category">
+        <c:forEach items="${categories}" var="category">
         <tr class="categories">
             <td hidden class="categoryId">${category.id}</td>
             <td>${category.name}</td>
@@ -30,9 +30,9 @@
             <td>${category.studyGuide}</td>
             <td>${category.order}</td>
             <td><img src="${category.imageUrl}" width="50px"/></td>
-            <td>${category.colorCode }</td>
+            <td>${category.colorCode}</td>
             <td><button onclick="disableCategory(${category.id})" id="disable${category.id}">desativar visibilidade</button></td>
-            <td><a href="/mostraCategoria?id=${category.id }">editar</a></td>
+            <td><a href="/mostraCategoria?id=${category.id}">editar</a></td>
         </tr>
         </c:forEach>
     </table>
