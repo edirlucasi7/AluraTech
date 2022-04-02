@@ -36,7 +36,7 @@
         </tr>
         </c:forEach>
     </table>
-    <td><a href="/formNewCategory.jsp">cadastrar</a></td>
+    <td><a href="/formNewCategory">cadastrar</a></td>
 
     <script src="disableCategory.js"></script>
 
