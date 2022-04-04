@@ -7,22 +7,30 @@ import java.util.stream.Collectors;
 
 public class CategoryDTO {
 
+    private final Long id;
     private final String name;
     private final String code;
     private final String shortDescription;
     private final boolean active;
+    private final String studyGuide;
     private final Integer order;
     private final String imageUrl;
     private final String colorCode;
 
     public CategoryDTO(Category category) {
+        this.id = category.getId();
         this.name = category.getName();
         this.code = category.getCode();
         this.shortDescription = category.getShortDescription();
         this.active = category.isActive();
+        this.studyGuide = category.getStudyGuide();
         this.order = category.getOrder();
         this.imageUrl = category.getImageUrl();
         this.colorCode = category.getColorCode();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -51,6 +59,10 @@ public class CategoryDTO {
 
     public String getColorCode() {
         return colorCode;
+    }
+
+    public String getStudyGuide() {
+        return studyGuide;
     }
 
     public static List<CategoryDTO> convert(List<Category> categories) {

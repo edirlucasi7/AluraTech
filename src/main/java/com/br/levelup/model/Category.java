@@ -81,8 +81,19 @@ public class Category {
         return order;
     }
 
+    public String getStudyGuide() {
+        return studyGuide;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public void setShortDescription(String shortDescription) {
-        cantBeNullOrEmpty(shortDescription, "The field shortDescription should not be null or empty!");
         this.shortDescription = shortDescription;
     }
 
@@ -100,13 +111,16 @@ public class Category {
     }
 
     public void setImageUrl(String imageUrl) {
-        cantBeNullOrEmpty(imageUrl, "The field imageUrl should not be empty!");
         this.imageUrl = imageUrl;
     }
 
     public void setColorCode(String colorCode) {
         isHexadecimal(colorCode, "The field codeColor should not be out of hexadecimal format!");
         this.colorCode = colorCode;
+    }
+
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
     }
 
     public static boolean convertToBoolean(String stringActive) {
@@ -119,6 +133,29 @@ public class Category {
 
     public static List<Category> activeCategories(List<Category> categories) {
         return categories.stream().filter(Category::isActive).toList();
+    }
+
+    public void update(String name, String code, String shortDescription, String studyGuide, boolean active,
+                       Integer order, String imageUrl, String colorCode) {
+        cantBeNullOrEmpty(name, "The field name should not be null or empty!");
+        cantBeNullOrEmpty(code, "The field code should not be null or empty!");
+        containOnlyLettersLowerCaseAndDash(code, "The field code must not be out of lowercase letters and dash format!");
+        cantBeLessZero(order, "The field order should not be less than zero!");
+        isHexadecimal(colorCode, "The field codeColor should not be out of hexadecimal format!");
+        this.name = name;
+        this.code = code;
+        this.shortDescription = shortDescription;
+        this.studyGuide = studyGuide;
+        this.active = active;
+        this.order = order;
+        this.imageUrl = imageUrl;
+        this.colorCode = colorCode;
+    }
+
+    public void disableActive() {
+        if(this.active == true) {
+            this.active = false;
+        }
     }
 
     @Override
@@ -147,5 +184,4 @@ public class Category {
                 ", colorCode='" + colorCode + '\'' +
                 '}';
     }
-
 }
