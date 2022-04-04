@@ -3,42 +3,55 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
     <title>Listagem de Categorias</title>
 </head>
 <body>
 
-    <h1>Informações de Categorias: </h1>
-    <table>
 
-        <tr>
-            <th>Nome</th>
-            <th>Código</th>
-            <th>Descrição</th>
-            <th>Visibilidade</th>
-            <th>Guia de estudo</th>
-            <th>Ordem</th>
-            <th>Ícone</th>
-            <th>Código da cor</th>
-        </tr>
-        <c:forEach items="${categories}" var="category">
-        <tr class="categories">
-            <td hidden class="categoryId">${category.id}</td>
-            <td>${category.name}</td>
-            <td>${category.code}</td>
-            <td>${category.shortDescription}</td>
-            <td class="info-active${category.id}">${category.isActive() ? "ATIVA" : "INATIVA"}</td>
-            <td>${category.studyGuide}</td>
-            <td>${category.order}</td>
-            <td><img src="${category.imageUrl}" width="50px"/></td>
-            <td>${category.colorCode}</td>
-            <td><button onclick="disableCategory(${category.id})" id="disable${category.id}">desativar visibilidade</button></td>
-            <td><a href="/mostraCategoria?id=${category.id}">editar</a></td>
-        </tr>
-        </c:forEach>
-    </table>
-    <td><a href="/formNewCategory">cadastrar</a></td>
+    <section class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+                <h1 class="teste">Categorias</h1>
+                <a href="/admin/categories/new">
+                    <button class="btn btn-primary">Nova categoria</button>
+                </a>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Código</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${categories}" var="category">
+                        <tr class="categories">
+                            <td class="col-md-4">${category.name}</td>
+                            <td class="col-md-4">${category.code}</td>
+                            <td class="col-md-2">${category.isActive() ? "Ativa" : "Inativa"}</td>
+                            <td class="col-md-1"><a href="/admin/subcategories/${category.code}">Subcategorias</a></td>
+                            <td class="col-md-1">
+                                <a href="/admin/categories/${category.code}">
+                                    <button id="editButton" class="btn btn-light">Editar</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-    <script src="disableCategory.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edição da categoria</title>
+    <title>Cadastro da categoria</title>
 </head>
 <body>
 
