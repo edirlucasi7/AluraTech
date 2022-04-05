@@ -32,6 +32,18 @@ public class Category {
         this.code = code;
     }
 
+    public Category(String name, String code, String shortDescription, String studyGuide, boolean active, Integer order,
+                    String imageUrl, String colorCode) {
+        this.name = name;
+        this.code = code;
+        this.shortDescription = shortDescription;
+        this.studyGuide = studyGuide;
+        this.active = active;
+        this.order = order;
+        this.imageUrl = imageUrl;
+        this.colorCode = colorCode;
+    }
+
     public Long getId() {
         return id;
     }
@@ -52,12 +64,24 @@ public class Category {
         return active;
     }
 
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
     public Integer getOrder() {
         return order;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     public String getColorCode() {
         return colorCode;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void update(String name, String code, String shortDescription, String studyGuide, boolean active,
