@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.models;
+package br.com.levelup.aluratech.model;
 
 import com.br.levelup.model.enums.QuestionType;
 

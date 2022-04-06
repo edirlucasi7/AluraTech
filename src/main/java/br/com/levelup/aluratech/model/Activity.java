@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.models;
+package br.com.levelup.aluratech.model;
 import javax.persistence.*;
 
 @Entity

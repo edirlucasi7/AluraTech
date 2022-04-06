@@ -11,38 +11,37 @@
 <body>
 
     <section class="container">
-        <div class="panel panel-default">
-            <div class="panel-heading"></div>
-            <div class="panel-body">
-                <h1 class="teste">Categorias</h1>
-                <a href="/admin/categories/new">
-                    <button class="btn btn-primary">Nova categoria</button>
-                </a>
-            </div>
+        <div>
+            <h1 class="teste">Categorias</h1>
+            <a href="/admin/categories/new">
+                <button class="btn btn-primary">Nova categoria</button>
+            </a>
+        </div>
+        <div class="tableCategories">
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Código</th>
-                        <th>Status</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th>Código</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${categories}" var="category">
-                        <tr class="categories">
-                            <td class="col-md-4">${category.name}</td>
-                            <td class="col-md-4">${category.code}</td>
-                            <td class="col-md-2">${category.isActive() ? "Ativa" : "Inativa"}</td>
-                            <td class="col-md-1"><a href="/admin/subcategories/${category.code}">Subcategorias</a></td>
-                            <td class="col-md-1">
-                                <a href="/admin/categories/${category.code}">
-                                    <button id="editButton" class="btn btn-light">Editar</button>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                <c:forEach items="${categories}" var="category">
+                    <tr class="categories">
+                        <td class="col-md-4">${category.name}</td>
+                        <td class="col-md-4">${category.code}</td>
+                        <td class="col-md-2">${category.isActive() ? "Ativa" : "Inativa"}</td>
+                        <td class="col-md-1"><a href="/admin/subcategories/${category.code}">Subcategorias</a></td>
+                        <td class="col-md-1">
+                            <a href="/admin/categories/${category.code}">
+                                <button id="editButton" class="btn btn-light">Editar</button>
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

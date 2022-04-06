@@ -1,8 +1,8 @@
-package br.com.levelup.aluratech.models.response;
+package br.com.levelup.aluratech.model.response;
 
-import br.com.levelup.aluratech.models.Category;
-import br.com.levelup.aluratech.models.Course;
-import br.com.levelup.aluratech.models.SubCategory;
+import br.com.levelup.aluratech.model.Category;
+import br.com.levelup.aluratech.model.Course;
+import br.com.levelup.aluratech.model.SubCategory;
 
 import java.util.ArrayList;
 import java.util.List;

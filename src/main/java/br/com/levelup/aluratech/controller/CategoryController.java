@@ -1,51 +1,90 @@
 package br.com.levelup.aluratech.controller;
 
-import br.com.levelup.aluratech.models.Category;
-import br.com.levelup.aluratech.models.Course;
-import br.com.levelup.aluratech.models.SubCategory;
-import br.com.levelup.aluratech.models.response.ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse;
+import br.com.levelup.aluratech.controller.validator.CheckNewCategoryInvalidColorCodeValidator;
+import br.com.levelup.aluratech.controller.validator.CheckUpdateCategoryInvalidColorCodeValidator;
+import br.com.levelup.aluratech.model.Category;
+import br.com.levelup.aluratech.model.request.NewCategoryRequest;
+import br.com.levelup.aluratech.model.request.UpdateCategoryRequest;
+import br.com.levelup.aluratech.model.response.CategoryResponse;
 import br.com.levelup.aluratech.repository.CategoryRepository;
-import br.com.levelup.aluratech.repository.CourseRepository;
-import br.com.levelup.aluratech.repository.SubCategoryRepository;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
-@RestController
+@Controller
+@RequestMapping("/admin/categories")
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
-    private final SubCategoryRepository subCategoryRepository;
-    private final CourseRepository courseRepository;
 
-    public CategoryController(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository,
-                              CourseRepository courseRepository) {
+    public CategoryController(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.subCategoryRepository = subCategoryRepository;
-        this.courseRepository = courseRepository;
     }
 
-    @GetMapping(value = "/api/categories", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse>> allActiveCategories() {
-        List<Category> activeCategories = categoryRepository.findActiveCategories();
-        List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse> activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse =
-                mapActiveCategories(activeCategories);
-        mapActiveCategories(activeCategories);
-        return ResponseEntity.ok(activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse);
+    @InitBinder(value = "newCategoryRequest")
+    public void initNewCategory(WebDataBinder binder) {
+        binder.addValidators(new CheckNewCategoryInvalidColorCodeValidator());
     }
 
-    private List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse> mapActiveCategories(List<Category> activeCategories) {
-        List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse> activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse = new ArrayList<>();
-        activeCategories.forEach(category -> {
-            List<SubCategory> subCategories = subCategoryRepository.findActiveSubCategoriesByCategoryId(category.getId());
-            List<Course> courses = courseRepository.findPublicCoursesByCategoryId(category.getId());
-            activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse
-                    .add(new ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse(category, subCategories, courses));
-        });
-        return activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse;
+    @InitBinder(value = "updateCategoryRequest")
+    public void initUpdateCategory(WebDataBinder binder) {
+        binder.addValidators(new CheckUpdateCategoryInvalidColorCodeValidator());
+    }
+
+    @GetMapping
+    public String allCategories(Model model) {
+        List<CategoryResponse> categoriesResponse = categoryRepository.findAllSorted();
+        model.addAttribute("categories", categoriesResponse);
+        return "listCategories";
+    }
+
+    @GetMapping("/new")
+    public String showViewNewCategory(NewCategoryRequest newCategoryRequest, BindingResult bindingResult) {
+        return "formNewCategory";
+    }
+
+    @PostMapping("/new")
+    @Transactional
+    public String newCategory(@Valid NewCategoryRequest newCategoryRequest, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return showViewNewCategory(newCategoryRequest, bindingResult);
+        }
+        System.out.println(newCategoryRequest);
+        Category newCategory = newCategoryRequest.toEntity();
+        categoryRepository.save(newCategory);
+        return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/{code}")
+    public String showViewUpdateCategory(@PathVariable String code, UpdateCategoryRequest updateCategoryRequest,
+                                         BindingResult bindingResult, Model model) {
+        Optional<Category> possibleCategory = categoryRepository.findByCode(code);
+        if(possibleCategory.isEmpty()) {
+            return "pageNotFound";
+        }
+        model.addAttribute("updateCategoryRequest", new UpdateCategoryRequest(possibleCategory.get()));
+        return "formUpdateCategory";
+    }
+
+    @PostMapping("/{code}")
+    @Transactional
+    public String updateCategory(@PathVariable String code, @Valid UpdateCategoryRequest updateCategoryRequest,
+                                 BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()) {
+            return showViewUpdateCategory(code, updateCategoryRequest, bindingResult, model);
+        }
+        Optional<Category> possibleCategory = categoryRepository.findByCode(code);
+        if(possibleCategory.isEmpty()) {
+            return "pageNotFound";
+        }
+        updateCategoryRequest.update(code, categoryRepository);
+        return "redirect:/admin/categories";
     }
 }

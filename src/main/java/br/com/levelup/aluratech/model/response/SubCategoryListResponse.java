@@ -1,6 +1,6 @@
-package br.com.levelup.aluratech.models.response;
+package br.com.levelup.aluratech.model.response;
 
-import br.com.levelup.aluratech.models.SubCategory;
+import br.com.levelup.aluratech.model.SubCategory;
 
 public class SubCategoryListResponse {
 

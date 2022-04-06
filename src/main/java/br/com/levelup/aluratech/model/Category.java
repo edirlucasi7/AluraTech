@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.models;
+package br.com.levelup.aluratech.model;
 
 import javax.persistence.*;
 
@@ -32,13 +32,12 @@ public class Category {
         this.code = code;
     }
 
-    public Category(String name, String code, String shortDescription, String studyGuide, boolean active, Integer order,
+    public Category(String name, String code, String shortDescription, String studyGuide, Integer order,
                     String imageUrl, String colorCode) {
         this.name = name;
         this.code = code;
         this.shortDescription = shortDescription;
         this.studyGuide = studyGuide;
-        this.active = active;
         this.order = order;
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;
@@ -84,30 +83,35 @@ public class Category {
         this.active = active;
     }
 
-    public void update(String name, String code, String shortDescription, String studyGuide, boolean active,
-                       Integer order, String imageUrl, String colorCode) {
-        this.name = name;
-        this.code = code;
-        this.shortDescription = shortDescription;
-        this.studyGuide = studyGuide;
-        this.active = active;
-        this.order = order;
-        this.imageUrl = imageUrl;
+    public void setColorCode(String colorCode) {
         this.colorCode = colorCode;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", studyGuide='" + studyGuide + '\'' +
-                ", active=" + active +
-                ", order=" + order +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", colorCode='" + colorCode + '\'' +
-                '}';
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

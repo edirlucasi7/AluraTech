@@ -1,6 +1,6 @@
-package br.com.levelup.aluratech.models.response;
+package br.com.levelup.aluratech.model.response;
 
-import br.com.levelup.aluratech.models.Course;
+import br.com.levelup.aluratech.model.Course;
 
 public class CourseListResponse {
 

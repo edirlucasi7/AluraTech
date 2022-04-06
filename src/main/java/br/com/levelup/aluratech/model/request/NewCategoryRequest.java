@@ -1,6 +1,6 @@
-package br.com.levelup.aluratech.models.request;
+package br.com.levelup.aluratech.model.request;
 
-import br.com.levelup.aluratech.models.Category;
+import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.shared.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
@@ -8,21 +8,20 @@ import javax.validation.constraints.Pattern;
 
 public class NewCategoryRequest {
 
-    @NotBlank
+    @NotBlank(message = "O nome não pode ser vazio!")
     private final String name;
-    @NotBlank
-    @Pattern(regexp = "^[a-z-]*$")
+    @NotBlank(message = "O código não pode ser vazio!")
+    @Pattern(regexp = "^[a-z-]*$", message = "O código deve contar apenas letras minúsculas e hífen!")
     @UniqueValue(domainClass = Category.class, fieldName = "code")
     private final String code;
     private final String shortDescription;
     private final String studyGuide;
-    private final boolean active;
+    private Boolean active;
     private final Integer order;
     private final String imageUrl;
-    @Pattern(regexp = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")
-    private final String colorCode;
+    private String colorCode;
 
-    public NewCategoryRequest(String name, String code, String shortDescription, String studyGuide, boolean active,
+    public NewCategoryRequest(String name, String code, String shortDescription, String studyGuide, Boolean active,
                               Integer order, String imageUrl, String colorCode) {
         this.name = name;
         this.code = code;
@@ -67,6 +66,10 @@ public class NewCategoryRequest {
     }
 
     public Category toEntity() {
-        return new Category(name, code, shortDescription, studyGuide, active, order, imageUrl, colorCode);
+        Category category = new Category(name, code, shortDescription, studyGuide, order, imageUrl, colorCode);
+        if(this.active == null) {
+            category.setActive(false);
+        }
+        return category;
     }
 }
