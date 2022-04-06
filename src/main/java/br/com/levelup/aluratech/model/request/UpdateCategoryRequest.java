@@ -110,7 +110,7 @@ public class UpdateCategoryRequest {
         return colorCode;
     }
 
-    public void update(String code, Category category) {
+    public void update(Category category) {
         Assert.notNull(code, "The code cannot be null!");
 
         category.setName(this.name);
