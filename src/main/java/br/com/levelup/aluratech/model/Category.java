@@ -32,13 +32,14 @@ public class Category {
         this.code = code;
     }
 
-    public Category(String name, String code, String shortDescription, String studyGuide, Integer order,
+    public Category(String name, String code, String shortDescription, String studyGuide, Integer order, boolean active,
                     String imageUrl, String colorCode) {
         this.name = name;
         this.code = code;
         this.shortDescription = shortDescription;
         this.studyGuide = studyGuide;
         this.order = order;
+        this.active = active;
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;
     }

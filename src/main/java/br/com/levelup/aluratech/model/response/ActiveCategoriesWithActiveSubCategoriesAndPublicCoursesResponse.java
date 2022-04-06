@@ -16,8 +16,8 @@ public class ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse {
     private final String colorCode;
     private final String studyGuide;
     private final int totalOfCoursesByCategory;
-    private final List<SubCategoryListResponse> subCategoriesListResponse = new ArrayList<>();
-    private final List<CourseListResponse> courseListResponse = new ArrayList<>();
+    private final List<SubCategoryListResponse> subCategories = new ArrayList<>();
+    private final List<CourseListResponse> courses = new ArrayList<>();
 
     public ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse(Category category, List<SubCategory> subCategory, List<Course> courses) {
         this.name = category.getName();
@@ -26,8 +26,8 @@ public class ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse {
         this.colorCode = category.getColorCode();
         this.studyGuide = category.getStudyGuide();
         this.totalOfCoursesByCategory = courses.size();
-        this.subCategoriesListResponse.addAll(subCategory.stream().map(s -> new SubCategoryListResponse(s)).collect(Collectors.toList()));
-        this.courseListResponse.addAll(courses.stream().map(c -> new CourseListResponse(c)).collect(Collectors.toList()));
+        this.subCategories.addAll(subCategory.stream().map(SubCategoryListResponse::new).collect(Collectors.toList()));
+        this.courses.addAll(courses.stream().map(CourseListResponse::new).collect(Collectors.toList()));
     }
 
     public String getName() {
@@ -54,11 +54,11 @@ public class ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse {
         return totalOfCoursesByCategory;
     }
 
-    public List<SubCategoryListResponse> getSubCategoriesListResponse() {
-        return subCategoriesListResponse;
+    public List<SubCategoryListResponse> getSubCategories() {
+        return subCategories;
     }
 
-    public List<CourseListResponse> getCourseListResponse() {
-        return courseListResponse;
+    public List<CourseListResponse> getCourses() {
+        return courses;
     }
 }

@@ -42,12 +42,12 @@ public class CategoryController {
     public String allCategories(Model model) {
         List<CategoryResponse> categoriesResponse = categoryRepository.findAllSorted();
         model.addAttribute("categories", categoriesResponse);
-        return "listCategories";
+        return "category/listCategories";
     }
 
     @GetMapping("/new")
     public String showViewNewCategory(NewCategoryRequest newCategoryRequest, BindingResult bindingResult) {
-        return "formNewCategory";
+        return "category/formNewCategory";
     }
 
     @PostMapping("/new")
@@ -56,7 +56,6 @@ public class CategoryController {
         if(bindingResult.hasErrors()) {
             return showViewNewCategory(newCategoryRequest, bindingResult);
         }
-        System.out.println(newCategoryRequest);
         Category newCategory = newCategoryRequest.toEntity();
         categoryRepository.save(newCategory);
         return "redirect:/admin/categories";
@@ -67,10 +66,11 @@ public class CategoryController {
                                          BindingResult bindingResult, Model model) {
         Optional<Category> possibleCategory = categoryRepository.findByCode(code);
         if(possibleCategory.isEmpty()) {
-            return "pageNotFound";
+            return "errors/pageNotFound";
         }
-        model.addAttribute("updateCategoryRequest", new UpdateCategoryRequest(possibleCategory.get()));
-        return "formUpdateCategory";
+        model.addAttribute("updateCategoryRequest", bindingResult.hasErrors() ? updateCategoryRequest :
+                new UpdateCategoryRequest(possibleCategory.get()));
+        return "category/formUpdateCategory";
     }
 
     @PostMapping("/{code}")
@@ -82,9 +82,9 @@ public class CategoryController {
         }
         Optional<Category> possibleCategory = categoryRepository.findByCode(code);
         if(possibleCategory.isEmpty()) {
-            return "pageNotFound";
+            return "errors/pageNotFound";
         }
-        updateCategoryRequest.update(code, categoryRepository);
+        updateCategoryRequest.update(code, possibleCategory.get());
         return "redirect:/admin/categories";
     }
 }

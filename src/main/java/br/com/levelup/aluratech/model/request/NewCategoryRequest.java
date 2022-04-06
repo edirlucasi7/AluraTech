@@ -16,12 +16,12 @@ public class NewCategoryRequest {
     private final String code;
     private final String shortDescription;
     private final String studyGuide;
-    private Boolean active;
+    private boolean active;
     private final Integer order;
     private final String imageUrl;
     private String colorCode;
 
-    public NewCategoryRequest(String name, String code, String shortDescription, String studyGuide, Boolean active,
+    public NewCategoryRequest(String name, String code, String shortDescription, String studyGuide, boolean active,
                               Integer order, String imageUrl, String colorCode) {
         this.name = name;
         this.code = code;
@@ -66,10 +66,6 @@ public class NewCategoryRequest {
     }
 
     public Category toEntity() {
-        Category category = new Category(name, code, shortDescription, studyGuide, order, imageUrl, colorCode);
-        if(this.active == null) {
-            category.setActive(false);
-        }
-        return category;
+        return new Category(name, code, shortDescription, studyGuide, order, active, imageUrl, colorCode);
     }
 }

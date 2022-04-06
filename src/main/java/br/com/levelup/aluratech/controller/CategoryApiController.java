@@ -31,7 +31,7 @@ public class CategoryApiController {
 
     @GetMapping(value = "/api/categories", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse>> allActiveCategories() {
-        List<Category> activeCategories = categoryRepository.findActiveCategories();
+        List<Category> activeCategories = categoryRepository.findAllByActiveTrue();
         List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse> activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse =
                 mapActiveCategories(activeCategories);
         mapActiveCategories(activeCategories);
@@ -41,7 +41,7 @@ public class CategoryApiController {
     private List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse> mapActiveCategories(List<Category> activeCategories) {
         List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse> activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse = new ArrayList<>();
         activeCategories.forEach(category -> {
-            List<SubCategory> subCategories = subCategoryRepository.findActiveSubCategoriesByCategoryId(category.getId());
+            List<SubCategory> subCategories = subCategoryRepository.findAllByActiveTrueAndCategoryId(category.getId());
             List<Course> courses = courseRepository.findPublicCoursesByCategoryId(category.getId());
             activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse
                     .add(new ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse(category, subCategories, courses));

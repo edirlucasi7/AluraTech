@@ -17,7 +17,7 @@ public class UpdateCategoryRequest {
     private String code;
     private String shortDescription;
     private String studyGuide;
-    private Boolean active;
+    private boolean active;
     private Integer order;
     private String imageUrl;
     private String colorCode;
@@ -110,37 +110,16 @@ public class UpdateCategoryRequest {
         return colorCode;
     }
 
-    public void update(String code, CategoryRepository categoryRepository) {
+    public void update(String code, Category category) {
         Assert.notNull(code, "The code cannot be null!");
-        Assert.notNull(categoryRepository, "The repository cannot be null!");
-        Category category = categoryRepository.findByCode(code).get();
 
         category.setName(this.name);
         category.setCode(this.code);
         category.setShortDescription(this.shortDescription);
         category.setStudyGuide(this.studyGuide);
         category.setOrder(this.order);
-        if(this.active == null) {
-            category.setActive(false);
-        } else {
-            category.setActive(this.active);
-        }
+        category.setActive(this.active);
         category.setImageUrl(this.imageUrl);
         category.setColorCode(this.colorCode);
-    }
-
-    @Override
-    public String toString() {
-        return "UpdateCategoryRequest{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", studyGuide='" + studyGuide + '\'' +
-                ", active=" + active +
-                ", order=" + order +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", colorCode='" + colorCode + '\'' +
-                '}';
     }
 }
