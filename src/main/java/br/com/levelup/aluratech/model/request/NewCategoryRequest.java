@@ -5,64 +5,90 @@ import br.com.levelup.aluratech.shared.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class NewCategoryRequest {
 
     @NotBlank(message = "O nome não pode ser vazio!")
-    private final String name;
+    private String name;
     @NotBlank(message = "O código não pode ser vazio!")
-    @Pattern(regexp = "^[a-z-]*$", message = "O código deve contar apenas letras minúsculas e hífen!")
+    @Pattern(regexp = "^[a-z-]*$", message = "O código deve conter apenas letras minúsculas e hífen!")
     @UniqueValue(domainClass = Category.class, fieldName = "code")
-    private final String code;
-    private final String shortDescription;
-    private final String studyGuide;
+    private String code;
+    private String shortDescription;
+    private String studyGuide;
     private boolean active;
-    private final Integer order;
-    private final String imageUrl;
+    private Integer order;
+    private String imageUrl;
+    @Size(max = 7)
     private String colorCode;
 
-    public NewCategoryRequest(String name, String code, String shortDescription, String studyGuide, boolean active,
-                              Integer order, String imageUrl, String colorCode) {
-        this.name = name;
-        this.code = code;
-        this.shortDescription = shortDescription;
-        this.studyGuide = studyGuide;
-        this.active = active;
-        this.order = order;
-        this.imageUrl = imageUrl;
-        this.colorCode = colorCode;
+    @Deprecated
+    public NewCategoryRequest(){
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getShortDescription() {
         return shortDescription;
     }
 
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
     public String getStudyGuide() {
         return studyGuide;
+    }
+
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
     }
 
     public boolean isActive() {
         return active;
     }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public Integer getOrder() {
         return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getColorCode() {
         return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
     }
 
     public Category toEntity() {

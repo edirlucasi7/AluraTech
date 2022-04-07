@@ -27,7 +27,7 @@
 
                 <div class="row">
                     <div class="form-check col-md-2">
-                        <form:checkbox class="form-check-input" path="active" value="true" id="flexCheckDefault"/>
+                        <form:checkbox class="form-check-input" path="active" id="flexCheckDefault"/>
                         <label class="form-check-label categoryCheck" for="flexCheckDefault">
                             Categoria Ativa?
                         </label>
