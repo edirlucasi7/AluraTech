@@ -2,14 +2,14 @@ package br.com.levelup.aluratech.model.response;
 
 import br.com.levelup.aluratech.model.Course;
 
-public class CourseListResponse {
+public class CourseResponse {
 
     private final String name;
     private final String code;
     private final Integer estimatedTimeInHours;
     private final String developedSkills;
 
-    public CourseListResponse(Course course) {
+    public CourseResponse(Course course) {
         this.name = course.getName();
         this.code = course.getCode();
         this.estimatedTimeInHours = course.getEstimatedTimeInHours();

@@ -3,6 +3,7 @@ package br.com.levelup.aluratech.model.request;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.shared.UniqueValue;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -18,6 +19,7 @@ public class NewCategoryRequest {
     private String shortDescription;
     private String studyGuide;
     private boolean active;
+    @Min(0)
     private Integer order;
     private String imageUrl;
     @Size(max = 7)

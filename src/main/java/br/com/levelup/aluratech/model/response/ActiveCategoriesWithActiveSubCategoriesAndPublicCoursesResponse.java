@@ -16,8 +16,8 @@ public class ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse {
     private final String colorCode;
     private final String studyGuide;
     private final int totalOfCoursesByCategory;
-    private final List<SubCategoryListResponse> subCategories = new ArrayList<>();
-    private final List<CourseListResponse> courses = new ArrayList<>();
+    private final List<SubCategoryResponse> subCategories = new ArrayList<>();
+    private final List<CourseResponse> courses = new ArrayList<>();
 
     public ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse(Category category, List<SubCategory> subCategory, List<Course> courses) {
         this.name = category.getName();
@@ -26,8 +26,8 @@ public class ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse {
         this.colorCode = category.getColorCode();
         this.studyGuide = category.getStudyGuide();
         this.totalOfCoursesByCategory = courses.size();
-        this.subCategories.addAll(subCategory.stream().map(SubCategoryListResponse::new).collect(Collectors.toList()));
-        this.courses.addAll(courses.stream().map(CourseListResponse::new).collect(Collectors.toList()));
+        this.subCategories.addAll(subCategory.stream().map(SubCategoryResponse::new).collect(Collectors.toList()));
+        this.courses.addAll(courses.stream().map(CourseResponse::new).collect(Collectors.toList()));
     }
 
     public String getName() {
@@ -54,11 +54,11 @@ public class ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse {
         return totalOfCoursesByCategory;
     }
 
-    public List<SubCategoryListResponse> getSubCategories() {
+    public List<SubCategoryResponse> getSubCategories() {
         return subCategories;
     }
 
-    public List<CourseListResponse> getCourses() {
+    public List<CourseResponse> getCourses() {
         return courses;
     }
 }

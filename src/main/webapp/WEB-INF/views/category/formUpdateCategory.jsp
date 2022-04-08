@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="form-check col-md-2">
                         <form:checkbox class="form-check-input" path="active" id="flexCheckDefault"
-                                       value="${updateCategoryRequest.isActive() == true ? checked : unchecked}"/>
+                                       value="${updateCategoryRequest.isActive() ? checked : unchecked}"/>
                         <label class="form-check-label categoryCheck" for="flexCheckDefault">
                             Categoria Ativa?
                         </label>

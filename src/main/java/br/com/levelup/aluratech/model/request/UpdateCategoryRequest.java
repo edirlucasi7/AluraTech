@@ -4,6 +4,7 @@ import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import org.springframework.util.Assert;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -18,6 +19,7 @@ public class UpdateCategoryRequest {
     private String shortDescription;
     private String studyGuide;
     private boolean active;
+    @Min(0)
     private Integer order;
     private String imageUrl;
     private String colorCode;
