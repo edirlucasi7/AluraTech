@@ -16,7 +16,7 @@ public class Section {
     private Long id;
     @NotBlank(message = "O nome não pode ser vazio!")
     private String name;
-    @NotBlank(message = "O nome não pode ser vazio!")
+    @NotBlank(message = "O código não pode ser vazio!")
     @Pattern(regexp = "^[a-z-]*$", message = "O código deve conter apenas letras minúsculas e hífen!")
     private String code;
     @Min(0)

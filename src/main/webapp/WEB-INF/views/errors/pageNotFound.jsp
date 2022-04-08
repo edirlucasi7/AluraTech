@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
     <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-    <title>Nova Categoria</title>
+    <title>Página não encontrada</title>
 </head>
 <body>
 
