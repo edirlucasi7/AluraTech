@@ -1,8 +1,6 @@
 package br.com.levelup.aluratech.model.request;
 
 import br.com.levelup.aluratech.model.Category;
-import br.com.levelup.aluratech.repository.CategoryRepository;
-import org.springframework.util.Assert;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +17,6 @@ public class UpdateCategoryRequest {
     private String shortDescription;
     private String studyGuide;
     private boolean active;
-    @Min(0)
     private Integer order;
     private String imageUrl;
     private String colorCode;
@@ -110,18 +107,5 @@ public class UpdateCategoryRequest {
 
     public String getColorCode() {
         return colorCode;
-    }
-
-    public void update(Category category) {
-        Assert.notNull(code, "The code cannot be null!");
-
-        category.setName(this.name);
-        category.setCode(this.code);
-        category.setShortDescription(this.shortDescription);
-        category.setStudyGuide(this.studyGuide);
-        category.setOrder(this.order);
-        category.setActive(this.active);
-        category.setImageUrl(this.imageUrl);
-        category.setColorCode(this.colorCode);
     }
 }

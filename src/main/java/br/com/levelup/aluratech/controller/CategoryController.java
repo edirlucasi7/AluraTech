@@ -84,7 +84,7 @@ public class CategoryController {
         if(possibleCategory.isEmpty()) {
             return "errors/pageNotFound";
         }
-        updateCategoryRequest.update(possibleCategory.get());
+        possibleCategory.get().update(updateCategoryRequest);
         return "redirect:/admin/categories";
     }
 }

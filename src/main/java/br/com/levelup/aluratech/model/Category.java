@@ -1,5 +1,7 @@
 package br.com.levelup.aluratech.model;
 
+import br.com.levelup.aluratech.model.request.UpdateCategoryRequest;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -94,39 +96,18 @@ public class Category {
         return colorCode;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        this.studyGuide = studyGuide;
-    }
-
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void update(UpdateCategoryRequest updateCategoryRequest) {
+        cantBeNullOrEmpty(updateCategoryRequest.getName(), "The field name should not be null or empty!");
+        cantBeNullOrEmpty(updateCategoryRequest.getCode(), "The field code should not be null or empty!");
+        containOnlyLettersLowerCaseAndDash(updateCategoryRequest.getCode(), "The field code must not be out of lowercase letters and dash format!");
+        isHexadecimal(updateCategoryRequest.getColorCode(), "The field codeColor should not be out of hexadecimal format!");
+        this.name = updateCategoryRequest.getName();
+        this.code = updateCategoryRequest.getCode();
+        this.shortDescription = updateCategoryRequest.getShortDescription();
+        this.studyGuide = updateCategoryRequest.getStudyGuide();
+        this.order = updateCategoryRequest.getOrder();
+        this.active = updateCategoryRequest.isActive();
+        this.imageUrl = updateCategoryRequest.getImageUrl();
+        this.colorCode = updateCategoryRequest.getColorCode();
     }
 }

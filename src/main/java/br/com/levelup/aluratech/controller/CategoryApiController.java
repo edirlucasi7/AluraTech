@@ -42,7 +42,7 @@ public class CategoryApiController {
         List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse> activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse = new ArrayList<>();
         activeCategories.forEach(category -> {
             List<SubCategory> subCategories = subCategoryRepository.findAllByActiveTrueAndCategoryId(category.getId());
-            List<Course> courses = courseRepository.findPublicCoursesByCategoryId(category.getId());
+            List<Course> courses = courseRepository.findAllByVisibilityTrueAndSubCategory_CategoryId(category.getId());
             activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse
                     .add(new ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse(category, subCategories, courses));
         });
