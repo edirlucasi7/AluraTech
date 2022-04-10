@@ -1,0 +1,15 @@
+#editButton {
+    color: #000000;
+}
+
+.categoryCheck {
+    font-size: 15px;
+}
+
+.activeCategoryInfo {
+    font-size: 12px;
+}
+
+.tableCategories {
+    margin-top: 20px;
+}
