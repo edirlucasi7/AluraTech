@@ -3,7 +3,7 @@ package br.com.levelup.aluratech.controller;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.Course;
 import br.com.levelup.aluratech.model.SubCategory;
-import br.com.levelup.aluratech.model.response.ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse;
+import br.com.levelup.aluratech.controller.response.category.ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;

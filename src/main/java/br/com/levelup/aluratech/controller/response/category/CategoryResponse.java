@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.model.response;
+package br.com.levelup.aluratech.controller.response.category;
 
 public class CategoryResponse {
 

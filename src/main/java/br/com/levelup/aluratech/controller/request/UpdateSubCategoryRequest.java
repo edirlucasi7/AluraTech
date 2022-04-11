@@ -1,32 +1,52 @@
-package br.com.levelup.aluratech.model.request;
+package br.com.levelup.aluratech.controller.request;
 
 import br.com.levelup.aluratech.model.Category;
-import br.com.levelup.aluratech.shared.UniqueValue;
+import br.com.levelup.aluratech.model.SubCategory;
+import br.com.levelup.aluratech.shared.ExistsId;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
-public class NewCategoryRequest {
+public class UpdateSubCategoryRequest {
 
+    private Long id;
     @NotBlank(message = "O nome não pode ser vazio!")
     private String name;
     @NotBlank(message = "O código não pode ser vazio!")
     @Pattern(regexp = "^[a-z-]*$", message = "O código deve conter apenas letras minúsculas e hífen!")
-    @UniqueValue(domainClass = Category.class, fieldName = "code")
     private String code;
     private String shortDescription;
     private String studyGuide;
     private boolean active;
     @Min(0)
     private Integer order;
-    private String imageUrl;
-    @Size(max = 7)
-    private String colorCode;
+    @NotNull(message = "A categroia é obrigatória!")
+    @ExistsId(domainClass = Category.class, fieldName = "id")
+    private Long idCategory;
 
     @Deprecated
-    public NewCategoryRequest(){
+    public UpdateSubCategoryRequest() {
+    }
+
+    public UpdateSubCategoryRequest(SubCategory subCategory) {
+        this.id = subCategory.getId();
+        this.name = subCategory.getName();
+        this.code = subCategory.getCode();
+        this.shortDescription = subCategory.getShortDescription();
+        this.studyGuide = subCategory.getStudyGuide();
+        this.active = subCategory.isActive();
+        this.order = subCategory.getOrder();
+        this.idCategory = subCategory.getId();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -77,23 +97,11 @@ public class NewCategoryRequest {
         this.order = order;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Long getIdCategory() {
+        return idCategory;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
-    }
-
-    public Category toEntity() {
-        return new Category(name, code, shortDescription, studyGuide, order, active, imageUrl, colorCode);
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
     }
 }

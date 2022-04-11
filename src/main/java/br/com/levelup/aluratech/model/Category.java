@@ -1,6 +1,6 @@
 package br.com.levelup.aluratech.model;
 
-import br.com.levelup.aluratech.model.request.UpdateCategoryRequest;
+import br.com.levelup.aluratech.controller.request.UpdateCategoryRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

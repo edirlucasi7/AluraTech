@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.model.request;
+package br.com.levelup.aluratech.controller.request;
 
 import br.com.levelup.aluratech.model.Category;
 
@@ -16,6 +16,7 @@ public class UpdateCategoryRequest {
     private String code;
     private String shortDescription;
     private String studyGuide;
+    @Min(0)
     private boolean active;
     private Integer order;
     private String imageUrl;
