@@ -21,7 +21,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     Optional<Category> findByCode(String code);
 
-    Optional<CategoryProjection> findCategoryNameByCode(String code);
+    Optional<CategoryProjection> findCategoryNameByCode(String categoryCode);
 
     @Query("SELECT new br.com.levelup.aluratech.controller.response.category.ExistingCategoriesResponse(c.id, c.name) " +
             "FROM Category c ORDER BY c.name ASC")

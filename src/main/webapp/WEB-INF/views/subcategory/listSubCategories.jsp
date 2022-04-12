@@ -36,10 +36,10 @@
                             <td class="col-md-4">${subcategory.code}</td>
                             <td class="col-md-2">${subcategory.isActive() ? "Ativa" : "Inativa"}</td>
                             <td class="col-md-1">
-                                <a href="/admin/courses/${subcategory.codeCategory}/${subcategory.code}">Cursos</a>
+                                <a href="/admin/courses/${subcategory.categoryCode}/${subcategory.code}">Cursos</a>
                             </td>
                             <td class="col-md-1">
-                                <a href="/admin/subcategories/${subcategory.codeCategory}/${subcategory.code}">
+                                <a href="/admin/subcategories/${subcategory.categoryCode}/${subcategory.code}">
                                     <button id="editButton" class="btn btn-light">Editar</button>
                                 </a>
                             </td>

@@ -7,7 +7,7 @@ public class SubCategoryResponse {
     private String name;
     private String code;
     private boolean active;
-    private String codeCategory;
+    private String categoryCode;
     private String studyGuide;
 
     public SubCategoryResponse(SubCategory subCategory) {
@@ -16,11 +16,11 @@ public class SubCategoryResponse {
         this.studyGuide = subCategory.getStudyGuide();
     }
 
-    public SubCategoryResponse(String name, String code, boolean active, String codeCategory) {
+    public SubCategoryResponse(String name, String code, boolean active, String categoryCode) {
         this.name = name;
         this.code = code;
         this.active = active;
-        this.codeCategory = codeCategory;
+        this.categoryCode = categoryCode;
     }
 
     public String getName() {
@@ -39,7 +39,7 @@ public class SubCategoryResponse {
         return active;
     }
 
-    public String getCodeCategory() {
-        return codeCategory;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 }

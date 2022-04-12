@@ -1,5 +1,6 @@
 package br.com.levelup.aluratech.repository;
 
+import br.com.levelup.aluratech.controller.projection.CourseProjection;
 import br.com.levelup.aluratech.controller.response.subcategory.SubCategoryResponse;
 import br.com.levelup.aluratech.model.SubCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,6 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
     List<SubCategoryResponse> findAllSorted(String categoryCode);
 
     Optional<SubCategory> findByCode(String subCategoryCode);
+
+    Optional<CourseProjection> findSubCategoryNameByCode(String subcategoryCode);
 }
