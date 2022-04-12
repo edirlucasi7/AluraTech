@@ -16,8 +16,8 @@ public class UpdateCategoryRequest {
     private String code;
     private String shortDescription;
     private String studyGuide;
-    @Min(0)
     private boolean active;
+    @Min(0)
     private Integer order;
     private String imageUrl;
     private String colorCode;
