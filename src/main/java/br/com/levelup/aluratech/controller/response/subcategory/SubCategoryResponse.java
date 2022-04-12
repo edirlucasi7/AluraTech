@@ -4,6 +4,7 @@ import br.com.levelup.aluratech.model.SubCategory;
 
 public class SubCategoryResponse {
 
+    private Long id;
     private String name;
     private String code;
     private boolean active;
@@ -16,7 +17,8 @@ public class SubCategoryResponse {
         this.studyGuide = subCategory.getStudyGuide();
     }
 
-    public SubCategoryResponse(String name, String code, boolean active, String categoryCode) {
+    public SubCategoryResponse(Long id, String name, String code, boolean active, String categoryCode) {
+        this.id = id;
         this.name = name;
         this.code = code;
         this.active = active;
@@ -37,6 +39,10 @@ public class SubCategoryResponse {
 
     public boolean isActive() {
         return active;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getCategoryCode() {

@@ -27,6 +27,7 @@
                         <th>Status</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,9 +35,16 @@
                         <tr class="categories">
                             <td class="col-md-4">${subcategory.name}</td>
                             <td class="col-md-4">${subcategory.code}</td>
-                            <td class="col-md-2">${subcategory.isActive() ? "Ativa" : "Inativa"}</td>
+                            <td class="col-md-2 infoActive${subcategory.id}">${subcategory.isActive() ? "Ativa" : "Inativa"}</td>
                             <td class="col-md-1">
                                 <a href="/admin/courses/${subcategory.categoryCode}/${subcategory.code}">Cursos</a>
+                            </td>
+                            <td class="col-md-1">
+                                <c:if test="${subcategory.isActive()}">
+                                    <a>
+                                        <button class="btn btn-danger buttonDisableSubCategory${subcategory.id}" onclick="disableSubCategory(${subcategory.id})">Desativar</button>
+                                    </a>
+                                </c:if>
                             </td>
                             <td class="col-md-1">
                                 <a href="/admin/subcategories/${subcategory.categoryCode}/${subcategory.code}">
@@ -50,7 +58,8 @@
         </div>
     </section>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous"></script>
+    <script src="/resources/js/disableSubCategory.js"></script>
 </body>
 </html>

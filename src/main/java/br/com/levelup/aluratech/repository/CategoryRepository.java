@@ -15,7 +15,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     List<Category> findAllByActiveTrue();
 
-    @Query("SELECT new br.com.levelup.aluratech.controller.response.category.CategoryResponse(c.name, c.code, c.active) " +
+    @Query("SELECT new br.com.levelup.aluratech.controller.response.category.CategoryResponse(c.id, c.name, c.code, c.active) " +
             "FROM Category c ORDER BY c.order")
     List<CategoryResponse> findAllSorted();
 

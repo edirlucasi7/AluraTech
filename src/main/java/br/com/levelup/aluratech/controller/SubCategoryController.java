@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -93,5 +94,13 @@ public class SubCategoryController {
         Category category = categoryRepository.findById(updateSubCategoryRequest.getIdCategory()).get();
         possibleSubCategory.get().update(updateSubCategoryRequest, category);
         return "redirect:/admin/subcategories/"+categoryCode;
+    }
+
+    @PostMapping("/admin/subcategories/update/{idSubCategory}")
+    @ResponseBody
+    @Transactional
+    public void disableSubCategory(@PathVariable Long idSubCategory) {
+        Optional<SubCategory> subCategory = subCategoryRepository.findById(idSubCategory);
+        subCategory.get().disableActive();
     }
 }

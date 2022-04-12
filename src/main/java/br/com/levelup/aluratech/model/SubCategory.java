@@ -104,4 +104,10 @@ public class SubCategory {
         this.active = updateSubCategoryRequest.isActive();
         this.category = category;
     }
+
+    public void disableActive() {
+        if(this.active == true) {
+            this.active = false;
+        }
+    }
 }

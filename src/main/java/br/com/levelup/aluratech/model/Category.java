@@ -110,4 +110,10 @@ public class Category {
         this.imageUrl = updateCategoryRequest.getImageUrl();
         this.colorCode = updateCategoryRequest.getColorCode();
     }
+
+    public void disableActive() {
+        if(this.active == true) {
+            this.active = false;
+        }
+    }
 }

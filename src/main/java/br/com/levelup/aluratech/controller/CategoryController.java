@@ -87,4 +87,12 @@ public class CategoryController {
         possibleCategory.get().update(updateCategoryRequest);
         return "redirect:/admin/categories";
     }
+
+    @PostMapping("/update/{idCategory}")
+    @ResponseBody
+    @Transactional
+    public void disableCategory(@PathVariable Long idCategory) {
+        Optional<Category> category = categoryRepository.findById(idCategory);
+        category.get().disableActive();
+    }
 }

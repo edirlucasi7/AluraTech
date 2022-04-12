@@ -13,7 +13,7 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
 
     List<SubCategory> findAllByActiveTrueAndCategoryId(Long idCategory);
 
-    @Query("SELECT new br.com.levelup.aluratech.controller.response.subcategory.SubCategoryResponse(s.name, s.code, s.active, s.category.code)" +
+    @Query("SELECT new br.com.levelup.aluratech.controller.response.subcategory.SubCategoryResponse(s.id, s.name, s.code, s.active, s.category.code)" +
             " FROM SubCategory s WHERE s.category.code =:categoryCode ORDER BY s.order")
     List<SubCategoryResponse> findAllSorted(String categoryCode);
 
