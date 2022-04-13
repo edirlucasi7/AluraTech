@@ -1,10 +1,9 @@
 package br.com.levelup.aluratech.repository;
 
-import br.com.levelup.aluratech.controller.projection.CategoryProjection;
+import br.com.levelup.aluratech.controller.projection.category.ExistingCategoriesProjection;
 import br.com.levelup.aluratech.controller.projection.report.ReportOfCoursesByCategoryProjection;
-import br.com.levelup.aluratech.controller.response.category.ExistingCategoriesResponse;
-import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.controller.response.category.CategoryResponse;
+import br.com.levelup.aluratech.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -21,19 +20,17 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     Optional<Category> findByCode(String code);
 
-    Optional<CategoryProjection> findCategoryNameByCode(String categoryCode);
+    @Query(value = """
+            SELECT c.id, c.name FROM category c ORDER BY c.name ASC
+            """, nativeQuery = true)
+    List<ExistingCategoriesProjection> findCategoriesAlphabeticOrder();
 
-    @Query("""
-        SELECT new br.com.levelup.aluratech.controller.response.category.ExistingCategoriesResponse(c.id, c.name) 
-        FROM Category c ORDER BY c.name ASC
-        """)
-    List<ExistingCategoriesResponse> findCategoriesAlphabeticOrder();
-
-    @Query(value = "SELECT ca.name, COALESCE(COUNT(co.id), 0) AS amount " +
-            "FROM category ca " +
-            "LEFT JOIN subcategory s ON ca.id = s.category_id " +
-            "LEFT JOIN course co ON s.id = co.subcategory_id " +
-            "WHERE ca.active = true " +
-            "GROUP BY ca.name ORDER BY amount DESC", nativeQuery = true)
+    @Query(value = """
+            SELECT ca.name, COALESCE(COUNT(co.id), 0) AS amount
+            FROM category ca
+            LEFT JOIN subcategory s ON ca.id = s.category_id
+            LEFT JOIN course co ON s.id = co.subcategory_id
+            GROUP BY ca.name ORDER BY amount DESC
+            """, nativeQuery = true)
     List<ReportOfCoursesByCategoryProjection> findAllCoursesByCategory();
 }

@@ -7,6 +7,7 @@ import br.com.levelup.aluratech.controller.validator.CheckNewCategoryInvalidColo
 import br.com.levelup.aluratech.controller.validator.CheckUpdateCategoryInvalidColorCodeValidator;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.repository.CategoryRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -89,7 +90,7 @@ public class CategoryController {
     }
 
     @PostMapping("/update/{idCategory}")
-    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
     @Transactional
     public void disableCategory(@PathVariable Long idCategory) {
         Optional<Category> category = categoryRepository.findById(idCategory);

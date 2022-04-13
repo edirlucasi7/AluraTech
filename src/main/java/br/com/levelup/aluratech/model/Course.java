@@ -75,6 +75,10 @@ public class Course {
         return subCategory;
     }
 
+    public boolean isVisibility() {
+        return visibility;
+    }
+
     private void isBetween(Integer field, String error) {
         if(!minimumAndMaximumValue(field, ESTIMATED_TIME_MIN, ESTIMATED_TIME_MAX)) {
             throw new IllegalArgumentException(error);

@@ -1,15 +1,12 @@
 package br.com.levelup.aluratech.model;
 
 import br.com.levelup.aluratech.controller.request.UpdateSubCategoryRequest;
-import br.com.levelup.aluratech.repository.CategoryRepository;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
-import java.util.Optional;
 
 import static br.com.levelup.aluratech.model.utils.ValidatorUtils.*;
 
@@ -93,8 +90,7 @@ public class SubCategory {
     }
 
     public void update(UpdateSubCategoryRequest updateSubCategoryRequest, Category category) {
-        cantBeNullOrEmpty(updateSubCategoryRequest.getName(), "The field name should not be empty!");
-        containOnlyLettersLowerCaseAndDash(updateSubCategoryRequest.getCode());
+        cantBeNull(updateSubCategoryRequest);
         cantBeNull(category, "The object category should not be null!");
         this.name = updateSubCategoryRequest.getName();
         this.code = updateSubCategoryRequest.getCode();

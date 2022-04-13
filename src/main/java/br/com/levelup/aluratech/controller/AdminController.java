@@ -4,7 +4,6 @@ import br.com.levelup.aluratech.controller.projection.report.ReportInstructorWit
 import br.com.levelup.aluratech.controller.projection.report.ReportOfCoursesByCategoryProjection;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.InstructorRepository;
-import br.com.levelup.aluratech.repository.SubCategoryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

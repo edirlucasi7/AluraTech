@@ -1,8 +1,8 @@
 package br.com.levelup.aluratech.controller;
 
-import br.com.levelup.aluratech.controller.projection.CategoryProjection;
-import br.com.levelup.aluratech.controller.projection.CourseProjection;
-import br.com.levelup.aluratech.controller.response.course.CourseResponse;
+import br.com.levelup.aluratech.controller.projection.course.CourseProjection;
+import br.com.levelup.aluratech.model.Category;
+import br.com.levelup.aluratech.model.SubCategory;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
@@ -33,12 +33,12 @@ public class CourseController {
     @GetMapping("/admin/courses/{categoryCode}/{subcategoryCode}")
     public String allCourses(@PathVariable String categoryCode, @PathVariable String subcategoryCode, Model model,
                                      @PageableDefault(size = 5) Pageable pageable) {
-        Optional<CategoryProjection> possibleCategory = categoryRepository.findCategoryNameByCode(categoryCode);
-        Optional<CourseProjection> possibleSubcategory = subCategoryRepository.findSubCategoryNameByCode(subcategoryCode);
+        Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
+        Optional<SubCategory> possibleSubcategory = subCategoryRepository.findByCode(subcategoryCode);
         if(possibleCategory.isEmpty() || possibleSubcategory.isEmpty()) {
             return "errors/pageNotFound";
         }
-        Page<CourseResponse> coursesBySubCategory = courseRepository.findCoursesBySubCategory(subcategoryCode, pageable);
+        Page<CourseProjection> coursesBySubCategory = courseRepository.getAllBySubCategory(subcategoryCode, pageable);
         model.addAttribute("subcategoryName", possibleSubcategory.get().getName());
         model.addAttribute("coursesBySubCategory", coursesBySubCategory);
         model.addAttribute("categoryCode", categoryCode);

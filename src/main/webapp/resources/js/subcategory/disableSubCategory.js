@@ -4,7 +4,7 @@ function disableSubCategory(id) {
         removeButtonDisableSubCategory(id)
     }).fail(function (){
         alert("Ocorreu um erro, tente novamente mais tarde!")
-    });;
+    });
 }
 
 function removeButtonDisableSubCategory(id) {
