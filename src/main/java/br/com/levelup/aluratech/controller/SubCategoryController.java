@@ -93,7 +93,7 @@ public class SubCategoryController {
         }
         Category category = categoryRepository.findById(updateSubCategoryRequest.getIdCategory()).get();
         possibleSubCategory.get().update(updateSubCategoryRequest, category);
-        return "redirect:/admin/subcategories/"+categoryCode;
+        return "redirect:/admin/subcategories/"+category.getCode();
     }
 
     @PostMapping("/admin/subcategories/update/{idSubCategory}")
