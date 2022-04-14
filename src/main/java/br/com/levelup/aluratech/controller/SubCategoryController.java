@@ -59,11 +59,8 @@ public class SubCategoryController {
         if(bindingResult.hasErrors()) {
             return showViewNewSubCategory(newSubCategoryRequest, bindingResult, model);
         }
-        Optional<Category> possibleCategory = categoryRepository.findById(newSubCategoryRequest.getIdCategory());
-        if(possibleCategory.isEmpty()) {
-            return "errors/pageNotFound";
-        }
-        SubCategory newSubCategory = newSubCategoryRequest.toEntity(possibleCategory.get());
+        Category category = categoryRepository.findById(newSubCategoryRequest.getIdCategory()).get();
+        SubCategory newSubCategory = newSubCategoryRequest.toEntity(category);
         subCategoryRepository.save(newSubCategory);
         return "redirect:/admin/subcategories/"+newSubCategory.getCategoryCode();
     }
