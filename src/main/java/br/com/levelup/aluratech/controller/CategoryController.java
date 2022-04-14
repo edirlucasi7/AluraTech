@@ -1,12 +1,13 @@
 package br.com.levelup.aluratech.controller;
 
+import br.com.levelup.aluratech.controller.request.NewCategoryRequest;
+import br.com.levelup.aluratech.controller.request.UpdateCategoryRequest;
+import br.com.levelup.aluratech.controller.response.category.CategoryResponse;
 import br.com.levelup.aluratech.controller.validator.CheckNewCategoryInvalidColorCodeValidator;
 import br.com.levelup.aluratech.controller.validator.CheckUpdateCategoryInvalidColorCodeValidator;
 import br.com.levelup.aluratech.model.Category;
-import br.com.levelup.aluratech.model.request.NewCategoryRequest;
-import br.com.levelup.aluratech.model.request.UpdateCategoryRequest;
-import br.com.levelup.aluratech.model.response.CategoryResponse;
 import br.com.levelup.aluratech.repository.CategoryRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,5 +87,13 @@ public class CategoryController {
         }
         possibleCategory.get().update(updateCategoryRequest);
         return "redirect:/admin/categories";
+    }
+
+    @PostMapping("/disable-category/{idCategory}")
+    @ResponseStatus(HttpStatus.OK)
+    @Transactional
+    public void disableCategory(@PathVariable Long idCategory) {
+        Optional<Category> category = categoryRepository.findById(idCategory);
+        category.get().disableActive();
     }
 }

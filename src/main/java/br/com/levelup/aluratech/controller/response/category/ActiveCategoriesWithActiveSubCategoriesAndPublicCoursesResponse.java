@@ -1,5 +1,7 @@
-package br.com.levelup.aluratech.model.response;
+package br.com.levelup.aluratech.controller.response.category;
 
+import br.com.levelup.aluratech.controller.response.course.CourseResponse;
+import br.com.levelup.aluratech.controller.response.subcategory.SubCategoryResponse;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.Course;
 import br.com.levelup.aluratech.model.SubCategory;

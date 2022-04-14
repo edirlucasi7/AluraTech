@@ -1,6 +1,6 @@
 package br.com.levelup.aluratech.model;
 
-import br.com.levelup.aluratech.model.request.UpdateCategoryRequest;
+import br.com.levelup.aluratech.controller.request.UpdateCategoryRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -109,5 +109,11 @@ public class Category {
         this.active = updateCategoryRequest.isActive();
         this.imageUrl = updateCategoryRequest.getImageUrl();
         this.colorCode = updateCategoryRequest.getColorCode();
+    }
+
+    public void disableActive() {
+        if(this.active) {
+            this.active = false;
+        }
     }
 }

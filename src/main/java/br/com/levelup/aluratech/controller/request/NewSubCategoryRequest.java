@@ -1,32 +1,36 @@
-package br.com.levelup.aluratech.model.request;
+package br.com.levelup.aluratech.controller.request;
 
 import br.com.levelup.aluratech.model.Category;
+import br.com.levelup.aluratech.model.SubCategory;
+import br.com.levelup.aluratech.shared.ExistsId;
 import br.com.levelup.aluratech.shared.UniqueValue;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
-public class NewCategoryRequest {
+import static br.com.levelup.aluratech.model.utils.ValidatorUtils.cantBeNull;
+
+public class NewSubCategoryRequest {
 
     @NotBlank(message = "O nome não pode ser vazio!")
     private String name;
     @NotBlank(message = "O código não pode ser vazio!")
     @Pattern(regexp = "^[a-z-]*$", message = "O código deve conter apenas letras minúsculas e hífen!")
-    @UniqueValue(domainClass = Category.class, fieldName = "code")
+    @UniqueValue(domainClass = SubCategory.class, fieldName = "code")
     private String code;
     private String shortDescription;
     private String studyGuide;
     private boolean active;
     @Min(0)
     private Integer order;
-    private String imageUrl;
-    @Size(max = 7)
-    private String colorCode;
+    @NotNull(message = "A categoria é obrigatória!")
+    @ExistsId(domainClass = Category.class, fieldName = "id")
+    private Long idCategory;
 
     @Deprecated
-    public NewCategoryRequest(){
+    public NewSubCategoryRequest() {
     }
 
     public String getName() {
@@ -77,23 +81,16 @@ public class NewCategoryRequest {
         this.order = order;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Long getIdCategory() {
+        return idCategory;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
     }
 
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
-    }
-
-    public Category toEntity() {
-        return new Category(name, code, shortDescription, studyGuide, order, active, imageUrl, colorCode);
+    public SubCategory toEntity(Category category) {
+        cantBeNull(category);
+        return new SubCategory(name, code, shortDescription, studyGuide, active, category);
     }
 }

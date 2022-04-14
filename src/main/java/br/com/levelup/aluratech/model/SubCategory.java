@@ -1,5 +1,7 @@
 package br.com.levelup.aluratech.model;
 
+import br.com.levelup.aluratech.controller.request.UpdateSubCategoryRequest;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -44,6 +46,13 @@ public class SubCategory {
         this.category = category;
     }
 
+    public SubCategory(String name, String code, String shortDescription, String studyGuide, boolean active, Category category) {
+        this(name, code, category);
+        this.shortDescription = shortDescription;
+        this.studyGuide = studyGuide;
+        this.active = active;
+    }
+
     public Long getId() {
         return id;
     }
@@ -62,5 +71,39 @@ public class SubCategory {
 
     public Category getCategory() {
         return category;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getCategoryCode() {
+        return category.getCode();
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void update(UpdateSubCategoryRequest updateSubCategoryRequest, Category category) {
+        cantBeNull(updateSubCategoryRequest);
+        cantBeNull(category, "The object category should not be null!");
+        this.name = updateSubCategoryRequest.getName();
+        this.code = updateSubCategoryRequest.getCode();
+        this.shortDescription = updateSubCategoryRequest.getShortDescription();
+        this.studyGuide = updateSubCategoryRequest.getStudyGuide();
+        this.order = updateSubCategoryRequest.getOrder();
+        this.active = updateSubCategoryRequest.isActive();
+        this.category = category;
+    }
+
+    public void disableActive() {
+        if(this.active) {
+            this.active = false;
+        }
     }
 }

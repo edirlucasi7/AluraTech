@@ -71,8 +71,8 @@ public class Course {
         return developedSkills;
     }
 
-    public SubCategory getSubCategory() {
-        return subCategory;
+    public boolean isVisibility() {
+        return visibility;
     }
 
     private void isBetween(Integer field, String error) {

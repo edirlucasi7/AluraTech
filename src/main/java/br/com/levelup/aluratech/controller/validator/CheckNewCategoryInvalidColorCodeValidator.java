@@ -1,6 +1,6 @@
 package br.com.levelup.aluratech.controller.validator;
 
-import br.com.levelup.aluratech.model.request.NewCategoryRequest;
+import br.com.levelup.aluratech.controller.request.NewCategoryRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

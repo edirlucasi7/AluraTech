@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.model.response;
+package br.com.levelup.aluratech.controller.response.subcategory;
 
 import br.com.levelup.aluratech.model.SubCategory;
 
