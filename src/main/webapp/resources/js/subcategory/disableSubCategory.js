@@ -1,7 +1,7 @@
 function disableSubCategory(id) {
-    $.post("/admin/subcategories/update/"+id, function (){
+    $.post("/admin/subcategories/disable-category/"+id, function (){
         $(".infoActive"+id).html("Inativa");
-        removeButtonDisableSubCategory(id)
+        removeButtonDisableSubCategory(id);
     }).fail(function (){
         alert("Ocorreu um erro, tente novamente mais tarde!")
     });

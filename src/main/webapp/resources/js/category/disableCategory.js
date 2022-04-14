@@ -1,7 +1,7 @@
 function disableCategory(id) {
-    $.post("/admin/categories/update/"+id, function (){
+    $.post("/admin/categories/disable-category/"+id, function (){
         $(".infoActive"+id).html("Inativa");
-        removeButtonDisableCategory(id)
+        removeButtonDisableCategory(id);
     }).fail(function (){
         alert("Ocorreu um erro, tente novamente mais tarde!")
     });

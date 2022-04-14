@@ -71,10 +71,6 @@ public class Course {
         return developedSkills;
     }
 
-    public SubCategory getSubCategory() {
-        return subCategory;
-    }
-
     public boolean isVisibility() {
         return visibility;
     }

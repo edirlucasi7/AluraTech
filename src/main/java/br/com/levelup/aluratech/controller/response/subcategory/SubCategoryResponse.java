@@ -4,9 +4,9 @@ import br.com.levelup.aluratech.model.SubCategory;
 
 public class SubCategoryResponse {
 
-    private String name;
-    private String code;
-    private String studyGuide;
+    private final String name;
+    private final String code;
+    private final String studyGuide;
 
     public SubCategoryResponse(SubCategory subCategory) {
         this.name = subCategory.getName();

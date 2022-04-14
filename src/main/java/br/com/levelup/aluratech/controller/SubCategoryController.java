@@ -49,7 +49,6 @@ public class SubCategoryController {
     @GetMapping("/admin/subcategories/new")
     public String showViewNewSubCategory(NewSubCategoryRequest newSubCategoryRequest, BindingResult bindingResult, Model model) {
         List<ExistingCategoriesProjection> categories = categoryRepository.findCategoriesAlphabeticOrder();
-        categories.forEach(c -> System.out.println(c.getId() + c.getName()));
         model.addAttribute("categories", categories);
         return "subcategory/formNewSubCategory";
     }
@@ -60,8 +59,11 @@ public class SubCategoryController {
         if(bindingResult.hasErrors()) {
             return showViewNewSubCategory(newSubCategoryRequest, bindingResult, model);
         }
-        Category possibleCategory = categoryRepository.findById(newSubCategoryRequest.getIdCategory()).get();
-        SubCategory newSubCategory = newSubCategoryRequest.toEntity(possibleCategory);
+        Optional<Category> possibleCategory = categoryRepository.findById(newSubCategoryRequest.getIdCategory());
+        if(possibleCategory.isEmpty()) {
+            return "errors/pageNotFound";
+        }
+        SubCategory newSubCategory = newSubCategoryRequest.toEntity(possibleCategory.get());
         subCategoryRepository.save(newSubCategory);
         return "redirect:/admin/subcategories/"+newSubCategory.getCategoryCode();
     }
@@ -98,7 +100,7 @@ public class SubCategoryController {
         return "redirect:/admin/subcategories/"+categoryCode;
     }
 
-    @PostMapping("/admin/subcategories/update/{idSubCategory}")
+    @PostMapping("/admin/subcategories/disable-category/{idSubCategory}")
     @ResponseStatus(HttpStatus.OK)
     @Transactional
     public void disableSubCategory(@PathVariable Long idSubCategory) {

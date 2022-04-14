@@ -112,7 +112,7 @@ public class Category {
     }
 
     public void disableActive() {
-        if(this.active == true) {
+        if(this.active) {
             this.active = false;
         }
     }

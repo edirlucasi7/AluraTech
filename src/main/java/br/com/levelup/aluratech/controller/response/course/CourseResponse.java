@@ -4,10 +4,10 @@ import br.com.levelup.aluratech.model.Course;
 
 public class CourseResponse {
 
-    private String name;
-    private String code;
-    private String developedSkills;
-    private Integer estimatedTimeInHours;
+    private final String name;
+    private final String code;
+    private final String developedSkills;
+    private final Integer estimatedTimeInHours;
 
     public CourseResponse(Course course) {
         this.name = course.getName();

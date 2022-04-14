@@ -47,12 +47,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${instructorWithMoreCourses}" var="instructorWithCourses">
-                            <tr>
-                                <td class="col-md-6">${instructorWithCourses.name}</td>
-                                <td class="col-md-6">${instructorWithCourses.amount}</td>
-                            </tr>
-                        </c:forEach>
+                        <tr>
+                            <td class="col-md-6">${instructorWithMoreCourses.name}</td>
+                            <td class="col-md-6">${instructorWithMoreCourses.amount}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

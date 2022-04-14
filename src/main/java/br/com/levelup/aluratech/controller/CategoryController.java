@@ -89,7 +89,7 @@ public class CategoryController {
         return "redirect:/admin/categories";
     }
 
-    @PostMapping("/update/{idCategory}")
+    @PostMapping("/disable-category/{idCategory}")
     @ResponseStatus(HttpStatus.OK)
     @Transactional
     public void disableCategory(@PathVariable Long idCategory) {

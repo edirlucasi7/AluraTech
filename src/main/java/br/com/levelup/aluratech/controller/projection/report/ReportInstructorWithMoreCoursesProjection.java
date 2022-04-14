@@ -1,6 +1,6 @@
 package br.com.levelup.aluratech.controller.projection.report;
 
-public interface ReportInstructorWithMoreCourses {
+public interface ReportInstructorWithMoreCoursesProjection {
     String getName();
     int getAmount();
 }
