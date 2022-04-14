@@ -3,7 +3,7 @@ function disableSubCategory(id) {
         $(".infoActive"+id).html("Inativa");
         removeButtonDisableSubCategory(id);
     }).fail(function (){
-        alert("Ocorreu um erro, tente novamente mais tarde!")
+        alert("Ocorreu um erro, tente novamente mais tarde!");
     });
 }
 
