@@ -97,7 +97,7 @@ public class SubCategoryController {
         return "redirect:/admin/subcategories/"+categoryCode;
     }
 
-    @PostMapping("/admin/subcategories/disable-category/{idSubCategory}")
+    @PostMapping("/admin/subcategories/disable-subcategory/{idSubCategory}")
     @ResponseStatus(HttpStatus.OK)
     @Transactional
     public void disableSubCategory(@PathVariable Long idSubCategory) {
