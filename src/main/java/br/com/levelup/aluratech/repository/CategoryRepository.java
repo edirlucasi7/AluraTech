@@ -1,6 +1,7 @@
 package br.com.levelup.aluratech.repository;
 
 import br.com.levelup.aluratech.controller.projection.category.ExistingCategoriesProjection;
+import br.com.levelup.aluratech.controller.projection.category.CategoriesWithSubCategoryAndSomePublicCourse;
 import br.com.levelup.aluratech.controller.projection.report.ReportOfCoursesByCategoryProjection;
 import br.com.levelup.aluratech.controller.response.category.CategoryResponse;
 import br.com.levelup.aluratech.model.Category;
@@ -33,4 +34,14 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             GROUP BY ca.name ORDER BY amount DESC
             """, nativeQuery = true)
     List<ReportOfCoursesByCategoryProjection> findAllCoursesByCategory();
+
+    @Query(value = """
+        SELECT DISTINCT ca
+        FROM Category ca 
+        JOIN ca.subCategories sc
+        JOIN sc.courses co
+        WHERE ca.active = true AND co.visibility = true AND sc.active = true
+        ORDER BY ca.order, sc.order
+        """)
+    List<CategoriesWithSubCategoryAndSomePublicCourse> findCategoriesWithSubCategoryAndSomePublicCourse();
 }

@@ -1,5 +1,7 @@
 package br.com.levelup.aluratech.model;
 
+import br.com.levelup.aluratech.controller.request.UpdateCourseRequest;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -35,6 +37,7 @@ public class Course {
     @NotNull(message = "O instrutor deve ser obrigatório!")
     @ManyToOne(fetch = FetchType.LAZY)
     private Instructor instructor;
+    @NotNull(message = "A subcategoria deve ser obrigatório!")
     @ManyToOne
     @JoinColumn(name="subcategory_id")
     private SubCategory subCategory;
@@ -42,7 +45,8 @@ public class Course {
     @Deprecated
     public Course() { }
 
-    public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
+    public Course(String name, String code, Integer estimatedTimeInHours, String targetAudience, boolean visibility, String resume,
+                  String developedSkills, Instructor instructor, SubCategory subCategory) {
         cantBeNullOrEmpty(name, "The field name should not be empty!");
         containOnlyLettersLowerCaseAndNumbersAndDash(code);
         isBetween(estimatedTimeInHours, "The field stimated time should not be out of time range!");
@@ -51,6 +55,10 @@ public class Course {
         this.name = name;
         this.code = code;
         this.estimatedTimeInHours = estimatedTimeInHours;
+        this.targetAudience = targetAudience;
+        this.visibility = visibility;
+        this.resume = resume;
+        this.developedSkills = developedSkills;
         this.instructor = instructor;
         this.subCategory = subCategory;
     }
@@ -75,9 +83,60 @@ public class Course {
         return visibility;
     }
 
+    public String getCodeCategory() {
+        return this.subCategory.getCategoryCode();
+    }
+
+    public String getCodeSubCategory() {
+        return this.subCategory.getCode();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTargetAudience() {
+        return targetAudience;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public Long getInstructorId() {
+        return instructor.getId();
+    }
+
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
+    public Long getSubCategoryId() {
+        return subCategory.getId();
+    }
+
     private void isBetween(Integer field, String error) {
         if(!minimumAndMaximumValue(field, ESTIMATED_TIME_MIN, ESTIMATED_TIME_MAX)) {
             throw new IllegalArgumentException(error);
         }
+    }
+
+    public void update(UpdateCourseRequest updateCourseRequest, Instructor instructor, SubCategory subCategory) {
+        cantBeNull(updateCourseRequest);
+        cantBeNull(instructor);
+        cantBeNull(subCategory);
+        this.name = updateCourseRequest.getName();
+        this.code = updateCourseRequest.getCode();
+        this.estimatedTimeInHours = updateCourseRequest.getEstimatedTimeInHours();
+        this.targetAudience = updateCourseRequest.getTargetAudience();
+        this.visibility = updateCourseRequest.isVisibility();
+        this.resume = updateCourseRequest.getResume();
+        this.developedSkills = updateCourseRequest.getDevelopedSkills();
+        this.instructor = instructor;
+        this.subCategory = subCategory;
     }
 }

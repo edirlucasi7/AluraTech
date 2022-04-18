@@ -1,5 +1,6 @@
 package br.com.levelup.aluratech.repository;
 
+import br.com.levelup.aluratech.controller.projection.subcategory.ExistingSubCategoriesProjection;
 import br.com.levelup.aluratech.controller.projection.subcategory.SubCategoryProjection;
 import br.com.levelup.aluratech.model.SubCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,9 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
     List<SubCategoryProjection> findAllSorted(String categoryCode);
 
     Optional<SubCategory> findByCode(String subCategoryCode);
+
+    @Query(value = """
+            SELECT s.id, s.name FROM subcategory s ORDER BY s.name ASC
+            """, nativeQuery = true)
+    List<ExistingSubCategoriesProjection> findSubCategoriesAlphabeticOrder();
 }

@@ -7,6 +7,7 @@ import br.com.levelup.aluratech.controller.response.category.ActiveCategoriesWit
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ public class CategoryApiController {
         this.courseRepository = courseRepository;
     }
 
+    @Cacheable(value = "categoriesList")
     @GetMapping(value = "/api/categories", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse>> allActiveCategories() {
         List<Category> activeCategories = categoryRepository.findAllByActiveTrue();

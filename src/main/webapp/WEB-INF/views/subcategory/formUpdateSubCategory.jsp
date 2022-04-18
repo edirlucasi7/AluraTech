@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="shortDescription">Categoria:</label>
+                    <label for="idCategory">Categoria:</label>
                     <form:select class="contato-select form-control" path="idCategory">
                         <form:options items="${categories}" itemLabel="name" itemValue="id"></form:options>
                     </form:select>
