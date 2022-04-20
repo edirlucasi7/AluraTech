@@ -48,7 +48,7 @@ public class SubCategoryController {
 
     @GetMapping("/admin/subcategories/new")
     public String showViewNewSubCategory(NewSubCategoryRequest newSubCategoryRequest, BindingResult bindingResult, Model model) {
-        List<ExistingCategoriesProjection> categories = categoryRepository.findCategoriesAlphabeticOrder();
+        List<ExistingCategoriesProjection> categories = categoryRepository.findAllByOrderByName();
         model.addAttribute("categories", categories);
         return "subcategory/formNewSubCategory";
     }
@@ -73,7 +73,7 @@ public class SubCategoryController {
         if(possibleCategory.isEmpty() || possibleSubCategory.isEmpty()) {
             return "errors/pageNotFound";
         }
-        List<ExistingCategoriesProjection> categories = categoryRepository.findCategoriesAlphabeticOrder();
+        List<ExistingCategoriesProjection> categories = categoryRepository.findAllByOrderByName();
         model.addAttribute("categories", categories);
         model.addAttribute("updateSubCategoryRequest", bindingResult.hasErrors() ? updateSubCategoryRequest :
                 new UpdateSubCategoryRequest(possibleSubCategory.get()));

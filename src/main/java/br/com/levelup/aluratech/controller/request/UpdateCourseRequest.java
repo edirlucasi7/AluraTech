@@ -7,7 +7,6 @@ import br.com.levelup.aluratech.model.SubCategory;
 import br.com.levelup.aluratech.shared.ExistsId;
 import br.com.levelup.aluratech.shared.UniqueValue;
 
-import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 public class UpdateCourseRequest {
@@ -21,7 +20,6 @@ public class UpdateCourseRequest {
     private String code;
     @NotNull(message = "A estimativa (em horas) é obrigatória!")
     @Min(1) @Max(20)
-    @Column(name = "estimated_time_in_hours", columnDefinition = "TINYINT")
     private Integer estimatedTimeInHours;
     private String targetAudience;
     private boolean visibility;
@@ -30,6 +28,7 @@ public class UpdateCourseRequest {
     @NotNull(message = "O instrutor deve ser obrigatório!")
     @ExistsId(domainClass = Instructor.class, fieldName = "id")
     private Long idInstructor;
+    @NotNull(message = "A subcategoria deve ser obrigatória!")
     @ExistsId(domainClass = SubCategory.class, fieldName = "id")
     private Long idSubCategory;
 

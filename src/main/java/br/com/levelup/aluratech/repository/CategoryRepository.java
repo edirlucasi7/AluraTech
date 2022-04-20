@@ -22,10 +22,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     Optional<Category> findByCode(String code);
 
-    @Query(value = """
-            SELECT c.id, c.name FROM category c ORDER BY c.name ASC
-            """, nativeQuery = true)
-    List<ExistingCategoriesProjection> findCategoriesAlphabeticOrder();
+    List<ExistingCategoriesProjection> findAllByOrderByName();
 
     @Query(value = """
             SELECT ca.name, COALESCE(COUNT(co.id), 0) AS amount
@@ -39,8 +36,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query(value = """
         SELECT DISTINCT ca
         FROM Category ca 
-        JOIN ca.subCategories sc
-        JOIN sc.courses co
         WHERE ca.active = true
         """)
     List<CategoriesWithSubCategoriesProjection> findCategoriesWithSubCategories();
@@ -48,8 +43,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query(value = """
         SELECT DISTINCT ca
         FROM Category ca 
-        JOIN ca.subCategories sc
-        JOIN sc.courses co
         WHERE ca.active = true AND ca.code = :categoryCode
         """)
     CategoryWithSubCategoriesAndCoursesProjection findCategoriesWithSubCategoryAndCourses(String categoryCode);

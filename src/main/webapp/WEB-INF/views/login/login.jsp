@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,13 +172,15 @@
                 <section class="login">
                     <h1 class="login__title">Já estuda com a gente?</h1>
                     <p class="login__subtitle">Faça seu login e boas aulas!</p>
-                    <form:form class="login__form" action="/login" method="POST">
+                    <form class="login__form" action="/login" method="POST">
                         <label>E-mail</label>
                         <input type="email" id="email" name="username" autofocus="true"/>
+
                         <label>Senha</label>
                         <input type="password" id="password" name="password" autocomplete="off" />
+
                         <button class="login__button" type="submit">Entrar</button>
-                    </form:form>
+                    </form>
                 </section>
                 <section class="signup">
                     <h2 class="signup__title">Ainda não estuda com a gente?</h2>
@@ -188,20 +189,20 @@
                         <c:forEach items="${categories}" var="category">
                             <c:if test="${category.activeSubCategories.size() > 0}">
                                 <li class="category-card">
-                                        <a class="category-card__link" href="category/${category.code}">
-                                                <span class="category-card__icon">
-                                                    <img src="${category.imageUrl}">
-                                                </span>
-                                            <h3 class="category-card__title">${category.name}</h3>
-                                            <c:forEach items="${category.activeSubCategories}" var="subcategory" begin="0" end="2">
-                                                    <p class="category-card__details">
-                                                            ${subcategory.name}
-                                                    </p>
-                                            </c:forEach>
-                                            <c:if test="${category.activeSubCategories.size() > 3}">
-                                                e mais...
-                                            </c:if>
-                                        </a>
+                                    <a class="category-card__link" href="category/${category.code}">
+                                        <span class="category-card__icon">
+                                            <img src="${category.imageUrl}">
+                                        </span>
+                                        <h3 class="category-card__title">${category.name}</h3>
+                                        <c:forEach items="${category.activeSubCategories}" var="subcategory" begin="0" end="2">
+                                            <p class="category-card__details">
+                                                    ${subcategory.name}
+                                            </p>
+                                        </c:forEach>
+                                        <c:if test="${category.activeSubCategories.size() > 3}">
+                                            e mais...
+                                        </c:if>
+                                    </a>
                                 </li>
                             </c:if>
                         </c:forEach>

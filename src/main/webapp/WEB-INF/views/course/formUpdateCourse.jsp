@@ -6,15 +6,15 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
         <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Novo Curso</title>
+        <title>Editar Curso</title>
     </head>
     <body>
 
         <section class="container">
-            <h1>Novo Curso</h1>
+            <h1>Editar Curso</h1>
             <form:form modelAttribute="updateCourseRequest" method="post">
                 <div class="form-group">
-                    <form:input class="form-control" type="hidden" placeholder="Digite aqui o nome do curso" path="id"/>
+                    <form:input class="form-control" type="hidden" path="id"/>
                 </div>
 
                 <div class="form-group">
@@ -43,7 +43,7 @@
                         </label>
                     </div>
                     <div class="activeCategoryInfo col-md-10">
-                        <p>Mostra ou deixa de mostrar a subcategoria na listagem dos alunos, de formações, etc</p>
+                        <p>Mostra ou deixa de mostrar o curso na listagem dos alunos, de formações, etc</p>
                     </div>
                 </div>
 
@@ -77,6 +77,7 @@
                     </form:select>
                     <form:errors path="idSubCategory"/>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form:form>
         </section>

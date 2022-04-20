@@ -63,8 +63,8 @@ public class CourseController {
     @GetMapping("/admin/courses/new")
     @Transactional
     public String showViewNewCourse(NewCourseRequest newCourseRequest, BindingResult bindingResult, Model model) {
-        List<ExistingSubCategoriesProjection> subcategories = subCategoryRepository.findSubCategoriesAlphabeticOrder();
-        List<ExistingInstructorsProjection> instructors = instructorRepository.findInstructorsAlphabeticOrder();
+        List<ExistingSubCategoriesProjection> subcategories = subCategoryRepository.findAllByOrderByName();
+        List<ExistingInstructorsProjection> instructors = instructorRepository.findAllByOrderByName();
         model.addAttribute("subcategories", subcategories);
         model.addAttribute("instructors", instructors);
         return "course/formNewCourse";
@@ -76,9 +76,12 @@ public class CourseController {
         if(bindingResult.hasErrors()) {
             return showViewNewCourse(newCourseRequest, bindingResult, model);
         }
-        SubCategory subCategory = subCategoryRepository.findById(newCourseRequest.getIdSubCategory()).get();
-        Instructor instructor = instructorRepository.findById(newCourseRequest.getIdInstructor()).get();
-        Course newCourse = newCourseRequest.toEntity(instructor, subCategory);
+        Optional<SubCategory> subCategory = subCategoryRepository.findById(newCourseRequest.getIdSubCategory());
+        Optional<Instructor> instructor = instructorRepository.findById(newCourseRequest.getIdInstructor());
+        if(subCategory.isEmpty() || instructor.isEmpty()) {
+            return "errors/pageNotFound";
+        }
+        Course newCourse = newCourseRequest.toEntity(instructor.get(), subCategory.get());
         courseRepository.save(newCourse);
         return "redirect:/admin/courses/"+newCourse.getCodeCategory()+"/"+newCourse.getCodeSubCategory();
     }
@@ -92,8 +95,8 @@ public class CourseController {
         if(possibleCategory.isEmpty() || possibleSubCategory.isEmpty() || possibleCourse.isEmpty()) {
             return "errors/pageNotFound";
         }
-        List<ExistingSubCategoriesProjection> subcategories = subCategoryRepository.findSubCategoriesAlphabeticOrder();
-        List<ExistingInstructorsProjection> instructors = instructorRepository.findInstructorsAlphabeticOrder();
+        List<ExistingSubCategoriesProjection> subcategories = subCategoryRepository.findAllByOrderByName();
+        List<ExistingInstructorsProjection> instructors = instructorRepository.findAllByOrderByName();
         model.addAttribute("subcategories", subcategories);
         model.addAttribute("instructors", instructors);
         model.addAttribute("updateCourseRequest", bindingResult.hasErrors() ? updateCourseRequest :

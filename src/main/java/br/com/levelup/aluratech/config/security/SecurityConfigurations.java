@@ -1,6 +1,7 @@
 package br.com.levelup.aluratech.config.security;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -28,11 +29,13 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/categories/**").permitAll()
                 .antMatchers("/category/**").permitAll()
+                .antMatchers("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
                 .antMatchers("/admin/**").authenticated()
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/admin/categories");
+                .defaultSuccessUrl("/admin/categories")
+                .and().csrf().disable().cors();
     }
 
     @Override

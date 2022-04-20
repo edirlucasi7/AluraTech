@@ -19,8 +19,5 @@ public interface InstructorRepository extends JpaRepository<Instructor, Long> {
             """, nativeQuery = true)
     Optional<ReportInstructorWithMoreCoursesProjection> findInstructorWithMoreCourses();
 
-    @Query(value = """
-            SELECT i.id, i.name FROM instructor i ORDER BY i.name ASC
-            """, nativeQuery = true)
-    List<ExistingInstructorsProjection> findInstructorsAlphabeticOrder();
+    List<ExistingInstructorsProjection> findAllByOrderByName();
 }

@@ -14,8 +14,10 @@ public interface CategoriesWithSubCategoriesProjection {
     List<SubCategory> getSubCategories();
 
     default List<SubCategory> getActiveSubCategories() {
-        List<SubCategory> activeSubCategories = getSubCategories().stream().filter(SubCategory::isActive)
-                .filter(s -> s.getCourses().stream().anyMatch(Course::isVisibility)).collect(Collectors.toList());
+        List<SubCategory> activeSubCategories = getSubCategories().stream()
+                .filter(SubCategory::isActive)
+                .filter(s -> s.getCourses().stream().anyMatch(Course::isVisibility))
+                .collect(Collectors.toList());
         activeSubCategories.sort(Comparator.nullsFirst(Comparator.comparing(SubCategory::getOrder)));
         return activeSubCategories;
     }

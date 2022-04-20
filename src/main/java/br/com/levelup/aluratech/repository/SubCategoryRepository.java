@@ -24,8 +24,5 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
 
     Optional<SubCategory> findByCode(String subCategoryCode);
 
-    @Query(value = """
-            SELECT s.id, s.name FROM subcategory s ORDER BY s.name ASC
-            """, nativeQuery = true)
-    List<ExistingSubCategoriesProjection> findSubCategoriesAlphabeticOrder();
+    List<ExistingSubCategoriesProjection> findAllByOrderByName();
 }

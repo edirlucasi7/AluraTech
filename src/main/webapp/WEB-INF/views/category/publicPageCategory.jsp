@@ -165,9 +165,9 @@
     <body>
         <section class="category-banner__wrapper">
             <div class="container category-banner">
-                    <span class="category-banner__icon">
-                        <img src="${categoriesWithSubCategoryCourses.imageUrl}">
-                    </span>
+                <span class="category-banner__icon">
+                    <img src="${categoriesWithSubCategoryCourses.imageUrl}">
+                </span>
                 <h1 class="category-banner__title">${categoriesWithSubCategoryCourses.name}</h1>
             </div>
         </section>
@@ -186,17 +186,17 @@
             </div>
             <c:forEach items="${categoriesWithSubCategoryCourses.subCategoriesWithCourses}" var="subcategory">
                 <div class="subcategory">
-                        <h2 id="${subcategory.code}" class="subcategory__name">${subcategory.name}</h2>
-                        <ul class="courses__list">
-                            <c:forEach items="${subcategory.courses}" var="course">
-                                <c:if test="${course.isVisibility()}">
-                                    <li class="course-card">
-                                        <h3 class="course-card__name">${course.name}</h3>
-                                        <p class="course-card__hours">${course.estimatedTimeInHours}</p>
-                                    </li>
-                                </c:if>
-                            </c:forEach>
-                        </ul>
+                    <h2 id="${subcategory.code}" class="subcategory__name">${subcategory.name}</h2>
+                    <ul class="courses__list">
+                        <c:forEach items="${subcategory.courses}" var="course">
+                            <c:if test="${course.isVisibility()}">
+                                <li class="course-card">
+                                    <h3 class="course-card__name">${course.name}</h3>
+                                    <p class="course-card__hours">${course.estimatedTimeInHours}</p>
+                                </li>
+                            </c:if>
+                        </c:forEach>
+                    </ul>
                 </div>
             </c:forEach>
         </main>

@@ -28,6 +28,7 @@
                 <div class="form-group">
                     <label for="estimatedTimeInHours">Tempo para finalização:</label>
                     <form:input class="form-control" type="number" path="estimatedTimeInHours" placeholder="o tempo deve estra entre 1 e 20 horas"/>
+                    <form:errors path="estimatedTimeInHours" />
                 </div>
 
                 <div class="row">
@@ -38,7 +39,7 @@
                         </label>
                     </div>
                     <div class="activeCategoryInfo col-md-10">
-                        <p>Mostra ou deixa de mostrar a subcategoria na listagem dos alunos, de formações, etc</p>
+                        <p>Mostra ou deixa de mostrar o curso na listagem dos alunos, de formações, etc</p>
                     </div>
                 </div>
 
@@ -72,6 +73,7 @@
                     </form:select>
                     <form:errors path="idSubCategory"/>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form:form>
         </section>

@@ -1,6 +1,5 @@
 package br.com.levelup.aluratech.config.swagger;
 
-import br.com.levelup.aluratech.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -15,9 +14,8 @@ public class SwaggerConfiguration {
     public Docket forumApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.levelup.aluratech"))
-                .paths(PathSelectors.ant("/**"))
-                .build()
-                .ignoredParameterTypes(User.class);
+                .apis(RequestHandlerSelectors.basePackage("br.com.levelup.aluratech.controller.api"))
+                .paths(PathSelectors.ant("/api/**"))
+                .build();
     }
 }
