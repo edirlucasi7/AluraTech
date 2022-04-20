@@ -1,6 +1,6 @@
 package br.com.levelup.aluratech.controller;
 
-import br.com.levelup.aluratech.controller.projection.category.CategoriesWithSubCategoryAndSomePublicCourse;
+import br.com.levelup.aluratech.controller.projection.category.CategoriesWithSubCategoriesProjection;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +19,7 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        List<CategoriesWithSubCategoryAndSomePublicCourse> categories = categoryRepository.findCategoriesWithSubCategoryAndSomePublicCourse();
+        List<CategoriesWithSubCategoriesProjection> categories = categoryRepository.findCategoriesWithSubCategories();
         model.addAttribute("categories", categories);
         return "login/login";
     }

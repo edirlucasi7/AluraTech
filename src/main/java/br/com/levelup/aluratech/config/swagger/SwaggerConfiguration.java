@@ -1,16 +1,12 @@
-package br.com.levelup.aluratech.config.swaager;
+package br.com.levelup.aluratech.config.swagger;
 
 import br.com.levelup.aluratech.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.schema.ModelRef;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-
-import java.util.Arrays;
 
 @Configuration
 public class SwaggerConfiguration {
@@ -22,14 +18,6 @@ public class SwaggerConfiguration {
                 .apis(RequestHandlerSelectors.basePackage("br.com.levelup.aluratech"))
                 .paths(PathSelectors.ant("/**"))
                 .build()
-                .ignoredParameterTypes(User.class)
-                .globalOperationParameters(Arrays.asList(
-                        new ParameterBuilder()
-                                .name("Authorization")
-                                .description("Header para token JWT")
-                                .modelRef(new ModelRef("string"))
-                                .parameterType("header")
-                                .required(false)
-                                .build()));
+                .ignoredParameterTypes(User.class);
     }
 }

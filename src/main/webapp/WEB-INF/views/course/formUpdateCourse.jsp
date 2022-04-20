@@ -14,6 +14,10 @@
             <h1>Novo Curso</h1>
             <form:form modelAttribute="updateCourseRequest" method="post">
                 <div class="form-group">
+                    <form:input class="form-control" type="hidden" placeholder="Digite aqui o nome do curso" path="id"/>
+                </div>
+
+                <div class="form-group">
                     <label for="name">Nome:</label>
                     <form:input class="form-control" type="text" placeholder="Digite aqui o nome do curso aqui" path="name"/>
                     <form:errors path="name" />

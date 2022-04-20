@@ -16,7 +16,7 @@ public class UpdateCourseRequest {
     @NotBlank(message = "O nome não pode ser vazio!")
     private String name;
     @NotBlank(message = "O código não pode ser vazio!")
-    @Pattern(regexp = "^[a-z-]*$", message = "O código deve conter apenas letras minúsculas e hífen!")
+    @Pattern(regexp = "^[a-z0-9-]*$", message = "O código deve conter apenas letras minúsculas, números e hífen!")
     @UniqueValue(domainClass = Category.class, fieldName = "code")
     private String code;
     @NotNull(message = "A estimativa (em horas) é obrigatória!")

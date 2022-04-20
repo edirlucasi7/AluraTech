@@ -95,6 +95,10 @@ public class SubCategory {
         return order;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
     public void update(UpdateSubCategoryRequest updateSubCategoryRequest, Category category) {
         cantBeNull(updateSubCategoryRequest);
         cantBeNull(category, "The object category should not be null!");
