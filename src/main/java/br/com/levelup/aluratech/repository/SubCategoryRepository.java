@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> {
 
-    List<SubCategory> findAllByActiveTrueAndCategoryId(Long idCategory);
+    List<SubCategory> findAllByActiveTrueAndCategoryId(Long categoryId);
 
     @Query(value = """
             SELECT s.id, s.name, s.code, s.active

@@ -95,6 +95,10 @@ public class SubCategory {
         return order;
     }
 
+    public Long getIdCategory() {
+        return category.getId();
+    }
+
     public List<Course> getCourses() {
         return courses;
     }
