@@ -8,6 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static br.com.levelup.aluratech.model.utils.ValidatorUtils.*;
 
 @Entity
@@ -32,6 +35,9 @@ public class SubCategory {
     @NotNull(message = "A categoria é obrigatória!")
     @ManyToOne
     private Category category;
+
+    @OneToMany(mappedBy = "subCategory")
+    private List<Course> courses = new ArrayList<>();
 
     @Deprecated
     public SubCategory() {
@@ -89,6 +95,14 @@ public class SubCategory {
         return order;
     }
 
+    public Long getIdCategory() {
+        return category.getId();
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
     public void update(UpdateSubCategoryRequest updateSubCategoryRequest, Category category) {
         cantBeNull(updateSubCategoryRequest);
         cantBeNull(category, "The object category should not be null!");
@@ -105,5 +119,19 @@ public class SubCategory {
         if(this.active) {
             this.active = false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SubCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", studyGuide='" + studyGuide + '\'' +
+                ", active=" + active +
+                ", order=" + order +
+                ", courses=" + courses +
+                '}';
     }
 }

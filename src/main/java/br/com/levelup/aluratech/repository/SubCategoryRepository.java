@@ -1,5 +1,6 @@
 package br.com.levelup.aluratech.repository;
 
+import br.com.levelup.aluratech.controller.projection.subcategory.ExistingSubCategoriesProjection;
 import br.com.levelup.aluratech.controller.projection.subcategory.SubCategoryProjection;
 import br.com.levelup.aluratech.model.SubCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> {
 
-    List<SubCategory> findAllByActiveTrueAndCategoryId(Long idCategory);
+    List<SubCategory> findAllByActiveTrueAndCategoryId(Long categoryId);
 
     @Query(value = """
             SELECT s.id, s.name, s.code, s.active
@@ -22,4 +23,6 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
     List<SubCategoryProjection> findAllSorted(String categoryCode);
 
     Optional<SubCategory> findByCode(String subCategoryCode);
+
+    List<ExistingSubCategoriesProjection> findAllByOrderByName();
 }

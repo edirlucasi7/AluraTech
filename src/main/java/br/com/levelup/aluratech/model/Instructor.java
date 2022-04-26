@@ -23,4 +23,8 @@ public class Instructor {
         cantBeNullOrEmpty(name, "The field name should not be null or empty!");
         this.name = name;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

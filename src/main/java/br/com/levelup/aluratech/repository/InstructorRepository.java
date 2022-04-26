@@ -1,5 +1,6 @@
 package br.com.levelup.aluratech.repository;
 
+import br.com.levelup.aluratech.controller.projection.instructor.ExistingInstructorsProjection;
 import br.com.levelup.aluratech.controller.projection.report.ReportInstructorWithMoreCoursesProjection;
 import br.com.levelup.aluratech.model.Instructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,5 @@ public interface InstructorRepository extends JpaRepository<Instructor, Long> {
             """, nativeQuery = true)
     Optional<ReportInstructorWithMoreCoursesProjection> findInstructorWithMoreCourses();
 
+    List<ExistingInstructorsProjection> findAllByOrderByName();
 }

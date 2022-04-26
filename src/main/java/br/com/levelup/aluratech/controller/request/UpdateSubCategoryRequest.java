@@ -38,7 +38,7 @@ public class UpdateSubCategoryRequest {
         this.studyGuide = subCategory.getStudyGuide();
         this.active = subCategory.isActive();
         this.order = subCategory.getOrder();
-        this.idCategory = subCategory.getId();
+        this.idCategory = subCategory.getIdCategory();
     }
 
     public Long getId() {

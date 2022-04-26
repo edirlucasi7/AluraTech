@@ -1,15 +1,19 @@
-package br.com.levelup.aluratech.controller;
+package br.com.levelup.aluratech.controller.api;
 
+import br.com.levelup.aluratech.controller.response.category.ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.Course;
 import br.com.levelup.aluratech.model.SubCategory;
-import br.com.levelup.aluratech.controller.response.category.ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -29,6 +33,7 @@ public class CategoryApiController {
         this.courseRepository = courseRepository;
     }
 
+    @Cacheable(value = "categoriesApi")
     @GetMapping(value = "/api/categories", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse>> allActiveCategories() {
         List<Category> activeCategories = categoryRepository.findAllByActiveTrue();
@@ -47,5 +52,12 @@ public class CategoryApiController {
                     .add(new ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse(category, subCategories, courses));
         });
         return activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse;
+    }
+
+    @GetMapping("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU")
+    @CacheEvict(value = "categoriesApi", allEntries = true)
+    @ResponseStatus(HttpStatus.OK)
+    public String clearCacheApiCategories() {
+        return "Cache limpo com sucesso!";
     }
 }

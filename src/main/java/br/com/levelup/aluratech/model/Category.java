@@ -8,6 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static br.com.levelup.aluratech.model.utils.ValidatorUtils.*;
 
 @Entity
@@ -35,6 +38,9 @@ public class Category {
     @Column(name = "color_code")
     @Size(max = 7)
     private String colorCode;
+
+    @OneToMany(mappedBy = "category")
+    private List<SubCategory> subCategories = new ArrayList<>();
 
     @Deprecated
     public Category() {
@@ -96,6 +102,10 @@ public class Category {
         return colorCode;
     }
 
+    public List<SubCategory> getSubCategories() {
+        return subCategories;
+    }
+
     public void update(UpdateCategoryRequest updateCategoryRequest) {
         cantBeNullOrEmpty(updateCategoryRequest.getName(), "The field name should not be null or empty!");
         cantBeNullOrEmpty(updateCategoryRequest.getCode(), "The field code should not be null or empty!");
@@ -115,5 +125,21 @@ public class Category {
         if(this.active) {
             this.active = false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", studyGuide='" + studyGuide + '\'' +
+                ", active=" + active +
+                ", order=" + order +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", colorCode='" + colorCode + '\'' +
+                ", subCategories=" + subCategories +
+                '}';
     }
 }
