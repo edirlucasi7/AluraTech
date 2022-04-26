@@ -37,7 +37,7 @@ public class Course {
     @NotNull(message = "O instrutor deve ser obrigatório!")
     @ManyToOne(fetch = FetchType.LAZY)
     private Instructor instructor;
-    @NotNull(message = "A subcategoria deve ser obrigatório!")
+    @NotNull(message = "A subcategoria deve ser obrigatória!")
     @ManyToOne
     @JoinColumn(name="subcategory_id")
     private SubCategory subCategory;

@@ -24,10 +24,6 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return permissions;

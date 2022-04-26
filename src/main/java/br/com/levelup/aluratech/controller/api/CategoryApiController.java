@@ -9,9 +9,11 @@ import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -54,6 +56,7 @@ public class CategoryApiController {
 
     @GetMapping("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU")
     @CacheEvict(value = "categoriesApi", allEntries = true)
+    @ResponseStatus(HttpStatus.OK)
     public String clearCacheApiCategories() {
         return "Cache limpo com sucesso!";
     }

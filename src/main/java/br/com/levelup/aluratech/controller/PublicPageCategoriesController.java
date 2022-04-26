@@ -18,7 +18,7 @@ public class PublicPageCategoriesController {
 
     @GetMapping("/category/{categoryCode}")
     public String publicPageCategories(@PathVariable String categoryCode, Model model) {
-        CategoryWithSubCategoriesAndCoursesProjection categoriesWithSubCategoryCourses = categoryRepository.findCategoriesWithSubCategoryAndCourses(categoryCode);
+        CategoryWithSubCategoriesAndCoursesProjection categoriesWithSubCategoryCourses = categoryRepository.findActiveCategoriesWithSubCategoryAndCourses(categoryCode);
         model.addAttribute("categoriesWithSubCategoryCourses", categoriesWithSubCategoryCourses);
         return "category/publicPageCategory";
     }

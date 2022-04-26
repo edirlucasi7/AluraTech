@@ -38,12 +38,12 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
         FROM Category ca 
         WHERE ca.active = true
         """)
-    List<CategoriesWithSubCategoriesProjection> findCategoriesWithSubCategories();
+    List<CategoriesWithSubCategoriesProjection> findActiveCategoriesWithSubCategories();
 
     @Query(value = """
         SELECT DISTINCT ca
         FROM Category ca 
         WHERE ca.active = true AND ca.code = :categoryCode
         """)
-    CategoryWithSubCategoriesAndCoursesProjection findCategoriesWithSubCategoryAndCourses(String categoryCode);
+    CategoryWithSubCategoriesAndCoursesProjection findActiveCategoriesWithSubCategoryAndCourses(String categoryCode);
 }

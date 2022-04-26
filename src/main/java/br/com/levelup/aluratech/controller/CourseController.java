@@ -120,6 +120,6 @@ public class CourseController {
         Instructor instructor = instructorRepository.findById(updateCourseRequest.getIdInstructor()).get();
         SubCategory subCategory = subCategoryRepository.findById(updateCourseRequest.getIdSubCategory()).get();
         possibleCourse.get().update(updateCourseRequest, instructor, subCategory);
-        return "redirect:/admin/courses/"+possibleCourse.get().getCodeCategory()+"/"+possibleCourse.get().getCodeSubCategory();
+        return "redirect:/admin/courses/"+updateCourseRequest.getSubCategoryId()+"/"+possibleCourse.get().getCodeSubCategory();
     }
 }
