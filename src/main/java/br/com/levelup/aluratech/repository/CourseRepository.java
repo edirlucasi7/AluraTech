@@ -1,6 +1,7 @@
 package br.com.levelup.aluratech.repository;
 
 import br.com.levelup.aluratech.controller.projection.course.CourseProjection;
+import br.com.levelup.aluratech.controller.projection.report.ReportOfCoursesByCategoryProjection;
 import br.com.levelup.aluratech.model.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,4 +25,13 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     Page<CourseProjection> getAllBySubCategory(String subcategoryCode, Pageable pageable);
 
     Optional<Course> findByCode(String courseCode);
+
+    @Query(value = """
+            SELECT ca.name, COALESCE(COUNT(co.id), 0) AS amount
+            FROM category ca
+            LEFT JOIN subcategory s ON ca.id = s.category_id
+            LEFT JOIN course co ON s.id = co.subcategory_id
+            GROUP BY ca.name ORDER BY amount DESC
+            """, nativeQuery = true)
+    List<ReportOfCoursesByCategoryProjection> findAllCoursesByCategory();
 }

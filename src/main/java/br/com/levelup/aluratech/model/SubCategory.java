@@ -99,6 +99,18 @@ public class SubCategory {
         return category.getId();
     }
 
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
     public List<Course> getCourses() {
         return courses;
     }

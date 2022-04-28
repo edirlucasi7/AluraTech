@@ -63,6 +63,14 @@ public class Course {
         this.subCategory = subCategory;
     }
 
+    public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
+        this.name = name;
+        this.code = code;
+        this.estimatedTimeInHours = estimatedTimeInHours;
+        this.instructor = instructor;
+        this.subCategory = subCategory;
+    }
+
     public String getName() {
         return name;
     }
@@ -119,6 +127,9 @@ public class Course {
         return subCategory.getId();
     }
 
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
     private void isBetween(Integer field, String error) {
         if(!minimumAndMaximumValue(field, ESTIMATED_TIME_MIN, ESTIMATED_TIME_MAX)) {
             throw new IllegalArgumentException(error);

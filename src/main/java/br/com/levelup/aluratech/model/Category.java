@@ -113,6 +113,11 @@ public class Category {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public void update(UpdateCategoryRequest updateCategoryRequest) {
         cantBeNullOrEmpty(updateCategoryRequest.getName(), "The field name should not be null or empty!");
         cantBeNullOrEmpty(updateCategoryRequest.getCode(), "The field code should not be null or empty!");

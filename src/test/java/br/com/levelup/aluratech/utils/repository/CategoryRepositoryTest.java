@@ -1,9 +1,12 @@
 package br.com.levelup.aluratech.utils.repository;
 
+import br.com.levelup.aluratech.controller.projection.category.CategoriesWithSubCategoriesProjection;
+import br.com.levelup.aluratech.controller.projection.category.CategoryWithSubCategoriesAndCoursesProjection;
 import br.com.levelup.aluratech.controller.response.category.CategoryResponse;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.utils.utils.builder.CategoryBuilder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,7 +16,8 @@ import org.springframework.test.context.ActiveProfiles;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Java6Assertions.tuple;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -25,15 +29,31 @@ public class CategoryRepositoryTest {
     @Autowired
     private EntityManager manager;
 
-    @Test
-    void should_retrieve_all_categories_sorted_by_order() {
-        Category activeCategory1 = new CategoryBuilder()
+    private Category activeCategory;
+
+    private Category inactiveCategory;
+
+    @BeforeEach
+    public void beforeEach() {
+        this.activeCategory = new CategoryBuilder()
                 .withName("Programacao")
                 .withCode("java")
+                .withImageUrl("http://teste")
                 .withOrder(1)
                 .withActive(true)
                 .toEntity();
+        manager.persist(activeCategory);
 
+        this.inactiveCategory = new CategoryBuilder()
+                .withName("Devops")
+                .withCode("docker")
+                .withImageUrl("http://teste")
+                .toEntity();
+        manager.persist(inactiveCategory);
+    }
+
+    @Test
+    void should_retrieve_all_categories_sorted_by_order() {
         Category activeCategory2 = new CategoryBuilder()
                 .withName("Programacao")
                 .withCode("java-oo")
@@ -41,21 +61,47 @@ public class CategoryRepositoryTest {
                 .withActive(true)
                 .toEntity();
 
-        Category inactiveCategory = new CategoryBuilder()
-                .withName("Devops")
-                .withCode("docker")
-                .toEntity();
-
-        manager.persist(activeCategory1);
+        manager.persist(activeCategory);
         manager.persist(activeCategory2);
         manager.persist(inactiveCategory);
 
         List<CategoryResponse> categories = categoryRepository.findAllSorted();
-        System.out.println(categories);
-        assertTrue(categories.size() == 3);
-        assertTrue(categories.get(0).getCode().equals("docker"));
-        assertTrue(categories.get(1).getCode().equals("java"));
-        assertTrue(categories.get(2).getCode().equals("java-oo"));
+
+        assertThat(categories)
+                .isNotEmpty()
+                .hasSize(3)
+                .extracting(CategoryResponse::getCode).containsExactly("docker", "java", "java-oo")
+                .doesNotContainNull();
     }
 
+    @Test
+    public void should_retrieve_all_active_categories() {
+        manager.persist(activeCategory);
+        manager.persist(inactiveCategory);
+
+        List<CategoriesWithSubCategoriesProjection> categories = categoryRepository.findActiveCategoriesWithSubCategories();
+        assertThat(categories)
+                .extracting("name", "code", "imageUrl")
+                .contains(tuple("Programacao", "java", "http://teste"))
+                .hasSize(1);
+        assertThat(categories)
+                .extracting("name", "code", "imageUrl")
+                .doesNotContain(tuple("Devops", "docker", "http://teste"));
+    }
+
+    @Test
+    public void should_retrieve_one_active_category() {
+        manager.persist(activeCategory);
+
+        CategoryWithSubCategoriesAndCoursesProjection category = categoryRepository.findActiveCategoriesWithSubCategoryAndCourses("java");
+
+        assertThat(category)
+                .extracting("code")
+                .contains("java")
+                .hasSize(1);
+
+        assertThat(category)
+                .extracting("code")
+                .doesNotContain("devops");
+    }
 }

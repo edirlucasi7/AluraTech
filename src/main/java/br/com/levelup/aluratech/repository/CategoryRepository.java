@@ -25,15 +25,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<ExistingCategoriesProjection> findAllByOrderByName();
 
     @Query(value = """
-            SELECT ca.name, COALESCE(COUNT(co.id), 0) AS amount
-            FROM category ca
-            LEFT JOIN subcategory s ON ca.id = s.category_id
-            LEFT JOIN course co ON s.id = co.subcategory_id
-            GROUP BY ca.name ORDER BY amount DESC
-            """, nativeQuery = true)
-    List<ReportOfCoursesByCategoryProjection> findAllCoursesByCategory();
-
-    @Query(value = """
         SELECT DISTINCT ca
         FROM Category ca 
         WHERE ca.active = true

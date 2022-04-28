@@ -9,6 +9,8 @@ public class CategoryBuilder {
     private Integer order = 0;
     private boolean active;
 
+    private String imageUrl;
+
     public CategoryBuilder withName(String name) {
         this.name = name;
         return this;
@@ -29,10 +31,16 @@ public class CategoryBuilder {
         return this;
     }
 
+    public CategoryBuilder withImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
     public Category toEntity() {
         Category category = new Category(name, code);
         category.setOrder(order);
         category.setActive(active);
+        category.setImageUrl(imageUrl);
         return category;
     }
 }
