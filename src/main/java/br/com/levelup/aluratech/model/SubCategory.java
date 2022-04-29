@@ -111,6 +111,10 @@ public class SubCategory {
         this.order = order;
     }
 
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
+    }
+
     public List<Course> getCourses() {
         return courses;
     }

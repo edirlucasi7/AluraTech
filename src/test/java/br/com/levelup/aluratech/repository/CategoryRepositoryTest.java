@@ -1,13 +1,10 @@
-package br.com.levelup.aluratech.utils.repository;
+package br.com.levelup.aluratech.repository;
 
 import br.com.levelup.aluratech.controller.projection.category.CategoriesWithSubCategoriesProjection;
 import br.com.levelup.aluratech.controller.projection.category.CategoryWithSubCategoriesAndCoursesProjection;
 import br.com.levelup.aluratech.controller.response.category.CategoryResponse;
 import br.com.levelup.aluratech.model.Category;
-import br.com.levelup.aluratech.model.SubCategory;
-import br.com.levelup.aluratech.repository.CategoryRepository;
-import br.com.levelup.aluratech.utils.utils.builder.CategoryBuilder;
-import br.com.levelup.aluratech.utils.utils.builder.SubCategoryBuilder;
+import br.com.levelup.aluratech.utils.builder.CategoryBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +76,6 @@ public class CategoryRepositoryTest {
     @Test
     public void should_retrieve_all_active_categories() {
         manager.persist(activeCategory);
-
         manager.persist(inactiveCategory);
 
         List<CategoriesWithSubCategoriesProjection> categories = categoryRepository.findActiveCategoriesWithSubCategories();

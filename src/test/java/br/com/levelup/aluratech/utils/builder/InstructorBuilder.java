@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.utils.utils.builder;
+package br.com.levelup.aluratech.utils.builder;
 
 import br.com.levelup.aluratech.model.Instructor;
 

@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.utils.repository;
+package br.com.levelup.aluratech.repository;
 
 import br.com.levelup.aluratech.controller.projection.course.CourseProjection;
 import br.com.levelup.aluratech.controller.projection.report.ReportOfCoursesByCategoryProjection;
@@ -6,11 +6,10 @@ import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.Course;
 import br.com.levelup.aluratech.model.Instructor;
 import br.com.levelup.aluratech.model.SubCategory;
-import br.com.levelup.aluratech.repository.CourseRepository;
-import br.com.levelup.aluratech.utils.utils.builder.CategoryBuilder;
-import br.com.levelup.aluratech.utils.utils.builder.CourseBuilder;
-import br.com.levelup.aluratech.utils.utils.builder.InstructorBuilder;
-import br.com.levelup.aluratech.utils.utils.builder.SubCategoryBuilder;
+import br.com.levelup.aluratech.utils.builder.InstructorBuilder;
+import br.com.levelup.aluratech.utils.builder.CategoryBuilder;
+import br.com.levelup.aluratech.utils.builder.CourseBuilder;
+import br.com.levelup.aluratech.utils.builder.SubCategoryBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -130,6 +130,11 @@ public class Course {
     public void setVisibility(boolean visibility) {
         this.visibility = visibility;
     }
+
+    public void setDevelopedSkills(String developedSkills) {
+        this.developedSkills = developedSkills;
+    }
+
     private void isBetween(Integer field, String error) {
         if(!minimumAndMaximumValue(field, ESTIMATED_TIME_MIN, ESTIMATED_TIME_MAX)) {
             throw new IllegalArgumentException(error);
