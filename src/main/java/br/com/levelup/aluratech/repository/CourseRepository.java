@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    List<Course> findAllByVisibilityTrueAndSubCategoryActive_CategoryId(Long idCategory);
+    List<Course> findAllByVisibilityTrueAndSubCategoryActiveTrueAndSubCategory_CategoryId(Long categoryId);
 
     @Query(value = """
             SELECT co.name, co.code, co.visibility

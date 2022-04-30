@@ -33,7 +33,7 @@ public class CategoryApiController {
         this.courseRepository = courseRepository;
     }
 
-    @Cacheable(value = "categoriesApi")
+//    @Cacheable(value = "categoriesApi")
     @GetMapping(value = "/api/categories", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse>> allActiveCategories() {
         List<Category> activeCategories = categoryRepository.findAllByActiveTrue();
@@ -47,7 +47,7 @@ public class CategoryApiController {
         List<ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse> activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse = new ArrayList<>();
         activeCategories.forEach(category -> {
             List<SubCategory> subCategories = subCategoryRepository.findAllByActiveTrueAndCategoryId(category.getId());
-            List<Course> courses = courseRepository.findAllByVisibilityTrueAndSubCategoryActive_CategoryId(category.getId());
+            List<Course> courses = courseRepository.findAllByVisibilityTrueAndSubCategoryActiveTrueAndSubCategory_CategoryId(category.getId());
             activeCategoriesWithActiveSubCategoriesAndPublicCoursesResponse
                     .add(new ActiveCategoriesWithActiveSubCategoriesAndPublicCoursesResponse(category, subCategories, courses));
         });
