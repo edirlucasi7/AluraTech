@@ -69,9 +69,8 @@ public class CategoryApiControllerTest {
         courseRepository.save(course);
 
         mockMvc.perform(get("/api/categories")
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()", is(1)))
                 .andExpect(jsonPath("$.[0].name", is("Programacao")))
                 .andExpect(jsonPath("$.[0].code", is("programacao")))
