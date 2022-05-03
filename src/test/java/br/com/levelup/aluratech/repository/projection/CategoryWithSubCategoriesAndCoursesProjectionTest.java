@@ -112,13 +112,13 @@ public class CategoryWithSubCategoriesAndCoursesProjectionTest {
 
     @Test
     void should_retrieve_all_active_subcategories_and_courses_with_at_least_one_public_course() {
-        List<SubCategory> activeSubCategories = new CategoryWithSubCategoriesAndCoursesProjectionImpl().getSubCategoriesWithCourses();
+        List<SubCategory> activeSubCategoriesWithCourses = new CategoryWithSubCategoriesAndCoursesProjectionImpl().getSubCategoriesWithCourses();
 
-        assertThat(activeSubCategories)
+        assertThat(activeSubCategoriesWithCourses)
                 .extracting("name", "code", "courses")
-                .containsExactly(tuple("Programacao1", "java-oo", activeSubCategories.get(0).getCourses()),
-                        tuple("Programacao2", "programacao-java", activeSubCategories.get(1).getCourses()))
+                .containsExactly(tuple("Programacao1", "java-oo", activeSubCategoriesWithCourses.get(0).getCourses()),
+                        tuple("Programacao2", "programacao-java", activeSubCategoriesWithCourses.get(1).getCourses()))
                 .hasSize(2);
-        assertThat(activeSubCategories).extracting("code").doesNotContain("php");
+        assertThat(activeSubCategoriesWithCourses).extracting("code").doesNotContain("php");
     }
 }
