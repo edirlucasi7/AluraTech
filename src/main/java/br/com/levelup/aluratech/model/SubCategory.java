@@ -132,22 +132,8 @@ public class SubCategory {
     }
 
     public void disableActive() {
-        if(this.active) {
+        if (this.active) {
             this.active = false;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "SubCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", studyGuide='" + studyGuide + '\'' +
-                ", active=" + active +
-                ", order=" + order +
-                ", courses=" + courses +
-                '}';
     }
 }
