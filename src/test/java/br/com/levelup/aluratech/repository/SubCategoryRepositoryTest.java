@@ -47,6 +47,7 @@ public class SubCategoryRepositoryTest {
                 .withName("PHP")
                 .withCode("php")
                 .withActive(true)
+                .withOrder(2)
                 .withCategory(activeCategory)
                 .toEntity();
         manager.persist(subCategoryActive);
@@ -54,6 +55,7 @@ public class SubCategoryRepositoryTest {
         SubCategory inactiveSubCategory = new SubCategoryBuilder()
                 .withName("Java")
                 .withCode("java")
+                .withOrder(1)
                 .withCategory(activeCategory)
                 .toEntity();
         manager.persist(inactiveSubCategory);
@@ -62,8 +64,8 @@ public class SubCategoryRepositoryTest {
 
         assertThat(subCategoriesByCategory)
                 .extracting("name", "code")
-                .containsExactly(tuple("PHP", "php"),
-                        tuple("Java", "java"))
+                .containsExactly(tuple("Java", "java"),
+                        tuple("PHP", "php"))
                 .hasSize(2);
     }
 }

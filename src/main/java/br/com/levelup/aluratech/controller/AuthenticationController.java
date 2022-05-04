@@ -19,7 +19,7 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        List<CategoriesWithSubCategoriesProjection> categories = categoryRepository.findActiveCategoriesWithSubCategories();
+        List<CategoriesWithSubCategoriesProjection> categories = categoryRepository.findActiveCategories();
         model.addAttribute("categories", categories);
         return "login/login";
     }

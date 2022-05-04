@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Java6Assertions.tuple;
@@ -45,7 +46,7 @@ public class CategoryRepositoryTest {
 
         this.inactiveCategory = new CategoryBuilder()
                 .withName("Devops")
-                .withCode("docker")
+                .withCode("devops")
                 .withImageUrl("http://teste")
                 .toEntity();
         manager.persist(inactiveCategory);
@@ -60,47 +61,42 @@ public class CategoryRepositoryTest {
                 .withActive(true)
                 .toEntity();
 
-        manager.persist(activeCategory);
         manager.persist(activeCategory2);
-        manager.persist(inactiveCategory);
 
         List<CategoryResponse> categories = categoryRepository.findAllSorted();
 
         assertThat(categories)
                 .isNotEmpty()
                 .hasSize(3)
-                .extracting(CategoryResponse::getCode).containsExactly("docker", "java", "java-oo")
+                .extracting(CategoryResponse::getCode).containsExactly("devops", "java", "java-oo")
                 .doesNotContainNull();
     }
 
     @Test
     public void should_retrieve_all_active_categories() {
-        manager.persist(activeCategory);
-        manager.persist(inactiveCategory);
-
-        List<CategoriesWithSubCategoriesProjection> categories = categoryRepository.findActiveCategoriesWithSubCategories();
+        List<CategoriesWithSubCategoriesProjection> categories = categoryRepository.findActiveCategories();
         assertThat(categories)
                 .extracting("name", "code", "imageUrl")
                 .contains(tuple("Programacao", "java", "http://teste"))
+                .doesNotContain(tuple("Devops", "devops", "http://teste"))
                 .hasSize(1);
-        assertThat(categories)
-                .extracting("name", "code", "imageUrl")
-                .doesNotContain(tuple("Devops", "docker", "http://teste"));
     }
 
     @Test
-    public void should_retrieve_one_active_category() {
-        manager.persist(activeCategory);
+    public void should_retrieve_active_category_by_code() {
+        Optional<CategoryWithSubCategoriesAndCoursesProjection> category = categoryRepository.findActiveCategories("java");
 
-        CategoryWithSubCategoriesAndCoursesProjection category = categoryRepository.findActiveCategoriesWithSubCategoryAndCourses("java");
-
-        assertThat(category)
+        assertThat(category.get())
                 .extracting("code")
                 .contains("java")
+                .doesNotContain("devops")
                 .hasSize(1);
+    }
 
-        assertThat(category)
-                .extracting("code")
-                .doesNotContain("devops");
+    @Test
+    public void should_retrieve_a_list_of_active_categories_empty() {
+        Optional<CategoryWithSubCategoriesAndCoursesProjection> category = categoryRepository.findActiveCategories("devops");
+
+        assertThat(category).isEmpty();
     }
 }

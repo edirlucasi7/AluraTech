@@ -70,16 +70,23 @@ public class CourseRepositoryTest {
 
     @Test
     void should_retrieve_all_courses_by_category_sorted_by_order_desc() {
-        Category inactiveCategory = new CategoryBuilder()
+        Category category1 = new CategoryBuilder()
                 .withName("Devops")
+                .withCode("devops")
+                .toEntity();
+
+        SubCategory subcategory1 = new SubCategoryBuilder()
+                .withName("Docker")
                 .withCode("docker")
+                .withActive(true)
+                .withCategory(category1)
                 .toEntity();
 
         Instructor instructor = new InstructorBuilder()
                 .withName("Sergio")
                 .toEntity();
 
-        Course visibleCourse = new CourseBuilder()
+        Course course1 = new CourseBuilder()
                 .withName("Java")
                 .withCode("java-iniciante")
                 .withEstimatedTimeInHours(12)
@@ -88,7 +95,7 @@ public class CourseRepositoryTest {
                 .withSubCategory(subCategory1)
                 .toEntity();
 
-        Course invisibleCourse = new CourseBuilder()
+        Course course2 = new CourseBuilder()
                 .withName("JavaScript")
                 .withCode("javascript-iniciante")
                 .withEstimatedTimeInHours(12)
@@ -96,19 +103,29 @@ public class CourseRepositoryTest {
                 .withSubCategory(subCategory1)
                 .toEntity();
 
-        manager.persist(category);
-        manager.persist(inactiveCategory);
-        manager.persist(subCategory1);
+        Course course3 = new CourseBuilder()
+                .withName("Docker")
+                .withCode("docker")
+                .withEstimatedTimeInHours(12)
+                .withVisibility(true)
+                .withInstructor(instructor)
+                .withSubCategory(subcategory1)
+                .toEntity();
+
+        manager.persist(category1);
+        manager.persist(subcategory1);
         manager.persist(instructor);
-        manager.persist(visibleCourse);
-        manager.persist(invisibleCourse);
+        manager.persist(course1);
+        manager.persist(course2);
+        manager.persist(course3);
+
 
         List<ReportOfCoursesByCategoryProjection> coursesByCategory = courseRepository.findAllCoursesByCategory();
 
         assertThat(coursesByCategory)
                 .extracting("name", "amount")
                 .containsExactly(tuple("Programacao", 2),
-                        tuple("Devops", 0))
+                        tuple("Devops", 1))
                 .hasSize(2);
     }
 
@@ -118,7 +135,7 @@ public class CourseRepositoryTest {
                 .withName("Thais")
                 .toEntity();
 
-        Course visibleCourse1 = new CourseBuilder()
+        Course course1 = new CourseBuilder()
                 .withName("Java")
                 .withCode("java-iniciante")
                 .withEstimatedTimeInHours(12)
@@ -127,7 +144,7 @@ public class CourseRepositoryTest {
                 .withSubCategory(subCategory1)
                 .toEntity();
 
-        Course visibleCourse2 = new CourseBuilder()
+        Course course2 = new CourseBuilder()
                 .withName("Java")
                 .withCode("java-intermediario")
                 .withEstimatedTimeInHours(12)
@@ -136,7 +153,7 @@ public class CourseRepositoryTest {
                 .withSubCategory(subCategory2)
                 .toEntity();
 
-        Course invisibleCourse = new CourseBuilder()
+        Course course3 = new CourseBuilder()
                 .withName("JavaScript")
                 .withCode("javascript-iniciante")
                 .withEstimatedTimeInHours(7)
@@ -145,9 +162,9 @@ public class CourseRepositoryTest {
                 .toEntity();
 
         manager.persist(instructor);
-        manager.persist(visibleCourse1);
-        manager.persist(visibleCourse2);
-        manager.persist(invisibleCourse);
+        manager.persist(course1);
+        manager.persist(course2);
+        manager.persist(course3);
 
         Page<CourseProjection> allBySubCategory = courseRepository.getAllBySubCategory("java-oo", Pageable.unpaged());
         assertThat(allBySubCategory.getContent())
@@ -157,5 +174,4 @@ public class CourseRepositoryTest {
                 .hasSize(2);
         assertThat(allBySubCategory.getContent()).extracting("code").doesNotContain("java-intermediario");
     }
-
 }

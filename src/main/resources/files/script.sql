@@ -57,6 +57,13 @@ resume, developed_skills, subcategory_id) VALUES("Java JRE e JDK: Escreva o seu 
 
 -- password: 123456
 INSERT INTO user (email, password) VALUES("icety@gmail.com", "$2a$10$Ze5fGghflgbeoGMIkOwQH.0yG/GSzDJ3HiGz8oYrzH5FA1N4BL.ra");
+INSERT INTO user (email, password) VALUES("estudante@gmail.com", "$2a$10$Ze5fGghflgbeoGMIkOwQH.0yG/GSzDJ3HiGz8oYrzH5FA1N4BL.ra");
+
+INSERT INTO permission(name) VALUES('ROLE_ADMINISTRADOR');
+INSERT INTO permission(name) VALUES('ROLE_ESTUDANTE');
+
+INSERT INTO user_permissions(user_id, permissions_id) VALUES (1,1);
+INSERT INTO user_permissions(user_id, permissions_id) VALUES (2,2);
 
 SELECT * FROM category WHERE active = true ORDER BY order_visualization;
 

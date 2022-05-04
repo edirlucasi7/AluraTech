@@ -9,6 +9,7 @@ import br.com.levelup.aluratech.utils.builder.CategoryBuilder;
 import br.com.levelup.aluratech.utils.builder.CourseBuilder;
 import br.com.levelup.aluratech.utils.builder.InstructorBuilder;
 import br.com.levelup.aluratech.utils.builder.SubCategoryBuilder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -18,49 +19,64 @@ import static org.assertj.core.api.Java6Assertions.tuple;
 
 public class CategoryWithSubCategoriesAndCoursesProjectionTest {
 
-    private Category category = new CategoryBuilder()
-            .withName("Programacao")
-            .withCode("programacao")
-            .withActive(true)
-            .toEntity();
+    private Category category;
 
-    private Instructor instructor = new InstructorBuilder()
-                    .withName("Thais")
-                    .toEntity();
+    private Instructor instructor;
 
-    private SubCategory activeSubCategory1 = new SubCategoryBuilder()
-            .withName("Programacao1")
-            .withCode("java-oo")
-            .withOrder(2)
-            .withActive(true)
-            .withCategory(category)
-            .toEntity();
+    private SubCategory activeSubCategory1;
 
-    private Course visibleCourse1 = new CourseBuilder()
-            .withName("Java Inicante")
-            .withCode("java-iniciante")
-            .withEstimatedTimeInHours(12)
-            .withVisibility(true)
-            .withInstructor(instructor)
-            .withSubCategory(activeSubCategory1)
-            .toEntity();
+    private SubCategory activeSubCategory2;
 
-    private SubCategory activeSubCategory2 = new SubCategoryBuilder()
-            .withName("Programacao2")
-            .withCode("programacao-java")
-            .withOrder(1)
-            .withActive(true)
-            .withCategory(category)
-            .toEntity();
+    private Course visibleCourse1;
 
-    private Course visibleCourse2 = new CourseBuilder()
-            .withName("Java Intermediario")
-            .withCode("java-intermediario")
-            .withEstimatedTimeInHours(12)
-            .withVisibility(true)
-            .withInstructor(instructor)
-            .withSubCategory(activeSubCategory2)
-            .toEntity();
+    private Course visibleCourse2;
+
+    @BeforeEach
+    public void beforeEach() {
+        this.category = new CategoryBuilder()
+                .withName("Programacao")
+                .withCode("programacao")
+                .withActive(true)
+                .toEntity();
+
+        this.instructor = new InstructorBuilder()
+                .withName("Thais")
+                .toEntity();
+
+        this.activeSubCategory1 = new SubCategoryBuilder()
+                .withName("Programacao1")
+                .withCode("java-oo")
+                .withOrder(2)
+                .withActive(true)
+                .withCategory(category)
+                .toEntity();
+
+        this.activeSubCategory2 = new SubCategoryBuilder()
+                .withName("Programacao2")
+                .withCode("programacao-java")
+                .withOrder(1)
+                .withActive(true)
+                .withCategory(category)
+                .toEntity();
+
+        this.visibleCourse1 = new CourseBuilder()
+                .withName("Java Inicante")
+                .withCode("java-iniciante")
+                .withEstimatedTimeInHours(12)
+                .withVisibility(true)
+                .withInstructor(instructor)
+                .withSubCategory(activeSubCategory1)
+                .toEntity();
+
+        this.visibleCourse2 = new CourseBuilder()
+                .withName("Java Intermediario")
+                .withCode("java-intermediario")
+                .withEstimatedTimeInHours(12)
+                .withVisibility(true)
+                .withInstructor(instructor)
+                .withSubCategory(activeSubCategory2)
+                .toEntity();
+    }
 
     class CategoryWithSubCategoriesAndCoursesProjectionImpl implements CategoryWithSubCategoriesAndCoursesProjection {
 
@@ -95,8 +111,8 @@ public class CategoryWithSubCategoriesAndCoursesProjectionTest {
                     .toEntity();
 
             activeSubCategory1.getCourses().add(visibleCourse1);
-
             activeSubCategory2.getCourses().add(visibleCourse2);
+            inactiveSubcategory.getCourses().add(visibleCourse1);
 
             Course invisibleCourse = new CourseBuilder()
                     .withName("JavaScript")
@@ -113,13 +129,14 @@ public class CategoryWithSubCategoriesAndCoursesProjectionTest {
 
     @Test
     void should_retrieve_all_active_subcategories_and_courses_with_at_least_one_public_course() {
-        List<SubCategory> activeSubCategoriesWithCourses = new CategoryWithSubCategoriesAndCoursesProjectionImpl().getSubCategoriesWithCourses();
+        List<SubCategory> activeSubCategoriesWithCourses = new CategoryWithSubCategoriesAndCoursesProjectionImpl().getActiveSubCategoriesWithVisibleCourses();
 
         assertThat(activeSubCategoriesWithCourses)
                 .extracting("name", "code", "courses")
                 .containsExactly(tuple("Programacao1", "java-oo", List.of(visibleCourse1)),
                         tuple("Programacao2", "programacao-java", List.of(visibleCourse2)))
+                .doesNotContain(tuple("PHP", "php"),
+                        tuple("Desenvolvimento", "desenvolvimento"))
                 .hasSize(2);
-        assertThat(activeSubCategoriesWithCourses).extracting("code").doesNotContain("php");
     }
 }

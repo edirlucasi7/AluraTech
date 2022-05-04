@@ -13,7 +13,7 @@ public interface CategoriesWithSubCategoriesProjection {
     String getImageUrl();
     List<SubCategory> getSubCategories();
 
-    default List<SubCategory> getActiveSubCategories() {
+    default List<SubCategory> getActiveSubCategories() { //TODO WithVisibleCoursesSortedBySubCategory
         List<SubCategory> activeSubCategories = getSubCategories().stream()
                 .filter(SubCategory::isActive)
                 .filter(s -> s.getCourses().stream().anyMatch(Course::isVisibility))

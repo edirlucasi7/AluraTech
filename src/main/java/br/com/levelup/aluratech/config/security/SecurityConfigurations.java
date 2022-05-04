@@ -32,10 +32,13 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/categories/**").permitAll()
                 .antMatchers("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
                 .anyRequest().hasRole("ADMINISTRADOR")
-                .and().formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/admin/categories")
-                .and().csrf().disable().cors();
+                .and()
+                    .formLogin()
+                    .loginPage("/login").permitAll()
+                    .defaultSuccessUrl("/admin/categories")
+                .and()
+                    .csrf().disable()
+                    .cors();
     }
 
     @Override

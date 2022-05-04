@@ -17,6 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
+
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -24,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Transactional
 public class CategoryApiControllerTest {
 
     @Autowired
@@ -40,14 +43,6 @@ public class CategoryApiControllerTest {
 
     @Autowired
     private InstructorRepository instructorRepository;
-
-    @AfterEach
-    public void afterEach() {
-        courseRepository.deleteAll();
-        instructorRepository.deleteAll();
-        subCategoryRepository.deleteAll();
-        categoryRepository.deleteAll();
-    }
 
     @Test
     void should_retrieve_all_active_categories() throws Exception {

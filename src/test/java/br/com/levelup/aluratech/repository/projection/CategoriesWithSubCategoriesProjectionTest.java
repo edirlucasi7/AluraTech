@@ -69,7 +69,6 @@ public class CategoriesWithSubCategoriesProjectionTest {
             SubCategory inactiveSubcategory = new SubCategoryBuilder()
                     .withName("PHP")
                     .withCode("php")
-                    .withActive(true)
                     .withCategory(category)
                     .toEntity();
 
@@ -86,6 +85,7 @@ public class CategoriesWithSubCategoriesProjectionTest {
                     .withSubCategory(activeSubCategory1)
                     .toEntity();
             activeSubCategory1.getCourses().add(visibleCourse1);
+            inactiveSubcategory.getCourses().add(visibleCourse1);
 
             Course visibleCourse2 = new CourseBuilder()
                     .withName("Java Intermediario")
@@ -118,7 +118,8 @@ public class CategoriesWithSubCategoriesProjectionTest {
                 .extracting("name", "code")
                 .containsExactly(tuple("Programacao2", "programacao-java"),
                         tuple("Programacao1", "java-oo"))
+                .doesNotContain(tuple("PHP", "php"),
+                        tuple("Desenvolvimento", "desenvolvimento"))
                 .hasSize(2);
-        assertThat(activeSubCategories).extracting("code").doesNotContain("php");
     }
 }
