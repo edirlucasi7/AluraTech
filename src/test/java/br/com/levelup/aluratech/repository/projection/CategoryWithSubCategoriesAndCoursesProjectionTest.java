@@ -128,7 +128,7 @@ public class CategoryWithSubCategoriesAndCoursesProjectionTest {
     }
 
     @Test
-    void should_retrieve_all_active_subcategories_and_courses_with_at_least_one_public_course() {
+    void should_retrieve_all_active_subcategories_and_courses_with_at_least_one_visible_course() {
         List<SubCategory> activeSubCategoriesWithCourses = new CategoryWithSubCategoriesAndCoursesProjectionImpl().getActiveSubCategoriesWithVisibleCourses();
 
         assertThat(activeSubCategoriesWithCourses)

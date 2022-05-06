@@ -28,37 +28,37 @@ public class SubCategoryRepositoryTest {
     @Autowired
     private EntityManager manager;
 
-    private Category activeCategory;
+    private Category category;
 
     @BeforeEach
     public void beforeEach() {
-        this.activeCategory = new CategoryBuilder()
+        this.category = new CategoryBuilder()
                 .withName("Programacao")
                 .withCode("programacao")
                 .withOrder(1)
                 .withActive(true)
                 .toEntity();
-        manager.persist(activeCategory);
+        manager.persist(category);
     }
 
     @Test
-    void should_retrieve_all_categories_sorted_by_order() {
-        SubCategory subCategoryActive = new SubCategoryBuilder()
+    void should_retrieve_all_subcategories_sorted_by_order() {
+        SubCategory subCategory1 = new SubCategoryBuilder()
                 .withName("PHP")
                 .withCode("php")
                 .withActive(true)
                 .withOrder(2)
-                .withCategory(activeCategory)
+                .withCategory(category)
                 .toEntity();
-        manager.persist(subCategoryActive);
+        manager.persist(subCategory1);
 
-        SubCategory inactiveSubCategory = new SubCategoryBuilder()
+        SubCategory subCategory2 = new SubCategoryBuilder()
                 .withName("Java")
                 .withCode("java")
                 .withOrder(1)
-                .withCategory(activeCategory)
+                .withCategory(category)
                 .toEntity();
-        manager.persist(inactiveSubCategory);
+        manager.persist(subCategory2);
 
         List<SubCategoryProjection> subCategoriesByCategory = subCategoryRepository.findAllSorted("programacao");
 

@@ -5,9 +5,9 @@ import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.Course;
 import br.com.levelup.aluratech.model.Instructor;
 import br.com.levelup.aluratech.model.SubCategory;
-import br.com.levelup.aluratech.utils.builder.InstructorBuilder;
 import br.com.levelup.aluratech.utils.builder.CategoryBuilder;
 import br.com.levelup.aluratech.utils.builder.CourseBuilder;
+import br.com.levelup.aluratech.utils.builder.InstructorBuilder;
 import br.com.levelup.aluratech.utils.builder.SubCategoryBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,7 +63,7 @@ public class InstructorRepositoryTest {
                 .withName("Thais")
                 .toEntity();
 
-        Course visibleCourse1 = new CourseBuilder()
+        Course course1 = new CourseBuilder()
                 .withName("Java")
                 .withCode("java-iniciante")
                 .withEstimatedTimeInHours(12)
@@ -72,7 +72,7 @@ public class InstructorRepositoryTest {
                 .withSubCategory(subCategory)
                 .toEntity();
 
-        Course visibleCourse2 = new CourseBuilder()
+        Course course2 = new CourseBuilder()
                 .withName("Java")
                 .withCode("java-intermediario")
                 .withEstimatedTimeInHours(12)
@@ -81,7 +81,7 @@ public class InstructorRepositoryTest {
                 .withSubCategory(subCategory)
                 .toEntity();
 
-        Course invisibleCourse = new CourseBuilder()
+        Course course3 = new CourseBuilder()
                 .withName("JavaScript")
                 .withCode("javascript-iniciante")
                 .withEstimatedTimeInHours(7)
@@ -91,13 +91,15 @@ public class InstructorRepositoryTest {
 
         manager.persist(instructor1);
         manager.persist(instructor2);
-        manager.persist(visibleCourse1);
-        manager.persist(visibleCourse2);
-        manager.persist(invisibleCourse);
+        manager.persist(course1);
+        manager.persist(course2);
+        manager.persist(course3);
 
         Optional<ReportInstructorWithMoreCoursesProjection> instructorWithMoreCourses = instructorRepository.findInstructorWithMoreCourses();
-        assertThat(instructorWithMoreCourses.get()).extracting("name").contains("Madu");
-        assertThat(instructorWithMoreCourses.get()).extracting("amount").contains(2);
+
+        assertThat(instructorWithMoreCourses.get())
+                .extracting("name", "amount")
+                    .containsExactly("Madu", 2);
         assertThat(instructorWithMoreCourses.get()).extracting("name").doesNotContain("Thais");
     }
 }

@@ -187,19 +187,19 @@
                     <p class="signup__text">São mais de mil cursos nas seguintes áreas</p>
                     <ul class="categories">
                         <c:forEach items="${categories}" var="category">
-                            <c:if test="${category.activeSubCategories.size() > 0}">
+                            <c:if test="${category.activeSubCategoriesWithVisibleCoursesSortedBySubCategory.size() > 0}">
                                 <li class="category-card">
                                     <a class="category-card__link" href="category/${category.code}">
                                         <span class="category-card__icon">
                                             <img src="${category.imageUrl}">
                                         </span>
                                         <h3 class="category-card__title">${category.name}</h3>
-                                        <c:forEach items="${category.activeSubCategories}" var="subcategory" begin="0" end="2">
+                                        <c:forEach items="${category.activeSubCategoriesWithVisibleCoursesSortedBySubCategory}" var="subcategory" begin="0" end="2">
                                             <p class="category-card__details">
                                                     ${subcategory.name}
                                             </p>
                                         </c:forEach>
-                                        <c:if test="${category.activeSubCategories.size() > 3}">
+                                        <c:if test="${category.activeSubCategoriesWithVisibleCoursesSortedBySubCategory.size() > 3}">
                                             e mais...
                                         </c:if>
                                     </a>

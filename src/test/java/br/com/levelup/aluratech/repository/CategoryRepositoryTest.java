@@ -47,6 +47,7 @@ public class CategoryRepositoryTest {
         this.inactiveCategory = new CategoryBuilder()
                 .withName("Devops")
                 .withCode("devops")
+                .withOrder(0)
                 .withImageUrl("http://teste")
                 .toEntity();
         manager.persist(inactiveCategory);
@@ -60,7 +61,6 @@ public class CategoryRepositoryTest {
                 .withOrder(2)
                 .withActive(true)
                 .toEntity();
-
         manager.persist(activeCategory2);
 
         List<CategoryResponse> categories = categoryRepository.findAllSorted();
@@ -75,6 +75,7 @@ public class CategoryRepositoryTest {
     @Test
     public void should_retrieve_all_active_categories() {
         List<CategoriesWithSubCategoriesProjection> categories = categoryRepository.findActiveCategories();
+
         assertThat(categories)
                 .extracting("name", "code", "imageUrl")
                 .contains(tuple("Programacao", "java", "http://teste"))
@@ -87,10 +88,9 @@ public class CategoryRepositoryTest {
         Optional<CategoryWithSubCategoriesAndCoursesProjection> category = categoryRepository.findActiveCategories("java");
 
         assertThat(category.get())
-                .extracting("code")
-                .contains("java")
-                .doesNotContain("devops")
-                .hasSize(1);
+                .extracting("name", "code", "imageUrl")
+                .containsExactly("Programacao", "java", "http://teste")
+                .doesNotContain("devops");
     }
 
     @Test
