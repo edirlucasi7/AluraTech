@@ -29,4 +29,14 @@ public class CategoryResponse {
     public Long getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "CategoryResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", active=" + active +
+                '}';
+    }
 }

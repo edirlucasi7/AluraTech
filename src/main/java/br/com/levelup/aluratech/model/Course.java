@@ -63,6 +63,14 @@ public class Course {
         this.subCategory = subCategory;
     }
 
+    public Course(String name, String code, Integer estimatedTimeInHours, Instructor instructor, SubCategory subCategory) {
+        this.name = name;
+        this.code = code;
+        this.estimatedTimeInHours = estimatedTimeInHours;
+        this.instructor = instructor;
+        this.subCategory = subCategory;
+    }
+
     public String getName() {
         return name;
     }
@@ -117,6 +125,14 @@ public class Course {
 
     public Long getSubCategoryId() {
         return subCategory.getId();
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
+
+    public void setDevelopedSkills(String developedSkills) {
+        this.developedSkills = developedSkills;
     }
 
     private void isBetween(Integer field, String error) {

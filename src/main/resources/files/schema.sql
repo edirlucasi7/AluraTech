@@ -99,7 +99,7 @@ CREATE TABLE user (
 
 CREATE TABLE permission (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE user_permissions (

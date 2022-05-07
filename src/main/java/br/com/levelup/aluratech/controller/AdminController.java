@@ -3,6 +3,7 @@ package br.com.levelup.aluratech.controller;
 import br.com.levelup.aluratech.controller.projection.report.ReportInstructorWithMoreCoursesProjection;
 import br.com.levelup.aluratech.controller.projection.report.ReportOfCoursesByCategoryProjection;
 import br.com.levelup.aluratech.repository.CategoryRepository;
+import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.InstructorRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,11 @@ import java.util.Optional;
 @Controller
 public class AdminController {
 
-    private final CategoryRepository categoryRepository;
+    private final CourseRepository courseRepository;
     private final InstructorRepository instructorRepository;
 
-    public AdminController(CategoryRepository categoryRepository, InstructorRepository instructorRepository) {
-        this.categoryRepository = categoryRepository;
+    public AdminController(CourseRepository courseRepository, InstructorRepository instructorRepository) {
+        this.courseRepository = courseRepository;
         this.instructorRepository = instructorRepository;
     }
 
@@ -29,7 +30,7 @@ public class AdminController {
 
     @GetMapping("/admin/dashboard")
     public String report(Model model) {
-        List<ReportOfCoursesByCategoryProjection> allCoursesByCategory = categoryRepository.findAllCoursesByCategory();
+        List<ReportOfCoursesByCategoryProjection> allCoursesByCategory = courseRepository.findAllCoursesByCategory();
         Optional<ReportInstructorWithMoreCoursesProjection> possibleInstructorWithMoreCourses = instructorRepository.findInstructorWithMoreCourses();
         if(possibleInstructorWithMoreCourses.isPresent()) {
             model.addAttribute("instructorWithMoreCourses", possibleInstructorWithMoreCourses.get());

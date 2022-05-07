@@ -175,7 +175,7 @@
             <div class="subcategories">
                 <p class="subcategories__label">O que você quer aprender?</p>
                 <ul class="subcategories__list">
-                    <c:forEach items="${categoriesWithSubCategoryCourses.subCategoriesWithCourses}" var="subcategory">
+                    <c:forEach items="${categoriesWithSubCategoryCourses.activeSubCategoriesWithVisibleCourses}" var="subcategory">
                         <li class="subcategories__item">
                             <a href="#${subcategory.code}" class="subcategories__link">
                                 <span class="subcategories__name">${subcategory.name}</span>
@@ -184,7 +184,7 @@
                     </c:forEach>
                 </ul>
             </div>
-            <c:forEach items="${categoriesWithSubCategoryCourses.subCategoriesWithCourses}" var="subcategory">
+            <c:forEach items="${categoriesWithSubCategoryCourses.activeSubCategoriesWithVisibleCourses}" var="subcategory">
                 <div class="subcategory">
                     <h2 id="${subcategory.code}" class="subcategory__name">${subcategory.name}</h2>
                     <ul class="courses__list">

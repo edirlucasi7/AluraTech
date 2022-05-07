@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.utils;
+package br.com.levelup.aluratech;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

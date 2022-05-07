@@ -99,6 +99,22 @@ public class SubCategory {
         return category.getId();
     }
 
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
+    }
+
     public List<Course> getCourses() {
         return courses;
     }
@@ -116,22 +132,8 @@ public class SubCategory {
     }
 
     public void disableActive() {
-        if(this.active) {
+        if (this.active) {
             this.active = false;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "SubCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", studyGuide='" + studyGuide + '\'' +
-                ", active=" + active +
-                ", order=" + order +
-                ", courses=" + courses +
-                '}';
     }
 }

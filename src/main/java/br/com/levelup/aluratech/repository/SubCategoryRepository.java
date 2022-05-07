@@ -16,9 +16,9 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
     @Query(value = """
             SELECT s.id, s.name, s.code, s.active
             FROM subcategory s 
-            INNER JOIN category c
-            ON s.category_id = c.id
-            WHERE c.code = :categoryCode ORDER BY s.order_visualization
+            INNER JOIN category c ON s.category_id = c.id
+            WHERE c.code = :categoryCode 
+            ORDER BY s.order_visualization
             """, nativeQuery = true)
     List<SubCategoryProjection> findAllSorted(String categoryCode);
 
