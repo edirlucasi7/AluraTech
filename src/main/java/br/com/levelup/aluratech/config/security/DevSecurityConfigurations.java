@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 @Configuration
-@Profile(value = {"dev", "test"})
+@Profile(value = "test")
 public class DevSecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Override

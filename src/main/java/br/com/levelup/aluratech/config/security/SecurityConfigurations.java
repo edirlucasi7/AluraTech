@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
-@Profile(value = {"prod"})
+@Profile(value = {"dev", "prod"})
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     private final AuthenticationService authenticationService;
