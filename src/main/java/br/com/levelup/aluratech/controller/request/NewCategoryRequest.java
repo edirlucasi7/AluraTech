@@ -15,7 +15,7 @@ public class NewCategoryRequest {
     private String name;
     @NotBlank(message = "O código não pode ser vazio!")
     @Pattern(regexp = "^[a-z-]*$", message = "O código deve conter apenas letras minúsculas e hífen!")
-    @UniqueValue(domainClass = Category.class, fieldName = "code")
+    @UniqueValue(domainClass = Category.class, fieldName = "code", message = "O código da categoria já existe!")
     private String code;
     private String shortDescription;
     private String studyGuide;

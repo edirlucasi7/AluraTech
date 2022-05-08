@@ -25,4 +25,12 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
     Optional<SubCategory> findByCode(String subCategoryCode);
 
     List<ExistingSubCategoriesProjection> findAllByOrderByName();
+
+    boolean existsByName(String name);
+
+    boolean existsByNameAndIdNot(String name, Long id);
+
+    default boolean existsByNameWithDifferentId(String name, Long id) {
+        return existsByNameAndIdNot(name, id);
+    }
 }

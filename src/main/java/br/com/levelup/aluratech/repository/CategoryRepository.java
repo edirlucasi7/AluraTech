@@ -37,4 +37,19 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
         AND ca.code = :categoryCode
         """)
     Optional<CategoryWithSubCategoriesAndCoursesProjection> findActiveCategories(String categoryCode);
+
+    boolean existsByName(String name);
+
+    @Deprecated
+    boolean existsByNameAndIdNot(String name, Long id);
+
+    default boolean existsByNameWithDifferentId(String name, Long id) {
+        return existsByNameAndIdNot(name, id);
+    }
+
+    boolean existsByCodeAndIdNot(String code, Long id);
+
+    default boolean existsByCodeWithDifferentId(String code, Long id) {
+        return existsByCodeAndIdNot(code, id);
+    }
 }

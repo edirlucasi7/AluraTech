@@ -3,8 +3,7 @@ package br.com.levelup.aluratech.controller;
 import br.com.levelup.aluratech.controller.request.NewCategoryRequest;
 import br.com.levelup.aluratech.controller.request.UpdateCategoryRequest;
 import br.com.levelup.aluratech.controller.response.category.CategoryResponse;
-import br.com.levelup.aluratech.controller.validator.CheckNewCategoryInvalidColorCodeValidator;
-import br.com.levelup.aluratech.controller.validator.CheckUpdateCategoryInvalidColorCodeValidator;
+import br.com.levelup.aluratech.controller.validator.category.*;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import org.springframework.http.HttpStatus;
@@ -25,18 +24,39 @@ public class CategoryController {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryController(CategoryRepository categoryRepository) {
+    private final CheckNewCategoryInvalidColorCodeValidator checkNewCategoryInvalidColorCodeValidator;
+
+    private final CheckUpdateCategoryInvalidColorCodeValidator checkUpdateCategoryInvalidColorCodeValidator;
+
+    private final CheckCategoryUniqueNameForAdditionFormValidator checkCategoryUniqueNameForAdditionFormValidator;
+
+    private final CheckCategoryUniqueNameForEditionFormValidator checkCategoryUniqueNameForEditionFormValidator;
+
+    private final CheckCategoryUniqueCodeForEditionFormValidator checkCategoryUniqueCodeForEditionFormValidator;
+
+    public CategoryController(CategoryRepository categoryRepository,
+                              CheckNewCategoryInvalidColorCodeValidator checkNewCategoryInvalidColorCodeValidator,
+                              CheckUpdateCategoryInvalidColorCodeValidator checkUpdateCategoryInvalidColorCodeValidator,
+                              CheckCategoryUniqueNameForAdditionFormValidator checkCategoryUniqueNameForAdditionFormValidator,
+                              CheckCategoryUniqueNameForEditionFormValidator checkCategoryUniqueNameForEditionFormValidator,
+                              CheckCategoryUniqueCodeForEditionFormValidator checkCategoryUniqueCodeForEditionFormValidator) {
         this.categoryRepository = categoryRepository;
+        this.checkNewCategoryInvalidColorCodeValidator = checkNewCategoryInvalidColorCodeValidator;
+        this.checkUpdateCategoryInvalidColorCodeValidator = checkUpdateCategoryInvalidColorCodeValidator;
+        this.checkCategoryUniqueNameForAdditionFormValidator = checkCategoryUniqueNameForAdditionFormValidator;
+        this.checkCategoryUniqueNameForEditionFormValidator = checkCategoryUniqueNameForEditionFormValidator;
+        this.checkCategoryUniqueCodeForEditionFormValidator = checkCategoryUniqueCodeForEditionFormValidator;
     }
 
     @InitBinder(value = "newCategoryRequest")
     public void initNewCategory(WebDataBinder binder) {
-        binder.addValidators(new CheckNewCategoryInvalidColorCodeValidator());
+        binder.addValidators(checkNewCategoryInvalidColorCodeValidator, checkCategoryUniqueNameForAdditionFormValidator);
     }
 
     @InitBinder(value = "updateCategoryRequest")
     public void initUpdateCategory(WebDataBinder binder) {
-        binder.addValidators(new CheckUpdateCategoryInvalidColorCodeValidator());
+        binder.addValidators(checkUpdateCategoryInvalidColorCodeValidator, checkCategoryUniqueNameForEditionFormValidator,
+                checkCategoryUniqueCodeForEditionFormValidator);
     }
 
     @GetMapping

@@ -1,13 +1,11 @@
 package br.com.levelup.aluratech.controller.request;
 
-import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.Course;
 import br.com.levelup.aluratech.model.Instructor;
 import br.com.levelup.aluratech.model.SubCategory;
 import br.com.levelup.aluratech.shared.ExistsId;
 import br.com.levelup.aluratech.shared.UniqueValue;
 
-import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 public class NewCourseRequest {
@@ -16,7 +14,7 @@ public class NewCourseRequest {
     private String name;
     @NotBlank(message = "O código não pode ser vazio!")
     @Pattern(regexp = "^[a-z0-9-]*$", message = "O código deve conter apenas letras minúsculas, números e hífen!")
-    @UniqueValue(domainClass = Category.class, fieldName = "code")
+    @UniqueValue(domainClass = Course.class, fieldName = "code", message = "O código do curso já existe!")
     private String code;
     @NotNull(message = "A estimativa (em horas) é obrigatória!")
     @Min(1) @Max(20)
