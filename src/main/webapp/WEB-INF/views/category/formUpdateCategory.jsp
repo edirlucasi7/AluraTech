@@ -1,15 +1,8 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Atualiza Categoria</title>
-    </head>
-    <body>
+<%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
+<templates:admin-template title="Atualiza Categoriria">
         <section class="container">
             <h1>Atualiza Categoria</h1>
             <form:form modelAttribute="updateCategoryRequest" method="post">
@@ -70,8 +63,4 @@
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form:form>
         </section>
-
-        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
-                crossorigin="anonymous"></script>
-    </body>
-</html>
+</templates:admin-template>
