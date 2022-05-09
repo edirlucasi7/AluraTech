@@ -28,7 +28,7 @@ public class CheckSubCategoryUniqueNameForAdditionFormValidator implements Valid
 
         NewSubCategoryRequest form = (NewSubCategoryRequest) target;
         if(subCategoryRepository.existsByName(form.getName())) {
-            errors.rejectValue("name", null,"O nome da subcategoria já existe!");
+            errors.rejectValue("name", "O nome da subcategoria já existe!");
         }
     }
 }

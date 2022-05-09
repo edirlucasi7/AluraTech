@@ -4,8 +4,7 @@ import br.com.levelup.aluratech.controller.projection.category.ExistingCategorie
 import br.com.levelup.aluratech.controller.projection.subcategory.SubCategoryProjection;
 import br.com.levelup.aluratech.controller.request.NewSubCategoryRequest;
 import br.com.levelup.aluratech.controller.request.UpdateSubCategoryRequest;
-import br.com.levelup.aluratech.controller.validator.category.CheckCategoryUniqueNameForAdditionFormValidator;
-import br.com.levelup.aluratech.controller.validator.category.CheckCategoryUniqueNameForEditionFormValidator;
+import br.com.levelup.aluratech.controller.validator.subcategory.CheckSubCategoryUniqueCodeForEditionFormValidator;
 import br.com.levelup.aluratech.controller.validator.subcategory.CheckSubCategoryUniqueNameForAdditionFormValidator;
 import br.com.levelup.aluratech.controller.validator.subcategory.CheckSubCategoryUniqueNameForEditionFormValidator;
 import br.com.levelup.aluratech.model.Category;
@@ -34,13 +33,17 @@ public class SubCategoryController {
 
     private final CheckSubCategoryUniqueNameForEditionFormValidator checkSubCategoryUniqueNameForEditionFormValidator;
 
+    private final CheckSubCategoryUniqueCodeForEditionFormValidator checkSubCategoryUniqueCodeForEditionFormValidator;
+
     public SubCategoryController(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository,
                                  CheckSubCategoryUniqueNameForAdditionFormValidator checkSubCategoryUniqueNameForAdditionFormValidator,
-                                 CheckSubCategoryUniqueNameForEditionFormValidator checkSubCategoryUniqueNameForEditionFormValidator) {
+                                 CheckSubCategoryUniqueNameForEditionFormValidator checkSubCategoryUniqueNameForEditionFormValidator,
+                                 CheckSubCategoryUniqueCodeForEditionFormValidator checkSubCategoryUniqueCodeForEditionFormValidator) {
         this.categoryRepository = categoryRepository;
         this.subCategoryRepository = subCategoryRepository;
         this.checkSubCategoryUniqueNameForAdditionFormValidator = checkSubCategoryUniqueNameForAdditionFormValidator;
         this.checkSubCategoryUniqueNameForEditionFormValidator = checkSubCategoryUniqueNameForEditionFormValidator;
+        this.checkSubCategoryUniqueCodeForEditionFormValidator = checkSubCategoryUniqueCodeForEditionFormValidator;
     }
 
     @InitBinder(value = "newSubCategoryRequest")
@@ -50,7 +53,7 @@ public class SubCategoryController {
 
     @InitBinder(value = "updateSubCategoryRequest")
     public void initUpdateSubCategory(WebDataBinder binder) {
-        binder.addValidators(checkSubCategoryUniqueNameForEditionFormValidator);
+        binder.addValidators(checkSubCategoryUniqueNameForEditionFormValidator, checkSubCategoryUniqueCodeForEditionFormValidator);
     }
 
     @GetMapping("/admin/subcategories/{categoryCode}")

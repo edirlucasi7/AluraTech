@@ -28,7 +28,7 @@ public class CheckCategoryUniqueNameForEditionFormValidator implements Validator
 
         UpdateCategoryRequest form = (UpdateCategoryRequest) target;
         if(categoryRepository.existsByNameWithDifferentId(form.getName(), form.getId())) {
-            errors.rejectValue("name", null,"O nome da categoria já existe!");
+            errors.rejectValue("name","O nome da categoria já existe!");
         }
     }
 }

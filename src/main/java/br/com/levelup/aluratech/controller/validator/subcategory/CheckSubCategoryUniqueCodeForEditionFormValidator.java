@@ -7,11 +7,11 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class CheckSubCategoryUniqueNameForEditionFormValidator implements Validator {
+public class CheckSubCategoryUniqueCodeForEditionFormValidator implements Validator {
 
     private SubCategoryRepository subCategoryRepository;
 
-    public CheckSubCategoryUniqueNameForEditionFormValidator(SubCategoryRepository subCategoryRepository) {
+    public CheckSubCategoryUniqueCodeForEditionFormValidator(SubCategoryRepository subCategoryRepository) {
         this.subCategoryRepository = subCategoryRepository;
     }
 
@@ -27,8 +27,8 @@ public class CheckSubCategoryUniqueNameForEditionFormValidator implements Valida
         }
 
         UpdateSubCategoryRequest form = (UpdateSubCategoryRequest) target;
-        if(subCategoryRepository.existsByNameWithDifferentId(form.getName(), form.getId())) {
-            errors.rejectValue("name", "O nome da subcategoria já existe!");
+        if(subCategoryRepository.existsByCodeWithDifferentId(form.getCode(), form.getId())) {
+            errors.rejectValue("code", "O código da subcategoria já existe!");
         }
     }
 }

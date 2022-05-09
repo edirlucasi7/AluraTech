@@ -28,7 +28,7 @@ public class CheckCourseUniqueCodeForEditionFormValidator implements Validator {
 
         UpdateCourseRequest form = (UpdateCourseRequest) target;
         if(courseRepository.existsByCodeWithDifferentId(form.getCode(), form.getId())) {
-            errors.rejectValue("code", null,"O código do curso já existe!");
+            errors.rejectValue("code", "O código do curso já existe!");
         }
     }
 }

@@ -28,7 +28,7 @@ public class CheckCategoryUniqueNameForAdditionFormValidator implements Validato
 
         NewCategoryRequest form = (NewCategoryRequest) target;
         if(categoryRepository.existsByName(form.getName())) {
-            errors.rejectValue("name", null,"O nome da categoria já existe!");
+            errors.rejectValue("name", "O nome da categoria já existe!");
         }
     }
 }
