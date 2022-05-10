@@ -2,18 +2,16 @@ package br.com.levelup.aluratech.controller.validator.category;
 
 import br.com.levelup.aluratech.controller.request.UpdateCategoryRequest;
 import br.com.levelup.aluratech.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
+@RequiredArgsConstructor
 public class CheckCategoryUniqueNameForEditionFormValidator implements Validator {
 
-    private CategoryRepository categoryRepository;
-
-    public CheckCategoryUniqueNameForEditionFormValidator(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    private final CategoryRepository categoryRepository;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -28,7 +26,7 @@ public class CheckCategoryUniqueNameForEditionFormValidator implements Validator
 
         UpdateCategoryRequest form = (UpdateCategoryRequest) target;
         if(categoryRepository.existsByNameWithDifferentId(form.getName(), form.getId())) {
-            errors.rejectValue("name","O nome da categoria já existe!");
+            errors.rejectValue("name","category.name.exists");
         }
     }
 }

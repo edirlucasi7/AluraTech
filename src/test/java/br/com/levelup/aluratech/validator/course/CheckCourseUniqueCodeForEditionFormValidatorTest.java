@@ -21,22 +21,52 @@ public class CheckCourseUniqueCodeForEditionFormValidatorTest {
     public void when_code_exists_but_id_is_different_should_return_error() {
         when(courseRepository.existsByCodeWithDifferentId(eq("programacao"), not(eq(1L)))).thenReturn(true);
 
-        UpdateCourseRequest updateCourseRequest = new UpdateCourseRequest();
-        updateCourseRequest.setId(999L);
-        updateCourseRequest.setCode("programacao");
+        UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
+                .builder()
+                .id(999L)
+                .code("programacao")
+                .build();
 
         validator.validate(updateCourseRequest, errors);
 
-        verify(errors).rejectValue("code", "O código do curso já existe!");
+        verify(errors).rejectValue("code", "course.code.exists");
     }
 
     @Test
     public void when_code_exists_and_id_is_equal_should_return_error() {
         when(courseRepository.existsByNameWithDifferentId(eq("programacao"), not(eq(1L)))).thenReturn(true);
 
-        UpdateCourseRequest updateCourseRequest = new UpdateCourseRequest();
-        updateCourseRequest.setId(1L);
-        updateCourseRequest.setName("programacao");
+        UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
+                .builder()
+                .id(1L)
+                .code("programacao")
+                .build();
+
+        validator.validate(updateCourseRequest, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    public void when_code_not_exists_for_id_not_should_return_error() {
+        UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
+                .builder()
+                .id(1L)
+                .code("business")
+                .build();
+
+        validator.validate(updateCourseRequest, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    public void when_code_not_exists_and_id_is_different_not_should_return_error() {
+        UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
+                .builder()
+                .id(999L)
+                .code("business")
+                .build();
 
         validator.validate(updateCourseRequest, errors);
 

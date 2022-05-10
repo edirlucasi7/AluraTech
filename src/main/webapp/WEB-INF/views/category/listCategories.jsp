@@ -25,19 +25,19 @@
                     <tbody>
                         <c:forEach items="${categories}" var="category">
                             <tr class="categories">
-                                <td class="col-md-4">${category.name}</td>
-                                <td class="col-md-4">${category.code}</td>
-                                <td class="col-md-2 infoActive${category.id}">${category.isActive() ? "Ativa" : "Inativa"}</td>
-                                <td class="col-md-1"><a href="/admin/subcategories/${category.code}">Subcategorias</a></td>
+                                <td class="col-md-4">${category.name()}</td>
+                                <td class="col-md-4">${category.code()}</td>
+                                <td class="col-md-2 infoActive${category.id()}">${category.active() ? "Ativa" : "Inativa"}</td>
+                                <td class="col-md-1"><a href="/admin/subcategories/${category.code()}">Subcategorias</a></td>
                                 <td class="col-md-1">
-                                    <c:if test="${category.isActive()}">
+                                    <c:if test="${category.active()}">
                                         <a>
-                                            <button class="btn btn-danger buttonDisableCategory${category.id}" onclick="disableCategory(${category.id})">Desativar</button>
+                                            <button class="btn btn-danger buttonDisableCategory${category.id()}" onclick="disableCategory(${category.id()})">Desativar</button>
                                         </a>
                                     </c:if>
                                 </td>
                                 <td class="col-md-1">
-                                    <a href="/admin/categories/${category.code}">
+                                    <a href="/admin/categories/${category.code()}">
                                         <button id="editButton" class="btn btn-light">Editar</button>
                                     </a>
                                 </td>

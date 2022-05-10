@@ -20,22 +20,52 @@ public class CheckCategoryUniqueCodeForEditionFormValidatorTest {
     public void when_code_exists_but_id_is_different_should_return_error() {
         when(categoryRepository.existsByCodeWithDifferentId(eq("programacao"), not(eq(1L)))).thenReturn(true);
 
-        UpdateCategoryRequest updateCategoryRequest = new UpdateCategoryRequest();
-        updateCategoryRequest.setId(999L);
-        updateCategoryRequest.setCode("programacao");
+        UpdateCategoryRequest updateCategoryRequest = UpdateCategoryRequest
+                .builder()
+                .id(999L)
+                .code("programacao")
+                .build();
 
         validator.validate(updateCategoryRequest, errors);
 
-        verify(errors).rejectValue("code", "O código da categoria já existe!");
+        verify(errors).rejectValue("code", "category.code.exists");
     }
 
     @Test
     public void when_code_exists_and_id_is_equal_should_return_error() {
         when(categoryRepository.existsByNameWithDifferentId(eq("programacao"), not(eq(1L)))).thenReturn(true);
 
-        UpdateCategoryRequest updateCategoryRequest = new UpdateCategoryRequest();
-        updateCategoryRequest.setId(1L);
-        updateCategoryRequest.setName("programacao");
+        UpdateCategoryRequest updateCategoryRequest = UpdateCategoryRequest
+                .builder()
+                .id(1L)
+                .name("programacao")
+                .build();
+
+        validator.validate(updateCategoryRequest, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    public void when_code_not_exists_for_id_not_should_return_error() {
+        UpdateCategoryRequest updateCategoryRequest = UpdateCategoryRequest
+                .builder()
+                .id(1L)
+                .code("business")
+                .build();
+
+        validator.validate(updateCategoryRequest, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    public void when_code_not_exists_and_id_is_different_not_should_return_error() {
+        UpdateCategoryRequest updateCategoryRequest = UpdateCategoryRequest
+                .builder()
+                .id(999L)
+                .code("business")
+                .build();
 
         validator.validate(updateCategoryRequest, errors);
 

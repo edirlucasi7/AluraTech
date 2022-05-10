@@ -2,18 +2,16 @@ package br.com.levelup.aluratech.controller.validator.subcategory;
 
 import br.com.levelup.aluratech.controller.request.UpdateSubCategoryRequest;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
+@RequiredArgsConstructor
 public class CheckSubCategoryUniqueCodeForEditionFormValidator implements Validator {
 
-    private SubCategoryRepository subCategoryRepository;
-
-    public CheckSubCategoryUniqueCodeForEditionFormValidator(SubCategoryRepository subCategoryRepository) {
-        this.subCategoryRepository = subCategoryRepository;
-    }
+    private final SubCategoryRepository subCategoryRepository;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -28,7 +26,7 @@ public class CheckSubCategoryUniqueCodeForEditionFormValidator implements Valida
 
         UpdateSubCategoryRequest form = (UpdateSubCategoryRequest) target;
         if(subCategoryRepository.existsByCodeWithDifferentId(form.getCode(), form.getId())) {
-            errors.rejectValue("code", "O código da subcategoria já existe!");
+            errors.rejectValue("code", "subcategory.code.exists");
         }
     }
 }

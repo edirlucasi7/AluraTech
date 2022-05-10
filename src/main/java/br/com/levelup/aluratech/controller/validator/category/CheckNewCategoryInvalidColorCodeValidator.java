@@ -24,7 +24,7 @@ public class CheckNewCategoryInvalidColorCodeValidator implements Validator {
         }
         NewCategoryRequest request = (NewCategoryRequest) target;
         if(!request.getColorCode().isEmpty() && !CODE_FORMAT_HEXADECIMAL.matcher(request.getColorCode()).matches()) {
-            errors.rejectValue("colorCode", null,"O código da cor deve ser no formato hexadecimal!");
+            errors.rejectValue("colorCode", null, "O código da cor deve ser no formato hexadecimal!");
         }
     }
 }

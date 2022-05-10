@@ -21,22 +21,52 @@ public class CheckCourseUniqueNameForEditionFormValidatorTest {
     public void when_name_exists_but_id_is_different_should_return_error() {
         when(courseRepository.existsByNameWithDifferentId(eq("Programação"), not(eq(1L)))).thenReturn(true);
 
-        UpdateCourseRequest updateCourseRequest = new UpdateCourseRequest();
-        updateCourseRequest.setId(999L);
-        updateCourseRequest.setName("Programação");
+        UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
+                .builder()
+                .id(999L)
+                .name("Programação")
+                .build();
 
         validator.validate(updateCourseRequest, errors);
 
-        verify(errors).rejectValue("name", "O nome do curso já existe!");
+        verify(errors).rejectValue("name", "course.name.exists");
     }
 
     @Test
     public void when_name_exists_and_id_is_equal_not_should_return_error() {
         when(courseRepository.existsByNameWithDifferentId(eq("Programação"), not(eq(1L)))).thenReturn(true);
 
-        UpdateCourseRequest updateCourseRequest = new UpdateCourseRequest();
-        updateCourseRequest.setId(1L);
-        updateCourseRequest.setName("Programação");
+        UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
+                .builder()
+                .id(1L)
+                .name("Programação")
+                .build();
+
+        validator.validate(updateCourseRequest, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    public void when_name_not_exists_for_id_not_should_return_error() {
+        UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
+                .builder()
+                .id(999L)
+                .name("Business")
+                .build();
+
+        validator.validate(updateCourseRequest, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    public void when_name_not_exists_and_id_is_different_not_should_return_error() {
+        UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
+                .builder()
+                .id(999L)
+                .name("Business")
+                .build();
 
         validator.validate(updateCourseRequest, errors);
 

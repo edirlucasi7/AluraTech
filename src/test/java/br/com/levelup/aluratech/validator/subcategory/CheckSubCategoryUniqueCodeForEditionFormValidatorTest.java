@@ -21,22 +21,52 @@ public class CheckSubCategoryUniqueCodeForEditionFormValidatorTest {
     public void when_code_exists_but_id_is_different_should_return_error() {
         when(subCategoryRepository.existsByCodeWithDifferentId(eq("programacao"), not(eq(1L)))).thenReturn(true);
 
-        UpdateSubCategoryRequest updateSubCategoryRequest = new UpdateSubCategoryRequest();
-        updateSubCategoryRequest.setId(999L);
-        updateSubCategoryRequest.setCode("programacao");
+        UpdateSubCategoryRequest updateSubCategoryRequest = UpdateSubCategoryRequest
+                .builder()
+                .id(999L)
+                .code("programacao")
+                .build();
 
         validator.validate(updateSubCategoryRequest, errors);
 
-        verify(errors).rejectValue("code", "O código da subcategoria já existe!");
+        verify(errors).rejectValue("code", "subcategory.code.exists");
     }
 
     @Test
     public void when_code_exists_and_id_is_equal_should_return_error() {
         when(subCategoryRepository.existsByNameWithDifferentId(eq("programacao"), not(eq(1L)))).thenReturn(true);
 
-        UpdateSubCategoryRequest updateSubCategoryRequest = new UpdateSubCategoryRequest();
-        updateSubCategoryRequest.setId(1L);
-        updateSubCategoryRequest.setName("programacao");
+        UpdateSubCategoryRequest updateSubCategoryRequest = UpdateSubCategoryRequest
+                .builder()
+                .id(1L)
+                .code("programacao")
+                .build();
+
+        validator.validate(updateSubCategoryRequest, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    public void when_code_not_exists_for_id_not_should_return_error() {
+        UpdateSubCategoryRequest updateSubCategoryRequest = UpdateSubCategoryRequest
+                .builder()
+                .id(1L)
+                .code("business")
+                .build();
+
+        validator.validate(updateSubCategoryRequest, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    public void when_code_not_exists_and_id_is_different_not_should_return_error() {
+        UpdateSubCategoryRequest updateSubCategoryRequest = UpdateSubCategoryRequest
+                .builder()
+                .id(999L)
+                .code("business")
+                .build();
 
         validator.validate(updateSubCategoryRequest, errors);
 

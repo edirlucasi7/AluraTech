@@ -2,18 +2,16 @@ package br.com.levelup.aluratech.controller.validator.course;
 
 import br.com.levelup.aluratech.controller.request.NewCourseRequest;
 import br.com.levelup.aluratech.repository.CourseRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
+@RequiredArgsConstructor
 public class CheckCourseUniqueNameForAdditionFormValidator implements Validator {
 
-    private CourseRepository courseRepository;
-
-    public CheckCourseUniqueNameForAdditionFormValidator(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
+    private final CourseRepository courseRepository;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -28,7 +26,7 @@ public class CheckCourseUniqueNameForAdditionFormValidator implements Validator 
 
         NewCourseRequest form = (NewCourseRequest) target;
         if(courseRepository.existsByName(form.getName())) {
-            errors.rejectValue("name", "O nome do curso já existe!");
+            errors.rejectValue("name", "course.name.exists");
         }
     }
 }

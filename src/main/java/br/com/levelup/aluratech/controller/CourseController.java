@@ -16,6 +16,8 @@ import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.InstructorRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,6 +36,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class CourseController {
 
     private final CategoryRepository categoryRepository;
@@ -43,20 +46,6 @@ public class CourseController {
     private final CheckCourseUniqueNameForAdditionFormValidator checkCourseUniqueNameForAdditionFormValidator;
     private final CheckCourseUniqueNameForEditionFormValidator checkCourseUniqueNameForEditionFormValidator;
     private final CheckCourseUniqueCodeForEditionFormValidator checkCourseUniqueCodeForEditionFormValidator;
-
-    public CourseController(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository,
-                            CourseRepository courseRepository, InstructorRepository instructorRepository,
-                            CheckCourseUniqueNameForAdditionFormValidator checkCourseUniqueNameForAdditionFormValidator,
-                            CheckCourseUniqueNameForEditionFormValidator checkCourseUniqueNameForEditionFormValidator,
-                            CheckCourseUniqueCodeForEditionFormValidator checkCourseUniqueCodeForEditionFormValidator) {
-        this.categoryRepository = categoryRepository;
-        this.subCategoryRepository = subCategoryRepository;
-        this.courseRepository = courseRepository;
-        this.instructorRepository = instructorRepository;
-        this.checkCourseUniqueNameForAdditionFormValidator = checkCourseUniqueNameForAdditionFormValidator;
-        this.checkCourseUniqueNameForEditionFormValidator = checkCourseUniqueNameForEditionFormValidator;
-        this.checkCourseUniqueCodeForEditionFormValidator = checkCourseUniqueCodeForEditionFormValidator;
-    }
 
     @InitBinder(value = "newCourseRequest")
     public void initNewCourse(WebDataBinder binder) {

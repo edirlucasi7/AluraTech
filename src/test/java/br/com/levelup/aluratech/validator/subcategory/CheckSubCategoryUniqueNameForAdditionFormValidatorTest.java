@@ -19,20 +19,24 @@ public class CheckSubCategoryUniqueNameForAdditionFormValidatorTest {
     public void when_name_exists_should_return_error() {
         when(subCategoryRepository.existsByName("Programação")).thenReturn(true);
 
-        NewSubCategoryRequest newSubCategoryRequest = new NewSubCategoryRequest();
-        newSubCategoryRequest.setName("Programação");
+        NewSubCategoryRequest newSubCategoryRequest = NewSubCategoryRequest
+                .builder()
+                .name("Programação")
+                .build();
 
         validator.validate(newSubCategoryRequest, errors);
 
-        verify(errors).rejectValue("name", "O nome da subcategoria já existe!");
+        verify(errors).rejectValue("name", "subcategory.name.exists");
     }
 
     @Test
     public void when_name_does_not_exists_should_not_return_error() {
         when(subCategoryRepository.existsByName("Programação")).thenReturn(false);
 
-        NewSubCategoryRequest newSubCategoryRequest = new NewSubCategoryRequest();
-        newSubCategoryRequest.setName("Programação");
+        NewSubCategoryRequest newSubCategoryRequest = NewSubCategoryRequest
+                .builder()
+                .name("Programação")
+                .build();
 
         validator.validate(newSubCategoryRequest, errors);
 

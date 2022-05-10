@@ -6,9 +6,15 @@ import br.com.levelup.aluratech.model.Instructor;
 import br.com.levelup.aluratech.model.SubCategory;
 import br.com.levelup.aluratech.shared.ExistsId;
 import br.com.levelup.aluratech.shared.UniqueValue;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UpdateCourseRequest {
 
     private Long id;
@@ -32,10 +38,6 @@ public class UpdateCourseRequest {
     @ExistsId(domainClass = SubCategory.class, fieldName = "id")
     private Long idSubCategory;
 
-    @Deprecated
-    public UpdateCourseRequest() {
-    }
-
     public UpdateCourseRequest(Course course) {
         this.id = course.getId();
         this.name = course.getName();
@@ -47,85 +49,5 @@ public class UpdateCourseRequest {
         this.developedSkills = course.getDevelopedSkills();
         this.idInstructor = course.getInstructorId();
         this.idSubCategory = course.getSubCategoryId();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Integer getEstimatedTimeInHours() {
-        return estimatedTimeInHours;
-    }
-
-    public void setEstimatedTimeInHours(Integer estimatedTimeInHours) {
-        this.estimatedTimeInHours = estimatedTimeInHours;
-    }
-
-    public String getTargetAudience() {
-        return targetAudience;
-    }
-
-    public void setTargetAudience(String targetAudience) {
-        this.targetAudience = targetAudience;
-    }
-
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(boolean visibility) {
-        this.visibility = visibility;
-    }
-
-    public String getResume() {
-        return resume;
-    }
-
-    public void setResume(String resume) {
-        this.resume = resume;
-    }
-
-    public String getDevelopedSkills() {
-        return developedSkills;
-    }
-
-    public void setDevelopedSkills(String developedSkills) {
-        this.developedSkills = developedSkills;
-    }
-
-    public Long getIdInstructor() {
-        return idInstructor;
-    }
-
-    public void setIdInstructor(Long idInstructor) {
-        this.idInstructor = idInstructor;
-    }
-
-    public Long getIdSubCategory() {
-        return idSubCategory;
-    }
-
-    public void setIdSubCategory(Long idSubCategory) {
-        this.idSubCategory = idSubCategory;
     }
 }

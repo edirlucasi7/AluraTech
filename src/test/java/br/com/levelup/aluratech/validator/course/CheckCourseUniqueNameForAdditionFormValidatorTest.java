@@ -19,20 +19,24 @@ public class CheckCourseUniqueNameForAdditionFormValidatorTest {
     public void when_name_exists_should_return_error() {
         when(courseRepository.existsByName("Programação")).thenReturn(true);
 
-        NewCourseRequest newCourseRequest = new NewCourseRequest();
-        newCourseRequest.setName("Programação");
+        NewCourseRequest newCourseRequest = NewCourseRequest
+                .builder()
+                .name("Programação")
+                .build();
 
         validator.validate(newCourseRequest, errors);
 
-        verify(errors).rejectValue("name", "O nome do curso já existe!");
+        verify(errors).rejectValue("name", "course.name.exists");
     }
 
     @Test
     public void when_name_does_not_exists_should_not_return_error() {
         when(courseRepository.existsByName("Programação")).thenReturn(false);
 
-        NewCourseRequest newCourseRequest = new NewCourseRequest();
-        newCourseRequest.setName("Programação");
+        NewCourseRequest newCourseRequest = NewCourseRequest
+                .builder()
+                .name("Programação")
+                .build();
 
         validator.validate(newCourseRequest, errors);
 

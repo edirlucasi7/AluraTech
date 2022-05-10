@@ -1,11 +1,17 @@
 package br.com.levelup.aluratech.controller.request;
 
 import br.com.levelup.aluratech.model.Category;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+@Setter
+@Getter
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
+@Builder
 public class UpdateCategoryRequest {
 
     private Long id;
@@ -22,10 +28,6 @@ public class UpdateCategoryRequest {
     private String imageUrl;
     private String colorCode;
 
-    @Deprecated
-    public UpdateCategoryRequest() {
-    }
-
     public UpdateCategoryRequest(Category category) {
         this.id = category.getId();
         this.name = category.getName();
@@ -36,77 +38,5 @@ public class UpdateCategoryRequest {
         this.order = category.getOrder();
         this.imageUrl = category.getImageUrl();
         this.colorCode = category.getColorCode();
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        this.studyGuide = studyGuide;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public Integer getOrder() {
-        return order;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getColorCode() {
-        return colorCode;
     }
 }

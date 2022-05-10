@@ -6,6 +6,7 @@ import br.com.levelup.aluratech.controller.response.category.CategoryResponse;
 import br.com.levelup.aluratech.controller.validator.category.*;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/categories")
+@RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
@@ -33,20 +35,6 @@ public class CategoryController {
     private final CheckCategoryUniqueNameForEditionFormValidator checkCategoryUniqueNameForEditionFormValidator;
 
     private final CheckCategoryUniqueCodeForEditionFormValidator checkCategoryUniqueCodeForEditionFormValidator;
-
-    public CategoryController(CategoryRepository categoryRepository,
-                              CheckNewCategoryInvalidColorCodeValidator checkNewCategoryInvalidColorCodeValidator,
-                              CheckUpdateCategoryInvalidColorCodeValidator checkUpdateCategoryInvalidColorCodeValidator,
-                              CheckCategoryUniqueNameForAdditionFormValidator checkCategoryUniqueNameForAdditionFormValidator,
-                              CheckCategoryUniqueNameForEditionFormValidator checkCategoryUniqueNameForEditionFormValidator,
-                              CheckCategoryUniqueCodeForEditionFormValidator checkCategoryUniqueCodeForEditionFormValidator) {
-        this.categoryRepository = categoryRepository;
-        this.checkNewCategoryInvalidColorCodeValidator = checkNewCategoryInvalidColorCodeValidator;
-        this.checkUpdateCategoryInvalidColorCodeValidator = checkUpdateCategoryInvalidColorCodeValidator;
-        this.checkCategoryUniqueNameForAdditionFormValidator = checkCategoryUniqueNameForAdditionFormValidator;
-        this.checkCategoryUniqueNameForEditionFormValidator = checkCategoryUniqueNameForEditionFormValidator;
-        this.checkCategoryUniqueCodeForEditionFormValidator = checkCategoryUniqueCodeForEditionFormValidator;
-    }
 
     @InitBinder(value = "newCategoryRequest")
     public void initNewCategory(WebDataBinder binder) {

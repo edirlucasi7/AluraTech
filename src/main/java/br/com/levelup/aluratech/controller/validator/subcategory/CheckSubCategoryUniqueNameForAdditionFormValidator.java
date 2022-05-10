@@ -2,18 +2,16 @@ package br.com.levelup.aluratech.controller.validator.subcategory;
 
 import br.com.levelup.aluratech.controller.request.NewSubCategoryRequest;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
+@RequiredArgsConstructor
 public class CheckSubCategoryUniqueNameForAdditionFormValidator implements Validator {
 
     private final SubCategoryRepository subCategoryRepository;
-
-    public CheckSubCategoryUniqueNameForAdditionFormValidator(SubCategoryRepository subCategoryRepository) {
-        this.subCategoryRepository = subCategoryRepository;
-    }
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -28,7 +26,7 @@ public class CheckSubCategoryUniqueNameForAdditionFormValidator implements Valid
 
         NewSubCategoryRequest form = (NewSubCategoryRequest) target;
         if(subCategoryRepository.existsByName(form.getName())) {
-            errors.rejectValue("name", "O nome da subcategoria já existe!");
+            errors.rejectValue("name", "subcategory.name.exists");
         }
     }
 }

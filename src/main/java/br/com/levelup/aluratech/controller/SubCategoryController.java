@@ -11,6 +11,7 @@ import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.SubCategory;
 import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class SubCategoryController {
 
     private final CategoryRepository categoryRepository;
@@ -34,17 +36,6 @@ public class SubCategoryController {
     private final CheckSubCategoryUniqueNameForEditionFormValidator checkSubCategoryUniqueNameForEditionFormValidator;
 
     private final CheckSubCategoryUniqueCodeForEditionFormValidator checkSubCategoryUniqueCodeForEditionFormValidator;
-
-    public SubCategoryController(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository,
-                                 CheckSubCategoryUniqueNameForAdditionFormValidator checkSubCategoryUniqueNameForAdditionFormValidator,
-                                 CheckSubCategoryUniqueNameForEditionFormValidator checkSubCategoryUniqueNameForEditionFormValidator,
-                                 CheckSubCategoryUniqueCodeForEditionFormValidator checkSubCategoryUniqueCodeForEditionFormValidator) {
-        this.categoryRepository = categoryRepository;
-        this.subCategoryRepository = subCategoryRepository;
-        this.checkSubCategoryUniqueNameForAdditionFormValidator = checkSubCategoryUniqueNameForAdditionFormValidator;
-        this.checkSubCategoryUniqueNameForEditionFormValidator = checkSubCategoryUniqueNameForEditionFormValidator;
-        this.checkSubCategoryUniqueCodeForEditionFormValidator = checkSubCategoryUniqueCodeForEditionFormValidator;
-    }
 
     @InitBinder(value = "newSubCategoryRequest")
     public void initNewSubCategory(WebDataBinder binder) {

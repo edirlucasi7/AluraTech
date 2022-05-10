@@ -3,12 +3,18 @@ package br.com.levelup.aluratech.controller.request;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.SubCategory;
 import br.com.levelup.aluratech.shared.ExistsId;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UpdateSubCategoryRequest {
 
     private Long id;
@@ -26,10 +32,6 @@ public class UpdateSubCategoryRequest {
     @ExistsId(domainClass = Category.class, fieldName = "id")
     private Long idCategory;
 
-    @Deprecated
-    public UpdateSubCategoryRequest() {
-    }
-
     public UpdateSubCategoryRequest(SubCategory subCategory) {
         this.id = subCategory.getId();
         this.name = subCategory.getName();
@@ -39,69 +41,5 @@ public class UpdateSubCategoryRequest {
         this.active = subCategory.isActive();
         this.order = subCategory.getOrder();
         this.idCategory = subCategory.getIdCategory();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        this.studyGuide = studyGuide;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public Integer getOrder() {
-        return order;
-    }
-
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
-
-    public Long getIdCategory() {
-        return idCategory;
-    }
-
-    public void setIdCategory(Long idCategory) {
-        this.idCategory = idCategory;
     }
 }
