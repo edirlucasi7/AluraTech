@@ -1,7 +1,7 @@
 package br.com.levelup.aluratech.controller;
 
-import br.com.levelup.aluratech.controller.projection.instructor.ExistingInstructorsProjection;
 import br.com.levelup.aluratech.controller.projection.course.CourseProjection;
+import br.com.levelup.aluratech.controller.projection.instructor.ExistingInstructorsProjection;
 import br.com.levelup.aluratech.controller.projection.subcategory.ExistingSubCategoriesProjection;
 import br.com.levelup.aluratech.controller.request.NewCourseRequest;
 import br.com.levelup.aluratech.controller.request.UpdateCourseRequest;
@@ -16,7 +16,6 @@ import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.InstructorRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

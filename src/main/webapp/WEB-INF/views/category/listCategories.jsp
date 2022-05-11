@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:admin-template title="Listagem de Categorias">
+<templates:admin-template-header title="Listagem de Categorias">
         <section class="container">
             <div>
                 <h1>Categorias</h1>
@@ -47,7 +47,9 @@
                 </table>
             </div>
         </section>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-            crossorigin="anonymous"></script>
-    <script src="/resources/js/category/disableCategory.js"></script>
-</templates:admin-template>
+</templates:admin-template-header>
+<templates:admin-template-footer>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+                crossorigin="anonymous"></script>
+        <script src="/resources/js/category/disableCategory.js"></script>
+</templates:admin-template-footer>

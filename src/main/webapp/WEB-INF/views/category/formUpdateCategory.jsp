@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:admin-template title="Atualiza Categoriria">
+<templates:admin-template-header title="Atualiza Categoriria">
         <section class="container">
             <h1>Atualiza Categoria</h1>
             <form:form modelAttribute="updateCategoryRequest" method="post">
@@ -63,4 +63,6 @@
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form:form>
         </section>
-</templates:admin-template>
+</templates:admin-template-header>
+<templates:admin-template-footer>
+</templates:admin-template-footer>

@@ -11,5 +11,3 @@
     </head>
     <body>
         <jsp:doBody />
-    </body>
-</html>

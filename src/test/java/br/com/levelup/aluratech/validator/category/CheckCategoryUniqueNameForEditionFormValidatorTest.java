@@ -46,7 +46,7 @@ public class CheckCategoryUniqueNameForEditionFormValidatorTest {
     }
 
     @Test
-    public void when_name_not_exists_for_id_not_should_return_error() {
+    public void when_name_not_exists_for_id_should_not_return_error() {
         UpdateCategoryRequest updateCategoryRequest = UpdateCategoryRequest
                 .builder()
                 .id(1L)
@@ -59,7 +59,7 @@ public class CheckCategoryUniqueNameForEditionFormValidatorTest {
     }
 
     @Test
-    public void when_name_not_exists_and_id_is_different_not_should_return_error() {
+    public void when_name_not_exists_and_id_is_different_should_not_return_error() {
         UpdateCategoryRequest updateCategoryRequest = UpdateCategoryRequest
                 .builder()
                 .id(999L)

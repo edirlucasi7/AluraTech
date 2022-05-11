@@ -3,7 +3,6 @@ package br.com.levelup.aluratech.validator.category;
 import br.com.levelup.aluratech.controller.request.NewCategoryRequest;
 import br.com.levelup.aluratech.controller.validator.category.CheckCategoryUniqueNameForAdditionFormValidator;
 import br.com.levelup.aluratech.repository.CategoryRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.Errors;
 

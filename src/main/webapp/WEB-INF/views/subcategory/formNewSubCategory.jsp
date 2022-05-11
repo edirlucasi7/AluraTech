@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:admin-template title="Nova Subcategoria">
+<templates:admin-template-header title="Nova Subcategoria">
         <section class="container">
             <h1>Nova Subcategoria</h1>
             <form:form modelAttribute="newSubCategoryRequest" method="post">
@@ -55,4 +55,6 @@
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form:form>
         </section>
-</templates:admin-template>
+</templates:admin-template-header>
+<templates:admin-template-footer>
+</templates:admin-template-footer>
