@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:admin-template-header title="Novo Curso">
+<templates:admin-template-header title="Novo Curso" />
         <section class="container">
             <h1>Novo Curso</h1>
             <form:form modelAttribute="newCourseRequest" method="post">
@@ -70,6 +70,4 @@
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form:form>
         </section>
-</templates:admin-template-header>
-<templates:admin-template-footer>
-</templates:admin-template-footer>
+<templates:admin-template-footer />
