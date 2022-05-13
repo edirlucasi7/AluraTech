@@ -47,7 +47,7 @@ public class CheckCategoryUniqueCodeForEditionFormValidatorTest {
     }
 
     @Test
-    public void when_code_not_exists_for_id_not_should_return_error() {
+    public void when_code_not_exists_for_id_not_should_not_return_error() {
         UpdateCategoryRequest updateCategoryRequest = UpdateCategoryRequest
                 .builder()
                 .id(1L)

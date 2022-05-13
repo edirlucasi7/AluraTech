@@ -33,7 +33,7 @@ public class CheckSubCategoryUniqueCodeForEditionFormValidatorTest {
     }
 
     @Test
-    public void when_code_exists_and_id_is_equal_should_return_error() {
+    public void when_code_not_exists_and_id_is_different_should_not_return_error() {
         when(subCategoryRepository.existsByNameWithDifferentId(eq("programacao"), not(eq(1L)))).thenReturn(true);
 
         UpdateSubCategoryRequest updateSubCategoryRequest = UpdateSubCategoryRequest

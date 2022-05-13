@@ -48,7 +48,7 @@ public class CheckCourseUniqueCodeForEditionFormValidatorTest {
     }
 
     @Test
-    public void when_code_not_exists_for_id_not_should_return_error() {
+    public void when_code_not_exists_for_id_should_not_return_error() {
         UpdateCourseRequest updateCourseRequest = UpdateCourseRequest
                 .builder()
                 .id(1L)
