@@ -1,10 +1,13 @@
 package br.com.levelup.aluratech.controller;
 
-import br.com.levelup.aluratech.controller.projection.instructor.ExistingInstructorsProjection;
 import br.com.levelup.aluratech.controller.projection.course.CourseProjection;
+import br.com.levelup.aluratech.controller.projection.instructor.ExistingInstructorsProjection;
 import br.com.levelup.aluratech.controller.projection.subcategory.ExistingSubCategoriesProjection;
 import br.com.levelup.aluratech.controller.request.NewCourseRequest;
 import br.com.levelup.aluratech.controller.request.UpdateCourseRequest;
+import br.com.levelup.aluratech.controller.validator.course.CheckCourseUniqueCodeForEditionFormValidator;
+import br.com.levelup.aluratech.controller.validator.course.CheckCourseUniqueNameForAdditionFormValidator;
+import br.com.levelup.aluratech.controller.validator.course.CheckCourseUniqueNameForEditionFormValidator;
 import br.com.levelup.aluratech.model.Category;
 import br.com.levelup.aluratech.model.Course;
 import br.com.levelup.aluratech.model.Instructor;
@@ -13,13 +16,16 @@ import br.com.levelup.aluratech.repository.CategoryRepository;
 import br.com.levelup.aluratech.repository.CourseRepository;
 import br.com.levelup.aluratech.repository.InstructorRepository;
 import br.com.levelup.aluratech.repository.SubCategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -29,19 +35,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class CourseController {
 
     private final CategoryRepository categoryRepository;
     private final SubCategoryRepository subCategoryRepository;
     private final CourseRepository courseRepository;
     private final InstructorRepository instructorRepository;
+    private final CheckCourseUniqueNameForAdditionFormValidator checkCourseUniqueNameForAdditionFormValidator;
+    private final CheckCourseUniqueNameForEditionFormValidator checkCourseUniqueNameForEditionFormValidator;
+    private final CheckCourseUniqueCodeForEditionFormValidator checkCourseUniqueCodeForEditionFormValidator;
 
-    public CourseController(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository,
-                            CourseRepository courseRepository, InstructorRepository instructorRepository) {
-        this.categoryRepository = categoryRepository;
-        this.subCategoryRepository = subCategoryRepository;
-        this.courseRepository = courseRepository;
-        this.instructorRepository = instructorRepository;
+    @InitBinder(value = "newCourseRequest")
+    public void initNewCourse(WebDataBinder binder) {
+        binder.addValidators(checkCourseUniqueNameForAdditionFormValidator);
+    }
+
+    @InitBinder(value = "updateCourseRequest")
+    public void initUpdateCourse(WebDataBinder binder) {
+        binder.addValidators(checkCourseUniqueNameForEditionFormValidator, checkCourseUniqueCodeForEditionFormValidator);
     }
 
     @GetMapping("/admin/courses/{categoryCode}/{subcategoryCode}")

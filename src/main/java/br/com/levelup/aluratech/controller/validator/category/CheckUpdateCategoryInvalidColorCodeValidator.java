@@ -1,4 +1,4 @@
-package br.com.levelup.aluratech.controller.validator;
+package br.com.levelup.aluratech.controller.validator.category;
 
 import br.com.levelup.aluratech.controller.request.UpdateCategoryRequest;
 import org.springframework.stereotype.Component;
@@ -22,6 +22,7 @@ public class CheckUpdateCategoryInvalidColorCodeValidator implements Validator {
         if(errors.hasErrors()) {
             return;
         }
+
         UpdateCategoryRequest request = (UpdateCategoryRequest) target;
         if(!request.getColorCode().isEmpty() && !CODE_FORMAT_HEXADECIMAL.matcher(request.getColorCode()).matches()) {
             errors.rejectValue("colorCode", null,"O código da cor deve ser no formato hexadecimal!");

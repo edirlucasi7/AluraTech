@@ -68,7 +68,7 @@ public class CategoryRepositoryTest {
         assertThat(categories)
                 .isNotEmpty()
                 .hasSize(3)
-                .extracting(CategoryResponse::getCode).containsExactly("devops", "java", "java-oo")
+                .extracting(CategoryResponse::code).containsExactly("devops", "java", "java-oo")
                 .doesNotContainNull();
     }
 

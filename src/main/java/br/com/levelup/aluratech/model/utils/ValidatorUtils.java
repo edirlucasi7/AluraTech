@@ -39,7 +39,7 @@ public class ValidatorUtils {
     }
 
     public static void containOnlyLettersLowerCaseAndNumbersAndDash(String field) {
-        containOnlyLettersLowerCaseAndDash(field, "The field code must not be out of lowercase letters and numbers dash format!");
+        containOnlyLettersLowerCaseAndNumbersAndDash(field, "The field code must not be out of lowercase letters and numbers dash format!");
     }
 
     public static void containOnlyLettersLowerCaseAndNumbersAndDash(String field, String errorMessage) {

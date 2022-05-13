@@ -1,15 +1,8 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
-        <title>Listagem de Subcategorias</title>
-    </head>
-    <body>
+<%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
+<templates:admin-template-header title="Listagem de Subcategorias" />
         <section class="container">
             <div>
                 <h3>${categoryName}</h3>
@@ -57,9 +50,8 @@
                 </table>
             </div>
         </section>
-
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-                crossorigin="anonymous"></script>
-        <script src="/resources/js/subcategory/disableSubCategory.js"></script>
-    </body>
-</html>
+<templates:admin-template-footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <script src="/resources/js/subcategory/disableSubCategory.js"></script>
+</templates:admin-template-footer>

@@ -34,4 +34,18 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
             GROUP BY ca.name ORDER BY amount DESC
             """, nativeQuery = true)
     List<ReportOfCoursesByCategoryProjection> findAllCoursesByCategory();
+
+    boolean existsByName(String name);
+
+    boolean existsByNameAndIdNot(String name, Long id);
+
+    default boolean existsByNameWithDifferentId(String name, Long id) {
+        return existsByNameAndIdNot(name, id);
+    }
+
+    boolean existsByCodeAndIdNot(String code, Long id);
+
+    default boolean existsByCodeWithDifferentId(String code, Long id) {
+        return existsByCodeAndIdNot(code, id);
+    }
 }
